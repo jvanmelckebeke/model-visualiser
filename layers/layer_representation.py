@@ -1,6 +1,6 @@
-import cairo
+from PIL import ImageDraw, Image
 
-from constants import LAYER_RECTANGLE_WIDTH, LAYER_RECTANGLE_HEIGHT, COLOR_WHITESMOKE, SIDE_SPACE, \
+from const import LAYER_RECTANGLE_WIDTH, LAYER_RECTANGLE_HEIGHT, COLOR_WHITESMOKE, SIDE_SPACE, \
     LAYER_RECTANGLE_MARGIN
 from draw_basic import draw_text, draw_rectangle
 from tools import process_shape
@@ -16,37 +16,35 @@ class BasicLayer:
         self.layer_config = layer['config']
 
     def _draw_layer_side_info(self, ctx, sx, sy):
-        draw_text(ctx, sx, sy - 20, f"{self.layer_type}: {self.layer_name}", align='left', color=(0, 0, 0),
+        draw_text(ctx, sx, sy - 20, f"{self.layer_type}: {self.layer_name}", anchor='lm', color=(0, 0, 0),
                   font_size=18, bold=True)
-        draw_text(ctx, sx, sy, f"{self.layer_input_shape} ⟶ {self.layer_output_shape}", align='left', color=(0, 0, 0),
+        draw_text(ctx, sx, sy, f"{self.layer_input_shape} ⟶ {self.layer_output_shape}", anchor='lm', color=(0, 0, 0),
                   font_size=18)
-        ctx.save()
 
-    def draw(self, ctx, sx=0, sy=0) -> int:
-        x, y = sx, sy
+    def draw_layer(self, ctx: ImageDraw, sy=0) -> int:
+        x, y = 0, sy
         width, height = LAYER_RECTANGLE_WIDTH, LAYER_RECTANGLE_HEIGHT
         draw_rectangle(ctx, x, y,
                        width=LAYER_RECTANGLE_WIDTH,
                        height=LAYER_RECTANGLE_HEIGHT,
                        fill_color=COLOR_WHITESMOKE)
 
-        ctx.save()
-
-        text_x = sx + width + SIDE_SPACE
-        text_y = sy + height / 2
+        text_x = x + width + SIDE_SPACE
+        text_y = y + height / 2
 
         self._draw_layer_side_info(ctx, text_x, text_y)
         total_height = LAYER_RECTANGLE_HEIGHT
         return sy + total_height + LAYER_RECTANGLE_MARGIN
 
-    def get_height(self):
-        with cairo.RecordingSurface(cairo.Content.COLOR_ALPHA, None) as surface:
-            ctx = cairo.Context(surface)
-            return self.draw(ctx)
-            return surface.ink_extents()
+    def get_height(self) -> int:
+        with Image.new('RGBA', (1, 1)) as img:
+            ctx = ImageDraw.Draw(img)
+            return int(self.draw_layer(ctx))
 
-    def __repr__(self):
-        return f"{self.layer}"
 
-    def __str__(self):
-        return f"{self.layer}"
+def __repr__(self):
+    return f"{self.layer}"
+
+
+def __str__(self):
+    return f"{self.layer}"

@@ -1,83 +1,97 @@
-import cairo
+import math
+from typing import Literal
 
-from constants import DEFAULT_FONT
+from PIL import ImageDraw, ImageFont, Image
 
-
-def draw_rectangle(ctx, x, y, width, height, fill_color=(1, 1, 1), stroke_color=(0, 0, 0), stroke_width=1):
-    ctx.rectangle(x, y, width, height)
-    ctx.set_source_rgb(*fill_color)
-    ctx.fill()
-    ctx.set_source_rgb(*stroke_color)
-    ctx.set_line_width(stroke_width)
-    ctx.stroke()
-
-    ctx.save()
+from const import DEFAULT_FONT, BOLD_FONT, TH_COLOR, TH_ANCHOR
 
 
-def draw_text(ctx, x, y, text, align='left', color=(0, 0, 0), font_size=12, bold=False):
-    ctx.set_source_rgb(*color)
-    ctx.set_font_size(font_size)
+def draw_rectangle(ctx: ImageDraw,
+                   x: int, y: int,
+                   width: int, height: int,
+                   fill_color: TH_COLOR = (255, 255, 255),
+                   stroke_color: TH_COLOR = (0, 0, 0),
+                   stroke_width: int = 1):
+    x1 = int(x)
+    y1 = int(y)
+    x2 = int(x + width)
+    y2 = int(y + height)
+    ctx.rectangle((x1, y1, x2, y2), outline=stroke_color, fill=fill_color, width=stroke_width)
+
+
+def draw_text(ctx: ImageDraw,
+              x: int,
+              y: int,
+              text: str,
+              anchor: TH_ANCHOR = 'lm',
+              color: TH_COLOR = (0, 0, 0),
+              font_size: int = 12,
+              bold: bool = False):
     if bold:
-        ctx.select_font_face(DEFAULT_FONT, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+        fnt = ImageFont.truetype(BOLD_FONT, size=font_size)
     else:
-        ctx.select_font_face(DEFAULT_FONT, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
-    if align == 'left':
-        ctx.move_to(x, y)
-    elif align == 'center':
-        ctx.move_to(x - ctx.text_extents(text)[2] / 2, y)
-    elif align == 'right':
-        ctx.move_to(x - ctx.text_extents(text)[2], y)
-    ctx.show_text(text)
-    ctx.stroke()
-    ctx.save()
+        fnt = ImageFont.truetype(DEFAULT_FONT, size=font_size)
+
+    ctx.text((x, y), text, font=fnt, fill=color, anchor=anchor)
 
 
-def draw_arrow(ctx, x1, y1, x2, y2,
-               arrow=True,
-               head_orientation='right',
-               arrow_size=10, color=(0, 0, 0), stroke_width=1):
-    ctx.set_source_rgb(*color)
-    ctx.set_line_width(stroke_width)
-    ctx.move_to(x1, y1)
-    ctx.line_to(x2, y2)
-    ctx.stroke()
-    if not arrow:
-        ctx.save()
-        return
+def draw_arrow(ctx: ImageDraw,
+               x1: int, y1: int,
+               x2: int, y2: int,
+               arrow: bool = True,
+               arrow_size=10,
+               color: TH_COLOR = (0, 0, 0),
+               stroke_width=1):
+    ctx.line((x1, y1, x2, y2), fill=color, width=stroke_width)
+    if arrow:
+        # Now work out the arrowhead
+        # = it will be a triangle with one vertex at ptB
+        # - it will extend 8 pixels either side of the line
+        # Now we can work out the x,y coordinates of the bottom of the arrowhead triangle
+        xb = 0.95 * (x2 - x1) + x1
+        yb = 0.95 * (y2 - y1) + y1
 
-    if head_orientation == 'right':
-        ctx.move_to(x2, y2)
-        ctx.line_to(x2 - arrow_size, y2 - arrow_size)
-        ctx.line_to(x2 - arrow_size, y2 + arrow_size)
-        ctx.close_path()
-        ctx.fill()
-    elif head_orientation == 'left':
-        ctx.move_to(x2, y2)
-        ctx.line_to(x2 + arrow_size, y2 - arrow_size)
-        ctx.line_to(x2 + arrow_size, y2 + arrow_size)
-        ctx.close_path()
-        ctx.fill()
-    elif head_orientation == 'up':
-        ctx.move_to(x2, y2)
-        ctx.line_to(x2 - arrow_size, y2 + arrow_size)
-        ctx.line_to(x2 + arrow_size, y2 + arrow_size)
-        ctx.close_path()
-        ctx.fill()
-    elif head_orientation == 'down':
-        ctx.move_to(x2, y2)
-        ctx.line_to(x2 - arrow_size, y2 - arrow_size)
-        ctx.line_to(x2 + arrow_size, y2 - arrow_size)
-        ctx.close_path()
-        ctx.fill()
-    ctx.save()
+        # Work out the other two vertices of the triangle
+        # Check if line is vertical
+        if x1 == x2:
+            vtx1 = (xb - 5, yb)
+            vtx2 = (xb + 5, yb)
+        # Check if line is horizontal
+        elif y1 == y2:
+            vtx1 = (xb, yb + 5)
+            vtx2 = (xb, yb - 5)
+        else:
+            alpha = math.atan2(y2 - y1, x2 - x1) - 90 * math.pi / 180
+            a = arrow_size * math.cos(alpha)
+            b = arrow_size * math.sin(alpha)
+            vtx1 = (xb + a, yb + b)
+            vtx2 = (xb - a, yb - b)
+
+        ctx.polygon([vtx1, vtx2, (x2, y2)], fill=color)
 
 
-def draw_annotated_rectangle(ctx, x, y, width, height, label, font_size=20, fill_color=(0.95, 0.95, 0.95),
-                             stroke_color=(0, 0, 0), stroke_width=1, align_text_vertical='center'):
+def draw_annotated_rectangle(ctx: ImageDraw,
+                             x: int, y: int,
+                             width: int, height: int,
+                             label: str,
+                             font_size: int = 20,
+                             fill_color: TH_COLOR = (240, 240, 240),
+                             stroke_color: TH_COLOR = (0, 0, 0),
+                             stroke_width: int = 1,
+                             text_color: TH_COLOR = (0, 0, 0)):
     draw_rectangle(ctx, x, y, width, height, fill_color, stroke_color, stroke_width)
-    if align_text_vertical == 'center':
-        draw_text(ctx, x + width / 2, y + height / 2, label, 'center', font_size=font_size)
-    elif align_text_vertical == 'top':
-        draw_text(ctx, x + width / 2, y + height / 2 - 15, label, 'center', font_size=font_size)
-    elif align_text_vertical == 'bottom':
-        draw_text(ctx, x + width / 2, y + height - 10, label, 'center', font_size=font_size)
+
+    font = ImageFont.truetype(BOLD_FONT, 20)
+    img_txt = Image.new('L', font.getsize(label))
+    draw_txt = ImageDraw.Draw(img_txt)
+    draw_txt.text((0, 0), label, font=font, fill=255)
+
+    t = img_txt.rotate(-90, expand=True)
+    # scale the image such that the text fits in the rectangle
+    if t.size[1] > height - 10:
+        scale = (height - 10) / t.size[1]
+        t = t.resize((int(t.size[0] * scale), int(t.size[1] * scale)), Image.ANTIALIAS)
+
+    offset = (x + width - t.size[0], y + (height - t.size[1]) // 2)
+
+    ctx.bitmap((x + width - t.size[0], y + 5), t, fill=text_color)
