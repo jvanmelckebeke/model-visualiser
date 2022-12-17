@@ -2,22 +2,14 @@ import cairo
 import matplotlib.pyplot as plt
 import json
 
-from draw_layers import draw_dropout_layer, draw_fallback_layer
+from layers.dropout_layer import DropoutLayer
+from layers.layer_representation import BasicLayer
 from tools import surface_to_npim
-
-surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 1200, 3000)
-ctx = cairo.Context(surface)
-
-ctx.scale(1, 1)
-ctx.set_source_rgb(1, 1, 1)
-ctx.paint()
-
-ctx.set_line_width(1)
 
 with open("model.json") as f:
     model = json.load(f)
 
-x, y = 0, 0
+draw_layers = []
 
 for layer in model:
     layer_name = layer['name']
@@ -31,14 +23,25 @@ for layer in model:
         layer_type = f"{layer_type}({inner_layer_type})"
 
     if layer_type == "Dropout":
-        x, y = draw_dropout_layer(ctx, layer, x, y)
+        draw_layers.append(DropoutLayer(layer))
     else:
-        x, y = draw_fallback_layer(ctx, layer, x, y)
+        draw_layers.append(BasicLayer(layer))
 
-# make surface fit to drawing
-# surface.
-plt.figure(figsize=(12, 25))
-plt.imshow(surface_to_npim(surface))
+total_height = 0
+for layer in draw_layers:
+    total_height += layer.get_height()
+
+with cairo.ImageSurface(cairo.FORMAT_ARGB32, 1300, total_height) as surface:
+    ctx = cairo.Context(surface)
+    ctx.set_source_rgb(1, 1, 1)
+    ctx.paint()
+    y = 0
+    for layer in draw_layers:
+        y = layer.draw(ctx, sy=y)
+    im = surface_to_npim(surface)
+
+plt.figure(figsize=(22, 25))
+plt.imshow(im)
 plt.axis('off')
 plt.grid(False)
 plt.tight_layout()
