@@ -1,52 +1,153 @@
-import matplotlib.pyplot as plt
-import json
+import os
 
-from PIL import Image, ImageDraw
+from tensorflow.keras.models import load_model
 
-from const import IMAGE_WIDTH
-from layers.dropouts.dropout_layer import DropoutLayer
-from layers.dropouts.spatialdropout1d_layer import SpatialDropout1DLayer
-from layers.layer_representation import BasicLayer
-from layers.dropouts.spatialdropout2d_layer import SpatialDropout2DLayer
 
-with open("model.json") as f:
-    model = json.load(f)
-
-draw_layers = []
-
-for layer in model:
-    layer_name = layer['name']
-    layer_type = layer['type']
-    layer_input_shape = layer['input_shape']
-    layer_output_shape = layer['output_shape']
-    layer_config = layer['config']
-
-    if layer_type == "Bidirectional":
-        inner_layer_type = layer_config['layer']['class_name']
-        layer_type = f"{layer_type}({inner_layer_type})"
-
-    if layer_type == "Dropout":
-        draw_layers.append(DropoutLayer(layer))
-    elif layer_type == "SpatialDropout2D":
-        draw_layers.append(SpatialDropout2DLayer(layer))
-    elif layer_type == 'SpatialDropout1D':
-        draw_layers.append(SpatialDropout1DLayer(layer))
+def str_shape(shape):
+    if isinstance(shape, tuple):
+        if shape[0] is None:
+            return str_shape(shape[1:])
+        if len(shape) == 1:
+            return str(shape[0])
+        return str(shape)
+    elif isinstance(shape, list):
+        if len(shape) == 1:
+            return str_shape(shape[0])
+        return str([str_shape(s) for s in shape])
     else:
-        draw_layers.append(BasicLayer(layer))
+        return str(shape)
 
-total_height = 0
-for layer in draw_layers:
-    total_height += layer.get_height()
 
-with Image.new('RGBA', (IMAGE_WIDTH, total_height), color=(1, 1, 1, 1)) as im:
-    ctx = ImageDraw.Draw(im)
-    current_y = 0
-    for layer in draw_layers:
-        current_y = layer.draw_layer(ctx, current_y)
+DEFAULT_NODE_STYLE = "rectangle split, rectangle split ignore empty parts, rectangle split parts=2, draw=blue!60, " \
+                     "fill=blue!5, very thick, minimum width={width(\"Batch Normalisation\") + 8pt}, node distance=2," \
+                     " outer sep=0pt"
+DEFAULT_PATH_STYLE = "thick, out=-90, in=90, out distance=1cm, in distance=1cm"
 
-    plt.figure(figsize=(22, 25))
-    plt.imshow(im)
-    plt.axis('off')
-    plt.grid(False)
-    plt.tight_layout()
-    plt.show()
+TEXT_BEFORE = r"\documentclass{standalone}" \
+              "\n" \
+              r"\usepackage{tikz}" \
+              "\n" \
+              r"\usetikzlibrary{positioning}" \
+              "\n" \
+              r"\usetikzlibrary{shapes.multipart}" \
+              "\n" \
+              r"\usetikzlibrary{calc}" \
+              "\n" \
+              r"\usetikzlibrary{graphs}" \
+              "\n" \
+              r"\usetikzlibrary{graphs.standard}" \
+              "\n" \
+              r"\begin{document}" \
+              "\n" \
+              r"\begin{tikzpicture}" \
+              "\n" \
+              f"[default_node/.style={{{DEFAULT_NODE_STYLE}}}, " \
+              f"default_path/.style={{{DEFAULT_PATH_STYLE}}}]\n "
+
+TEXT_AFTER = r"\end{tikzpicture}" \
+             r"\end{document}"
+
+
+def create_pdf(graph_code: str):
+    with open('generated_graph.tex', 'w') as f:
+        f.write(TEXT_BEFORE)
+        f.write(graph_code)
+        f.write(TEXT_AFTER)
+
+    os.system(
+        'pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=out '
+        'generated_graph.tex')
+
+
+def generate_layer_node(_layer,
+                        below_of=None,
+                        right_of=None,
+                        left_of=None,
+                        node_style="default_node"):
+    layer_type = _layer.__class__.__name__
+    layer_shape = str_shape(_layer.output_shape)
+
+    position_args_list = []
+    if below_of:
+        position_args_list.append(f"below= of {below_of}")
+    if right_of:
+        position_args_list.append(f"right= of {right_of}")
+    if left_of:
+        position_args_list.append(f"left= of {left_of}")
+
+    position_args = ", ".join(position_args_list)
+
+    position_text = f"[{position_args}]" if position_args else ""
+
+    layer_description = fr"{layer_type}\nodepart{{two}}output shape: {layer_shape}"
+
+    return rf"\node[{node_style}] ({_layer.name}) {position_text} {{{layer_description}}};" + "\n"
+
+
+def get_parent_layer(layer):
+    if len(layer.inbound_nodes) == 0:
+        return None
+    if layer.inbound_nodes:
+        layers_in = layer.inbound_nodes[0].inbound_layers
+        if isinstance(layers_in, list):
+            if len(layers_in) > 0:
+                return layers_in[0].name
+            return None
+        return layers_in.name
+    return None
+
+
+def get_child_layers(layer):
+    if len(layer.outbound_nodes) == 0:
+        return None
+
+    if layer.outbound_nodes and len(layer.outbound_nodes) > 0:
+        children = []
+        for node in layer.outbound_nodes:
+            layer_out = node.outbound_layer
+            children.append(layer_out.name)
+        return children
+    return None
+
+
+model = load_model("model.h5")
+
+parent_map = {}
+child_map = {}
+
+graph_code = ""
+for layer in model.layers:
+    parent_layer = get_parent_layer(layer)
+    child_layers = get_child_layers(layer)
+
+    if child_layers:
+        child_map[layer.name] = child_layers
+
+    below_of_layer = parent_layer
+    right_of_layer = None
+    left_of_layer = None
+    if parent_layer:
+        if parent_layer not in parent_map:
+            parent_map[parent_layer] = [layer.name]
+        else:
+            parent_map[parent_layer].append(layer.name)
+
+            num_neighbours = len(parent_map[parent_layer])
+            if num_neighbours < 3:
+                right_of_layer = parent_map[parent_layer][0]
+            elif num_neighbours % 2 == 0:
+                right_of_layer = parent_map[parent_layer][-3]
+                print("layer name: ", layer.name, "right of: ", right_of_layer, "adjecency list: ",
+                      parent_map[parent_layer])
+            else:
+                left_of_layer = parent_map[parent_layer][-3]
+                print("layer name: ", layer.name, "left of: ", left_of_layer, "adjecency list: ",
+                      parent_map[parent_layer])
+
+    graph_code += generate_layer_node(layer, below_of=below_of_layer, left_of=left_of_layer, right_of=right_of_layer)
+
+for key, value in child_map.items():
+    for child in value:
+        graph_code += rf"\draw[->, default_path] ({key}) to ({child});" + "\n"
+
+create_pdf(graph_code)

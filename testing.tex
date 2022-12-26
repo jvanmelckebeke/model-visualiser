@@ -1,0 +1,90 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.multipart}
+\usetikzlibrary{calc}
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\begin{document}
+
+  \begin{tikzpicture}
+    [
+    align =center,
+    every node/.style={
+      node distance=1cm,
+      outer sep=0pt
+    },
+    layernode/.style={
+      rectangle split,
+      rectangle split ignore empty parts,
+      rectangle split parts=2,
+      draw=blue!60,
+      fill=blue!5,
+      very thick,
+      minimum width={width("Batch Normalisation") + 8pt},
+      node distance=(2,1000),
+      outer sep=0pt},
+    trainingnode/.style={
+      rectangle,
+      draw=gray!60,
+      fill=gray!5,
+      thick,
+      minimum width={width("Batch Normalisation")+ 8pt},
+      node distance=(2,0),
+      outer sep=0pt},
+    every path/.style={
+      out=-90,
+      in=90,
+      out distance=1cm,
+      in distance=1cm
+    },
+    ]
+    %Nodes
+    \node[layernode] (input) {
+      Input
+      \nodepart{two}
+      input shape: (2000)
+    };
+    \node[trainingnode] (batch_norm_1) [below=of input] {Batch Normalization};
+    \node[layernode] (dense_1) [below=of batch_norm_1, yshift=2cm] {Dense\nodepart{two}neurons: 512};
+    \node[trainingnode] (dropout_1) [below=of dense_1, yshift=2cm] {Dropout};
+    \node[trainingnode] (batch_norm_2) [below=of dropout_1] {Batch Normalization};
+    \node[layernode] (dense_2) [below=of batch_norm_2, yshift=2cm] {Dense};
+
+    \node[trainingnode] (batch_norm_3) [below=of input, left=of batch_norm_1] {Batch Normalization};
+    \node[layernode] (dense_3) [below=of batch_norm_3, yshift=2cm] {Dense};
+    \node[trainingnode] (dropout_2) [below=of dense_3, yshift=2cm] {Dropout};
+    \node[trainingnode] (batch_norm_4) [below=of dropout_2] {Batch Normalization};
+    \node[layernode] (dense_4) [below=of batch_norm_4, yshift=2cm] {Dense};
+
+    \node[trainingnode] (batch_norm_5) [below=of input, right=of batch_norm_1] {Batch Normalization};
+    \node[layernode] (dense_5) [below=of batch_norm_5, yshift=2cm] {Dense};
+    \node[trainingnode] (dropout_3) [below=of dense_5, yshift=2cm] {Dropout};
+    \node[trainingnode] (batch_norm_6) [below=of dropout_3] {Batch Normalization};
+    \node[layernode] (dense_6) [below=of batch_norm_6, yshift=2cm] {Dense};
+
+    \node[trainingnode] (sum) [below=of dense_2] {Add};
+
+    \node[layernode] (output) [below=of sum] {
+      Output
+      \nodepart{two}
+      output shape: (5)
+    };
+
+    %Edges
+
+    \draw[->] (input.south) to node [sloped, midway, auto, above] {200000} node[sloped, midway, auto, below] {(2000,)} (batch_norm_1.north);
+    \draw[->] (input.south) to node [sloped, midway, auto, above] {200000} (batch_norm_3.north) ;
+    \draw[->] (input.south) to node [sloped, midway, auto, above] {200000} (batch_norm_5.north);
+
+    \draw[->] (dropout_1.south) to node [sloped, midway, auto, above] {512} (batch_norm_2.north);
+    \draw[->] (dropout_2.south) to node [sloped, midway, auto, above] {512} (batch_norm_4.north);
+    \draw[->] (dropout_3.south) to node [sloped, midway, auto, above] {512} (batch_norm_6.north);
+
+    \draw[->] (dense_2) to node [sloped, midway, auto, above] {512} (sum);
+    \draw[->] (dense_4) to node [sloped, midway, auto, above] {512} (sum);
+    \draw[->] (dense_6) to node [sloped, midway, auto, above] {512} (sum);
+
+    \draw[->] (sum) to (output);
+  \end{tikzpicture}
+\end{document}
