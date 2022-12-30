@@ -1,12 +1,13 @@
 from tikz.base import TikzElement
 from tikz.edges.edge import Edge
-from tikz.nodes.base_node import Node
+from tikz.node import Node
 
 
 class Diagram(TikzElement):
     def __init__(self):
         self.nodes = []
         self.edges = []
+        super().__init__("diagram", depends_on=None)
 
     def add_node(self, node: Node):
         self.nodes.append(node)
@@ -17,11 +18,65 @@ class Diagram(TikzElement):
     def add_edges(self, edges: list[Edge]):
         self.edges.extend(edges)
 
-    def get_elements(self) -> list[TikzElement]:
+    @property
+    def elements(self) -> list[TikzElement]:
         return self.nodes + self.edges
 
+    @property
+    def element_map(self):
+        return {element.internal_name: element for element in self.elements}
+
+    def create_dependency_map(self):
+        dependency_map = {}
+        for element in self.elements:
+            dependency_map[element.internal_name] = element.depends_on
+        return dependency_map
+
+    def get_drawing_order(self):
+        dependency_map = self.create_dependency_map()
+
+        stack_in = self.elements
+        stack_out = []
+        waiting_line = []
+
+        while len(stack_in) > 0 or len(waiting_line) > 0:
+            print(f"there are currently {len(stack_in)} elements in the stack")
+            element = stack_in.pop(0)
+            if len(element.depends_on) == 0:
+                print(f"putting element {element.internal_name} on the stack")
+                stack_out.append(element.internal_name)
+            else:
+                dependencies_satisfied = True
+                for dependency in element.depends_on:
+                    if dependency not in stack_out:
+                        dependencies_satisfied = False
+                        break
+                if dependencies_satisfied:
+                    stack_out.append(element.internal_name)
+                else:
+                    print(f"putting element {element.internal_name} on the waiting line, because it depends on {element.depends_on}")
+                    waiting_line.append(element)
+
+            for waiting_element in waiting_line:
+                dependencies_satisfied = True
+                for dependency in waiting_element.depends_on:
+                    if dependency not in stack_out:
+                        dependencies_satisfied = False
+                        break
+                if dependencies_satisfied:
+                    stack_out.append(waiting_element.internal_name)
+                    waiting_line.remove(waiting_element)
+            print(f"there are currently {len(waiting_line)} elements left in the waiting line")
+        return stack_out
+
     def generate_code(self):
-        return "\n".join([element.to_code() for element in self.get_elements()])
+        drawing_order = self.get_drawing_order()
+        code = ""
+
+        for element_name in drawing_order:
+            code += self.element_map[element_name].to_code() + "\n"
+
+        return code
 
     def to_code(self):
         return self.generate_code()

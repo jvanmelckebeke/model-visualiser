@@ -8,12 +8,14 @@ class Edge(TikzElement):
         self.label = label
         self.edge_style = edge_style
         self.label_style = label_style
+        super().__init__(f"edge_{from_node}_{to_node}", depends_on=[from_node, to_node])
 
     def draw(self):
         return self.__str__()
 
     def to_code(self):
         return str(self)
+
     def __str__(self):
         return rf"\draw[->, {self.edge_style}] ({self.from_node}) " \
-               rf"to node [{self.label_style}] {{{self.label}}} ({self.to_node});" + "\n "
+               rf"to node [{self.label_style}] {{{self.label}}} ({self.to_node});"

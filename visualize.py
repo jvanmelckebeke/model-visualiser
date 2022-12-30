@@ -2,69 +2,29 @@ import os
 
 from tensorflow.keras.models import load_model
 
+from layers.operation.operation import OperationLayer
+from layers.trainable.trainable import TrainableLayer
+from layers.utility.utility import UtilityLayer
 from tikz.diagram import Diagram
 from tikz.document import Document
-from tikz.base import TikzOptions
 from tikz.edges.edge import Edge
-from tikz.nodes.base_node import Node
-from tikz.nodes.operation import OperationNode
-from tikz.nodes.utility import UtilityNode
-from tikz.nodes.trainable import TrainableNode
-from tikz.style import TikzStyle
+from tikz.util.style import TikzStyle
 
 UTILITY_LAYER_TYPES = ['Dropout', 'BatchNormalization', 'SpatialDropout2D', 'SpatialDropout3D', 'AlphaDropout',
                        'SpatialDropout1D', 'GaussianDropout', 'GaussianNoise', 'ActivityRegularization', 'Masking']
 
 OPERATION_LAYER_TYPES = ['Add', 'Flatten', 'Concatenate', 'Average', 'Maximum', 'Minimum', 'Multiply', 'Subtract']
 
-node_distance = 2
-
 styles = {
-    "trainable_node":
-        TikzStyle("rectangle split",
-                  "rectangle split ignore empty parts",
-                  "very thick",
-                  **{
-                      "rectangle split parts": 2,
-                      "draw": "blue!60",
-                      "fill": "blue!5",
-                      "minimum width": "{width(\"Batch Normalisation\") + 8pt}",
-                      "node distance": node_distance,
-                      "outer sep": "0pt"
-                  }),
-    "utility_node":
-        TikzStyle("rectangle split",
-                  "rectangle split ignore empty parts",
-                  "very thick",
-                  **{
-                      "rectangle split parts": 2,
-                      "draw": "gray!60",
-                      "fill": "gray!5",
-                      "minimum width": "{width(\"Batch Normalisation\") + 8pt}",
-                      "node distance": node_distance,
-                      "outer sep": "0pt"
-                  }),
-    "operation_node":
-        TikzStyle("rectangle split",
-                  "rectangle split ignore empty parts",
-                  "very thick",
-                  **{
-                      "rectangle split parts": 2,
-                      "draw": "violet!60",
-                      "fill": "violet!5",
-                      "minimum width": "{width(\"Batch Normalisation\") + 8pt}",
-                      "node distance": node_distance,
-                      "outer sep": "0pt"
-                  }),
     "default_edge":
         TikzStyle("thick",
                   **{
                       "out": -90,
                       "in": 90,
-                      "out distance": f"{node_distance}cm",
-                      "in distance": f"{node_distance}cm",
+                      "out distance": f"2cm",
+                      "in distance": f"2cm",
                   }),
-    "default_label": TikzStyle("midway", "auto")
+    "default_label": TikzStyle("auto", pos=0.65)
 }
 
 TEXT_AFTER = r"\end{tikzpicture}" \
@@ -134,6 +94,8 @@ model = load_model("model.h5")
 parent_map = {}
 child_map = {}
 
+layers = []
+
 document = Document()
 document.add_styles(styles)
 
@@ -142,46 +104,19 @@ for layer in model.layers:
 
     layer_type = layer.__class__.__name__
 
-    parent_layer = get_parent_layer(layer)
-    child_layers = get_child_layers(layer)
-
-    diagram.add_edges(get_child_layer_edges(layer))
-
-    below_of_layer = parent_layer
-    right_of_layer = None
-    left_of_layer = None
-
-    if parent_layer:
-        if parent_layer not in parent_map:
-            parent_map[parent_layer] = [layer.name]
-        else:
-            parent_map[parent_layer].append(layer.name)
-
-            num_neighbours = len(parent_map[parent_layer])
-            if num_neighbours < 3:
-                right_of_layer = parent_map[parent_layer][0]
-            elif num_neighbours % 2 == 0:
-                right_of_layer = parent_map[parent_layer][-3]
-            else:
-                left_of_layer = parent_map[parent_layer][-3]
-
     if layer_type in UTILITY_LAYER_TYPES:
-        diagram.add_node(UtilityNode(layer.name, layer,
-                                     below_of=below_of_layer,
-                                     right_of=right_of_layer,
-                                     left_of=left_of_layer))
+        layers.append(UtilityLayer(layer))
     elif layer_type in OPERATION_LAYER_TYPES:
-        diagram.add_node(OperationNode(layer.name, layer,
-                                       below_of=below_of_layer,
-                                       right_of=right_of_layer,
-                                       left_of=left_of_layer))
+        layers.append(OperationLayer(layer))
     else:
-        diagram.add_node(TrainableNode(layer.name, layer,
-                                       below_of=below_of_layer,
-                                       right_of=right_of_layer,
-                                       left_of=left_of_layer))
+        layers.append(TrainableLayer(layer))
 
-document.add_elements(diagram.get_elements())
+for layer in layers:
+    document.add_style(layer.get_style_name(), layer.style)
+    diagram.add_node(layer.create_node())
+    diagram.add_edges(layer.create_edges())
+
+document.add_element(diagram)
 
 model.summary(line_length=222)
 create_pdf(document)

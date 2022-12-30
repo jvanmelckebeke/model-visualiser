@@ -1,0 +1,50 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.multipart}
+\usetikzlibrary{calc}
+\usetikzlibrary {graphs,graphdrawing}
+\usetikzlibrary{graphs.standard}
+\usegdlibrary {circular, trees, layered}
+\begin{document}
+  \begin{tikzpicture}
+    [
+    align =center,
+    every node/.style={
+      node distance=1cm,
+      outer sep=0pt
+    },
+    layernode/.style={
+      rectangle split,
+      rectangle split ignore empty parts,
+      rectangle split parts=2,
+      draw=blue!60,
+      fill=blue!5,
+      very thick,
+      minimum width={width("Batch Normalisation") + 8pt},
+      node distance=(2,1000),
+      outer sep=0pt},
+    trainingnode/.style={
+      rectangle,
+      draw=gray!60,
+      fill=gray!5,
+      thick,
+      minimum width={width("Batch Normalisation")+ 8pt},
+      node distance=(2,0),
+      outer sep=0pt},
+    every path/.style={
+      out=-90,
+      in=90,
+      out distance=1cm,
+      in distance=1cm
+    },
+    ]
+    \node[trainingnode] (input) {Input};
+    \node[layernode] (batch_norm_1)  {Batch Normalization};
+    \node[trainingnode] (dense_1) {Dense};
+    \graph [layered layout, sibling distance=8mm, level distance=8mm]
+    {
+      (input) -> {(batch_norm_1), (dense_1)};
+    };
+  \end{tikzpicture}
+\end{document}

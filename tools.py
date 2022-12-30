@@ -1,3 +1,6 @@
+import uuid
+
+
 def str_shape(shape):
     if isinstance(shape, tuple):
         if shape[0] is None:
@@ -11,3 +14,7 @@ def str_shape(shape):
         return str([str_shape(s) for s in shape])
     else:
         return str(shape)
+
+
+def generate_uuid():
+    return str(uuid.uuid4())[:8]
