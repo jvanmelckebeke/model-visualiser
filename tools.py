@@ -1,6 +1,8 @@
 import uuid
 import yaml
 
+INDENT_SIZE = 4
+INDENT_STR = ' ' * INDENT_SIZE
 
 def str_shape(shape):
     if isinstance(shape, tuple):

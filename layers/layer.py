@@ -144,7 +144,7 @@ class Layer:
 
         return Node(self.name,
                     *self.layer_description,
-                    node_style=self.get_style_name(),
+                    node_style_name=self.get_style_name(),
                     position=self.get_position(),
                     depends_on=self.dependency_layers)
 

@@ -14,7 +14,11 @@ class Document:
 
     @property
     def _styles_code(self):
-        return ",".join([f"{key}/.style={value}" for key, value in self.styles.items()])
+        out = ""
+        for style_name, style in self.styles.items():
+            out += f"% style: {style_name}\n"
+            out += rf"\tikzstyle{{{style_name}}}=[{style.to_code()}]" + "\n"
+        return out
 
     def generate_header(self):
         return "\\documentclass{standalone}\n" \
@@ -23,7 +27,7 @@ class Document:
                "\\usetikzlibrary{positioning, shapes.multipart, calc, graphs, graphs.standard}\n" \
                "\\begin{document}\n" \
                "\\begin{tikzpicture}\n" \
-               f"[{self._styles_code}]\n"
+               f"{self._styles_code}\n"
 
     def generate_footer(self):
         return r"\end{tikzpicture}" \

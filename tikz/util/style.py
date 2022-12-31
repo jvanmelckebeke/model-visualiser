@@ -4,13 +4,15 @@ from tools import load_from_config
 
 class TikzStyle(TikzOptions):
     def __init__(self, *args, **kwargs):
+        self.flags = args
+        self.style_options = kwargs
         super().__init__(*args, **kwargs)
 
     def to_code(self):
-        return str(self)
+        return f"{super().__str__()}"
 
     def __str__(self):
-        return f"{{{super().__str__()}}}"
+        return f"style with flags: {self.flags} and options: {self.style_options}"
 
     def __repr__(self):
         return str(self)
