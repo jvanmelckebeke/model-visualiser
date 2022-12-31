@@ -1,13 +1,10 @@
 from layers.layer import Layer
 from tikz.edges.edge import Edge
-from tikz.util.style import create_node_style
 import keras.layers
 
 
 class UtilityLayer(Layer):
     sort_order = 9998
-    node_distance = 0
-    style = create_node_style("gray", node_distance)
 
     def __init__(self, layer: keras.layers.Layer):
         super().__init__(layer)

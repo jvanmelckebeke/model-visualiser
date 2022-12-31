@@ -1,4 +1,5 @@
 from tikz.base import TikzOptions
+from tools import load_from_config
 
 
 class TikzStyle(TikzOptions):
@@ -13,6 +14,14 @@ class TikzStyle(TikzOptions):
 
     def __repr__(self):
         return str(self)
+
+
+def load_style_from_config(style_name):
+    styles = load_from_config('styles')
+    for style in styles:
+        if style['name'] == style_name:
+            st = style['style']
+            return TikzStyle(*st['flags'], **st['options'])
 
 
 def create_node_style(color, node_distance, split_parts=10):

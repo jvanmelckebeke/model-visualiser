@@ -3,13 +3,10 @@ import keras.layers
 from layers.layer import Layer
 from tikz.edges.edge import Edge
 from tikz.util.position import Position
-from tikz.util.style import create_node_style
 
 
 class TrainableLayer(Layer):
     sort_order = 9996
-    node_distance = 2
-    style = create_node_style("blue", node_distance)
 
     def __init__(self, layer: keras.layers.Layer):
         self.num_params = layer.count_params()

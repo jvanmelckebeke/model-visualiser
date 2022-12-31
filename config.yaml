@@ -1,0 +1,85 @@
+default-node-style:
+  &default-node-style
+  flags:
+    - rectangle split
+    - rectangle split ignore empty parts
+    - very thick
+  options:
+    "rectangle split parts": 5
+    draw: "pink!80"
+    fill: "pink!5"
+    "minimum width": 6cm
+    "node distance": 2cm
+    "outer sep": 0cm
+
+
+styles:
+  - name: "defaultEdge"
+    description: "Default edge style"
+    style:
+      flags:
+        - thick
+      options:
+        out: -90
+        in: 90
+        "out distance": 2cm
+        "in distance": 2cm
+  - name: "defaultLabel"
+    description: "Default label style"
+    style:
+      flags:
+        - auto
+      options:
+        pos: 0.65
+  - name: "OperationLayer_style"
+    description: "Style for the OperationLayer"
+    style:
+      <<: *default-node-style
+      options:
+        "node distance": 1cm
+        draw: "violet!80"
+        fill: "violet!5"
+  - name: "UtilityLayer_style"
+    description: "Style for the UtilityLayer"
+    style:
+      <<: *default-node-style
+      options:
+        "node distance": 0cm
+        draw: "gray!80"
+        fill: "gray!5"
+  - name: TrainableLayer_style
+    description: "Style for the TrainableLayer"
+    style:
+      <<: *default-node-style
+      options:
+        "node distance": 2cm
+        draw: "blue!80"
+        fill: "blue!5"
+
+
+layer-types:
+  utility:
+    description: "Layers that may play a big role during training, but are not/minimally used during inference."
+    items:
+      - Dropout
+      - BatchNormalization
+      - SpatialDropout1D
+      - SpatialDropout2D
+      - SpatialDropout3D
+      - GaussianNoise
+      - GaussianDropout
+      - AlphaDropout
+      - ActivityRegularization
+      - Masking
+  operation:
+    description: "Layers that perform an operation on the input. But do not have any trainable parameters themselves."
+    items:
+      - Add
+      - Subtract
+      - Multiply
+      - Average
+      - Maximum
+      - Minimum
+      - Concatenate
+      - Dot
+

@@ -1,6 +1,6 @@
 import os
 
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 
 from layers.operation.operation import OperationLayer
 from layers.trainable.trainable import TrainableLayer
@@ -9,11 +9,10 @@ from tikz.diagram import Diagram
 from tikz.document import Document
 from tikz.edges.edge import Edge
 from tikz.util.style import TikzStyle
+from tools import load_from_config
 
-UTILITY_LAYER_TYPES = ['Dropout', 'BatchNormalization', 'SpatialDropout2D', 'SpatialDropout3D', 'AlphaDropout',
-                       'SpatialDropout1D', 'GaussianDropout', 'GaussianNoise', 'ActivityRegularization', 'Masking']
-
-OPERATION_LAYER_TYPES = ['Add', 'Flatten', 'Concatenate', 'Average', 'Maximum', 'Minimum', 'Multiply', 'Subtract']
+UTILITY_LAYER_TYPES = load_from_config('layer-types', 'utility', 'items')
+OPERATION_LAYER_TYPES = load_from_config('layer-types', 'operation', 'items')
 
 styles = {
     "default_edge":
@@ -26,9 +25,6 @@ styles = {
                   }),
     "default_label": TikzStyle("auto", pos=0.65)
 }
-
-TEXT_AFTER = r"\end{tikzpicture}" \
-             r"\end{document}"
 
 
 def create_pdf(document: Document):
@@ -112,7 +108,7 @@ for layer in model.layers:
         layers.append(TrainableLayer(layer))
 
 for layer in layers:
-    document.add_style(layer.get_style_name(), layer.style)
+    document.add_style(layer.get_style_name(), layer.get_style())
     diagram.add_node(layer.create_node())
     diagram.add_edges(layer.create_edges())
 

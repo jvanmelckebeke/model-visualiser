@@ -1,10 +1,9 @@
 import keras.layers
 
-from tikz.edges.edge import Edge
+from tikz.util.style import load_style_from_config
 from tools import str_shape
 from tikz.node import Node
 from tikz.util.position import Position
-from tikz.util.style import create_node_style
 
 
 def get_layer_outbound_layers(layer: keras.layers.Layer):
@@ -29,12 +28,14 @@ def get_layer_inbound_layers(layer: keras.layers.Layer):
 
 class Layer:
     sort_order = 9999
-    node_distance = 2
-    style = create_node_style("pink", node_distance)
 
     @classmethod
     def get_style_name(cls) -> str:
         return f"{cls.__name__}_style"
+
+    @classmethod
+    def get_style(cls):
+        return load_style_from_config(cls.get_style_name())
 
     def __init__(self, layer: keras.layers.Layer):
         self.layer = layer
