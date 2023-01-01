@@ -41,6 +41,7 @@ class Layer:
         self.layer = layer
         self.name = layer.name
         self.type = layer.__class__.__name__
+        self.position = Position()
 
         self.inbound_layers_names = []
         self.outbound_layers_names = []
@@ -107,29 +108,6 @@ class Layer:
         siblings.sort(key=lambda x: x.name)
         return [sibling.name for sibling in siblings]
 
-    def get_position(self):
-        inbound_layers = self.inbound_layers_names
-        num_inbound_layers = len(inbound_layers)
-        first_inbound_layer = inbound_layers[0] if len(inbound_layers) > 0 else None
-
-        if len(inbound_layers) == 0:
-            return Position()
-
-        if num_inbound_layers == 1:
-            self.add_dependency_layer(first_inbound_layer)
-            return Position(below_of=first_inbound_layer)
-
-        if num_inbound_layers % 2 == 1:
-            middle_layer = inbound_layers[num_inbound_layers // 2]
-            self.add_dependency_layer(middle_layer)
-            return Position(below_of=middle_layer)
-
-        middle_left = inbound_layers[num_inbound_layers // 2 - 1]
-        middle_right = inbound_layers[num_inbound_layers // 2]
-        self.add_dependency_layer(middle_left)
-        self.add_dependency_layer(middle_right)
-        return Position(below_right_of=middle_left)
-
     def add_dependency_layer(self, layer):
         if isinstance(layer, Layer):
             self.dependency_layers.add(layer.name)
@@ -140,12 +118,12 @@ class Layer:
     def layer_description(self) -> tuple:
         return self.type, f"output_shape: {self.output_shape}"
 
-    def create_node(self):
+    def create_node(self, position: Position = None):
 
         return Node(self.name,
                     *self.layer_description,
                     node_style_name=self.get_style_name(),
-                    position=self.get_position(),
+                    position=position,
                     depends_on=self.dependency_layers)
 
     def create_edges(self):

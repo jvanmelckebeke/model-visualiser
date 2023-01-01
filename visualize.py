@@ -8,8 +8,10 @@ from layers.utility.utility import UtilityLayer
 from tikz.diagram import Diagram
 from tikz.document import Document
 from tikz.edges.edge import Edge
+from tikz.util.position import Position
 from tikz.util.style import TikzStyle
 from tools import load_from_config
+import networkx as nx
 
 UTILITY_LAYER_TYPES = load_from_config('layer-types', 'utility', 'items')
 OPERATION_LAYER_TYPES = load_from_config('layer-types', 'operation', 'items')
@@ -107,9 +109,23 @@ for layer in model.layers:
     else:
         layers.append(TrainableLayer(layer))
 
+adj_list = {}
+for layer in layers:
+    adj_list[layer.name] = [v.name for v in layer.outbound_layers]
+
+graph = nx.from_dict_of_lists(adj_list)
+pos = nx.nx_pydot.graphviz_layout(graph, prog='dot')
+
+print(pos)
+
 for layer in layers:
     document.add_style(layer.get_style_name(), layer.get_style())
-    diagram.add_node(layer.create_node())
+    x = pos[layer.name][0]
+    y = pos[layer.name][1]
+
+    x /= 20
+    y /= 20
+    diagram.add_node(layer.create_node(Position(x, y)))
     diagram.add_edges(layer.create_edges())
 
 document.add_element(diagram)

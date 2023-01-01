@@ -24,11 +24,6 @@ class Node(TikzElement):
     def draw(self):
         return self.to_code()
 
-    def generate_position_code(self):
-        position_args = TikzOptions(*self.position.get_position_args())
-
-        return rf"[{position_args}]"
-
     def generate_description_code(self):
         text = ""
         self.description_parts = [str(part) for part in self.description_parts]
@@ -40,11 +35,10 @@ class Node(TikzElement):
         return text
 
     def to_code(self):
-        position_args = self.generate_position_code()
 
         layer_description = self.generate_description_code()
         pre_code_comment = f"% node: {self.name}\n"
-        code = rf"\node[{self.node_style_name}] {position_args} ({self.name}) " + \
+        code = rf"\node[{self.node_style_name}] ({self.name}) {self.position.to_code()}" + \
                f"\n{INDENT_STR}{{{layer_description}}};"
         code += "\n"
         return pre_code_comment + code

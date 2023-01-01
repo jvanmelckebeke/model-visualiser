@@ -15,8 +15,6 @@ class UtilityLayer(Layer):
 
     def create_edges(self):
         edges = []
-        if self.get_position().left_of is None and self.get_position().right_of is None:
-            return edges
 
         for inbound_layer in self.inbound_layers:
             edges.append(Edge(inbound_layer.name, self.name))
