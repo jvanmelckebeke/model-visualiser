@@ -10,18 +10,19 @@ from visualizer.layers.trainable.trainable import TrainableLayer
 from visualizer.layers.utility.utility import UtilityLayer
 from visualizer.util.config import Config
 from visualizer.util.const import UTILITY_LAYER_TYPES, OPERATION_LAYER_TYPES
-from visualizer.util.tools import get_trainable_layer_output_layers
+from visualizer.util.tools import run_command
+
+import networkx as nx
 
 
 def create_pdf(document: Document):
     with open('generated_graph.tex', 'w') as f:
         f.write(document.generate_code())
 
-    exit_code = os.system(
+    run_command(
         'pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=out '
         'generated_graph.tex')
-    if exit_code != 0:
-        raise Exception("Error while generating pdf")
+    # run_command('pdf2svg out/generated_graph.pdf out/generated_graph.svg')
 
 
 def create_diagram_layers(model):
@@ -44,7 +45,7 @@ def create_graph(model):
     for _layer in model.layers:
         if _layer.__class__.__name__ in UTILITY_LAYER_TYPES:
             continue
-        adjacency_list[_layer.name] = [v.name for v in get_trainable_layer_output_layers(_layer)]
+        adjacency_list[_layer.name] = [v.name for v in TrainableLayer.get_trainable_keras_output_layers(_layer)]
 
     return nx.from_dict_of_lists(adjacency_list)
 

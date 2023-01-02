@@ -27,7 +27,7 @@ class Config:
 
     @classmethod
     def load_styles(cls):
-        from tikz.util.style import TikzStyle
+        from visualizer.backend.misc.style import TikzStyle
 
         cfg_styles = cls.load_from_config('styles')
         styles = {}

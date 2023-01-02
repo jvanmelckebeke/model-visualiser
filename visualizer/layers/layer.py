@@ -1,6 +1,6 @@
 import keras.layers
 
-from visualizer.util.tools import str_shape, get_layer_input_layers, get_layer_output_layers
+from visualizer.util.tools import str_shape
 from visualizer.backend.node import Node
 from visualizer.backend.misc.position import Position
 
@@ -11,6 +11,26 @@ class Layer:
     @classmethod
     def get_style_name(cls) -> str:
         return f"{cls.__name__}_style"
+
+    @classmethod
+    def get_keras_output_layers(cls, layer: keras.layers.Layer):
+        outbound_layers = []
+        for outbound_node in layer.outbound_nodes:
+            outbound_layers.append(outbound_node.outbound_layer)
+
+        return outbound_layers
+
+    @classmethod
+    def get_keras_input_layers(cls, layer: keras.layers.Layer):
+        inbound_layers = []
+        for inbound_node in layer.inbound_nodes:
+            if isinstance(inbound_node.inbound_layers, list):
+                for inbound_layer in inbound_node.inbound_layers:
+                    inbound_layers.append(inbound_layer)
+            else:
+                inbound_layers.append(inbound_node.inbound_layers)
+
+        return inbound_layers
 
     def __init__(self, layer: keras.layers.Layer):
         self.layer = layer
@@ -35,11 +55,11 @@ class Layer:
 
     @property
     def input_layers(self):
-        return get_layer_input_layers(self.layer)
+        return self.get_keras_input_layers(self.layer)
 
     @property
     def output_layers(self):
-        return get_layer_output_layers(self.layer)
+        return self.get_keras_output_layers(self.layer)
 
     @property
     def output_shape(self):
@@ -71,12 +91,12 @@ class Layer:
         siblings = set()
         if len(self.input_layers) != 0:
             for inbound_layer in self.input_layers:
-                for sibling in get_layer_output_layers(inbound_layer):
+                for sibling in self.get_keras_output_layers(inbound_layer):
                     siblings.add(sibling)
 
         if len(self.output_layers) != 0:
             for outbound_layer in self.output_layers:
-                for sibling in get_layer_input_layers(outbound_layer):
+                for sibling in self.get_keras_input_layers(outbound_layer):
                     siblings.add(sibling)
         print(f"Siblings of {self.name}: {siblings}")
         siblings = list(siblings)

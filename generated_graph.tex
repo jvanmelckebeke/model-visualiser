@@ -16,7 +16,7 @@
 \tikzstyle{TrainableLayer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=blue!80,fill=blue!5,minimum width=5cm,outer sep=0cm]
 
 % node: input_1
-\node[TrainableLayer_style] (input_1) at (16.2, 72.9)
+\node[TrainableLayer_style] (input_1) at (16.2, 87.3)
     {
     \nodepart{one}{InputLayer}
     \nodepart{two}{input shape: 256}
@@ -24,7 +24,7 @@
     \nodepart{four}{input\_1}};
 
 % node: b_1
-\node[TrainableLayer_style] (b_1) at (11.7, 68.4)
+\node[TrainableLayer_style] (b_1) at (11.7, 81.9)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 256}
@@ -32,7 +32,7 @@
     \nodepart{four}{b\_1}};
 
 % node: b1_1
-\node[TrainableLayer_style] (b1_1) at (11.7, 63.9)
+\node[TrainableLayer_style] (b1_1) at (11.7, 76.5)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -40,7 +40,7 @@
     \nodepart{four}{b1\_1}};
 
 % node: b2_1
-\node[TrainableLayer_style] (b2_1) at (2.7, 63.9)
+\node[TrainableLayer_style] (b2_1) at (2.7, 76.5)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -48,7 +48,7 @@
     \nodepart{four}{b2\_1}};
 
 % node: b1_2
-\node[TrainableLayer_style] (b1_2) at (11.7, 59.4)
+\node[TrainableLayer_style] (b1_2) at (11.7, 71.1)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -56,7 +56,7 @@
     \nodepart{four}{b1\_2}};
 
 % node: b2_2
-\node[TrainableLayer_style] (b2_2) at (2.7, 59.4)
+\node[TrainableLayer_style] (b2_2) at (2.7, 71.1)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -64,13 +64,13 @@
     \nodepart{four}{b2\_2}};
 
 % node: sum_b
-\node[OperationLayer_style] (sum_b) at (11.7, 54.9)
+\node[OperationLayer_style] (sum_b) at (11.7, 65.7)
     {
     \nodepart{one}{Add}
     \nodepart{two}{sum\_b}};
 
 % node: a_1
-\node[TrainableLayer_style] (a_1) at (20.7, 68.4)
+\node[TrainableLayer_style] (a_1) at (20.7, 81.9)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 256}
@@ -78,7 +78,7 @@
     \nodepart{four}{a\_1}};
 
 % node: b_2
-\node[TrainableLayer_style] (b_2) at (11.7, 50.4)
+\node[TrainableLayer_style] (b_2) at (11.7, 60.3)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -86,7 +86,7 @@
     \nodepart{four}{b\_2}};
 
 % node: a1_1
-\node[TrainableLayer_style] (a1_1) at (29.7, 63.9)
+\node[TrainableLayer_style] (a1_1) at (29.7, 76.5)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -94,7 +94,7 @@
     \nodepart{four}{a1\_1}};
 
 % node: a2_1
-\node[TrainableLayer_style] (a2_1) at (20.7, 63.9)
+\node[TrainableLayer_style] (a2_1) at (20.7, 76.5)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -102,7 +102,7 @@
     \nodepart{four}{a2\_1}};
 
 % node: b_3
-\node[TrainableLayer_style] (b_3) at (11.7, 45.9)
+\node[TrainableLayer_style] (b_3) at (11.7, 54.9)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -110,19 +110,19 @@
     \nodepart{four}{b\_3}};
 
 % node: sum_a
-\node[OperationLayer_style] (sum_a) at (20.7, 59.4)
+\node[OperationLayer_style] (sum_a) at (20.7, 71.1)
     {
     \nodepart{one}{Add}
     \nodepart{two}{sum\_a}};
 
 % node: sum_ab
-\node[OperationLayer_style] (sum_ab) at (15.75, 41.4)
+\node[OperationLayer_style] (sum_ab) at (15.75, 49.5)
     {
     \nodepart{one}{Add}
     \nodepart{two}{sum\_ab}};
 
 % node: e_1
-\node[TrainableLayer_style] (e_1) at (10.85, 36.9)
+\node[TrainableLayer_style] (e_1) at (10.85, 44.1)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -130,7 +130,7 @@
     \nodepart{four}{e\_1}};
 
 % node: e_2
-\node[TrainableLayer_style] (e_2) at (10.85, 32.4)
+\node[TrainableLayer_style] (e_2) at (10.85, 38.7)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -138,7 +138,7 @@
     \nodepart{four}{e\_2}};
 
 % node: e_3
-\node[TrainableLayer_style] (e_3) at (10.85, 27.9)
+\node[TrainableLayer_style] (e_3) at (10.85, 33.3)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -146,13 +146,13 @@
     \nodepart{four}{e\_3}};
 
 % node: sum_b2_e
-\node[OperationLayer_style] (sum_b2_e) at (2.7, 23.4)
+\node[OperationLayer_style] (sum_b2_e) at (2.7, 27.9)
     {
     \nodepart{one}{Add}
     \nodepart{two}{sum\_b2\_e}};
 
 % node: e1_1
-\node[TrainableLayer_style] (e1_1) at (11.7, 23.4)
+\node[TrainableLayer_style] (e1_1) at (11.7, 27.9)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -160,7 +160,7 @@
     \nodepart{four}{e1\_1}};
 
 % node: e2_1
-\node[TrainableLayer_style] (e2_1) at (2.7, 18.9)
+\node[TrainableLayer_style] (e2_1) at (2.7, 22.5)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -168,7 +168,7 @@
     \nodepart{four}{e2\_1}};
 
 % node: d_1
-\node[TrainableLayer_style] (d_1) at (19.85, 36.9)
+\node[TrainableLayer_style] (d_1) at (19.85, 44.1)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -176,7 +176,7 @@
     \nodepart{four}{d\_1}};
 
 % node: e1_2
-\node[TrainableLayer_style] (e1_2) at (11.7, 14.4)
+\node[TrainableLayer_style] (e1_2) at (11.7, 17.1)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -184,7 +184,7 @@
     \nodepart{four}{e1\_2}};
 
 % node: e2_2
-\node[TrainableLayer_style] (e2_2) at (2.7, 14.4)
+\node[TrainableLayer_style] (e2_2) at (2.7, 17.1)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -192,7 +192,7 @@
     \nodepart{four}{e2\_2}};
 
 % node: d_2
-\node[TrainableLayer_style] (d_2) at (19.85, 27.9)
+\node[TrainableLayer_style] (d_2) at (19.85, 33.3)
     {
     \nodepart{one}{Dense}
     \nodepart{two}{input shape: 128}
@@ -200,13 +200,13 @@
     \nodepart{four}{d\_2}};
 
 % node: sum_e
-\node[OperationLayer_style] (sum_e) at (11.7, 9.9)
+\node[OperationLayer_style] (sum_e) at (11.7, 11.7)
     {
     \nodepart{one}{Add}
     \nodepart{two}{sum\_e}};
 
 % node: sum_d_e
-\node[OperationLayer_style] (sum_d_e) at (15.75, 5.4)
+\node[OperationLayer_style] (sum_d_e) at (15.75, 6.3)
     {
     \nodepart{one}{Add}
     \nodepart{two}{sum\_d\_e}};
