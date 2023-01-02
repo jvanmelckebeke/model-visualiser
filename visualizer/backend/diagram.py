@@ -1,6 +1,6 @@
-from tikz.base import TikzElement
-from tikz.edges.edge import Edge
-from tikz.node import Node
+from visualizer.backend.base import TikzElement
+from visualizer.backend.edge import Edge
+from visualizer.backend.node import Node
 
 
 class Diagram(TikzElement):

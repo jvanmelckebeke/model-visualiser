@@ -1,16 +1,13 @@
-default-node-style:
-  &default-node-style
-  flags:
-    - rectangle split
-    - rectangle split ignore empty parts
-    - very thick
-  options:
-    "rectangle split parts": 5
-    draw: "pink!80"
-    fill: "pink!5"
-    "minimum width": 6cm
-    "node distance": 2cm
-    "outer sep": 0cm
+default-flags: &default-node-flags
+  - rectangle split
+  - rectangle split ignore empty parts
+  - very thick
+default-options: &default-node-options
+  "rectangle split parts": 5
+  draw: "pink!80"
+  fill: "pink!5"
+  "minimum width": 5cm
+  "outer sep": 0cm
 
 
 styles:
@@ -34,25 +31,25 @@ styles:
   - name: "OperationLayer_style"
     description: "Style for the OperationLayer"
     style:
-      <<: *default-node-style
+      flags: *default-node-flags
       options:
-        "node distance": 1cm
+        <<: *default-node-options
         draw: "violet!80"
         fill: "violet!5"
   - name: "UtilityLayer_style"
     description: "Style for the UtilityLayer"
     style:
-      <<: *default-node-style
+      flags: *default-node-flags
       options:
-        "node distance": 0cm
+        <<: *default-node-options
         draw: "gray!80"
         fill: "gray!5"
   - name: TrainableLayer_style
     description: "Style for the TrainableLayer"
     style:
-      <<: *default-node-style
+      flags: *default-node-flags
       options:
-        "node distance": 2cm
+        <<: *default-node-options
         draw: "blue!80"
         fill: "blue!5"
 
@@ -83,3 +80,13 @@ layer-types:
       - Concatenate
       - Dot
 
+dot:
+  graph:
+    ratio: compress
+    rankdir: TB
+    splines: true
+    nodesep: 1
+    ranksep: 1
+  node:
+    shape: rectangle
+    width: 1.5

@@ -1,9 +1,9 @@
-from tikz.base import TikzOptions, TikzElement
-from tikz.util.position import Position
+from visualizer.tikz.base import TikzElement
+from visualizer.tikz.util.position import Position
 
 import inflect
 
-from tools import INDENT_STR
+from visualizer.util import INDENT_STR
 
 p = inflect.engine()
 

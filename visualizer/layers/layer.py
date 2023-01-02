@@ -1,29 +1,8 @@
 import keras.layers
 
-from tikz.util.style import load_style_from_config
-from tools import str_shape
-from tikz.node import Node
-from tikz.util.position import Position
-
-
-def get_layer_outbound_layers(layer: keras.layers.Layer):
-    outbound_layers = []
-    for outbound_node in layer.outbound_nodes:
-        outbound_layers.append(outbound_node.outbound_layer)
-
-    return outbound_layers
-
-
-def get_layer_inbound_layers(layer: keras.layers.Layer):
-    inbound_layers = []
-    for inbound_node in layer.inbound_nodes:
-        if isinstance(inbound_node.inbound_layers, list):
-            for inbound_layer in inbound_node.inbound_layers:
-                inbound_layers.append(inbound_layer)
-        else:
-            inbound_layers.append(inbound_node.inbound_layers)
-
-    return inbound_layers
+from visualizer.util.tools import str_shape, get_layer_input_layers, get_layer_output_layers
+from visualizer.backend.node import Node
+from visualizer.backend.misc.position import Position
 
 
 class Layer:
@@ -32,10 +11,6 @@ class Layer:
     @classmethod
     def get_style_name(cls) -> str:
         return f"{cls.__name__}_style"
-
-    @classmethod
-    def get_style(cls):
-        return load_style_from_config(cls.get_style_name())
 
     def __init__(self, layer: keras.layers.Layer):
         self.layer = layer
@@ -47,8 +22,8 @@ class Layer:
         self.outbound_layers_names = []
         self.dependency_layers = set()
 
-        self._parse_inbound_layers()
-        self._parse_outbound_layers()
+        self._parse_input_layers()
+        self._parse_output_layers()
 
     @property
     def trainable_params(self) -> int:
@@ -59,12 +34,12 @@ class Layer:
         return trainable_params
 
     @property
-    def inbound_layers(self):
-        return get_layer_inbound_layers(self.layer)
+    def input_layers(self):
+        return get_layer_input_layers(self.layer)
 
     @property
-    def outbound_layers(self):
-        return get_layer_outbound_layers(self.layer)
+    def output_layers(self):
+        return get_layer_output_layers(self.layer)
 
     @property
     def output_shape(self):
@@ -74,7 +49,7 @@ class Layer:
     def input_shape(self):
         return str_shape(self.layer.input_shape)
 
-    def _parse_inbound_layers(self):
+    def _parse_input_layers(self):
         if len(self.layer.inbound_nodes) == 0:
             return
         for inbound_node in self.layer.inbound_nodes:
@@ -85,7 +60,7 @@ class Layer:
             else:
                 self.inbound_layers_names.append(inbound_layers.name)
 
-    def _parse_outbound_layers(self):
+    def _parse_output_layers(self):
         if len(self.layer.outbound_nodes) == 0:
             return
         for outbound_node in self.layer.outbound_nodes:
@@ -94,14 +69,14 @@ class Layer:
 
     def _get_siblings(self):
         siblings = set()
-        if len(self.inbound_layers) != 0:
-            for inbound_layer in self.inbound_layers:
-                for sibling in get_layer_outbound_layers(inbound_layer):
+        if len(self.input_layers) != 0:
+            for inbound_layer in self.input_layers:
+                for sibling in get_layer_output_layers(inbound_layer):
                     siblings.add(sibling)
 
-        if len(self.outbound_layers) != 0:
-            for outbound_layer in self.outbound_layers:
-                for sibling in get_layer_inbound_layers(outbound_layer):
+        if len(self.output_layers) != 0:
+            for outbound_layer in self.output_layers:
+                for sibling in get_layer_input_layers(outbound_layer):
                     siblings.add(sibling)
         print(f"Siblings of {self.name}: {siblings}")
         siblings = list(siblings)

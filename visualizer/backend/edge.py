@@ -1,8 +1,8 @@
-from tikz.base import TikzElement
+from visualizer.backend.base import TikzElement
 
 
 class Edge(TikzElement):
-    def __init__(self, from_node, to_node, label="", edge_style="default_edge", label_style="default_label"):
+    def __init__(self, from_node, to_node, label="", edge_style="defaultEdge", label_style="defaultLabel"):
         self.from_node = from_node
         self.to_node = to_node
         self.label = label

@@ -1,8 +1,7 @@
 import keras.layers
 
-from layers.layer import Layer
-from tikz.edges.edge import Edge
-from tikz.util.position import Position
+from visualizer.layers.layer import Layer
+from visualizer.backend.edge import Edge
 
 
 class TrainableLayer(Layer):
@@ -18,7 +17,7 @@ class TrainableLayer(Layer):
 
     def create_edges(self):
         edges = []
-        for inbound_layer in self.inbound_layers:
+        for inbound_layer in self.input_layers:
             edges.append(Edge(inbound_layer.name, self.name, format(self.num_params, ",d")))
         return edges
 

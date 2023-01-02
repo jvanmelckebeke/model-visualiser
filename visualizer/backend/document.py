@@ -1,4 +1,4 @@
-from tikz.base import TikzElement
+from visualizer.backend.base import TikzElement
 
 
 class Document:

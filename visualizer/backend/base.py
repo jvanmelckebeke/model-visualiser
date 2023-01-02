@@ -1,4 +1,4 @@
-from tools import generate_uuid
+from visualizer.util.tools import generate_uuid
 
 
 class TikzElement:
