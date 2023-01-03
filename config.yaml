@@ -4,15 +4,33 @@ default-flags: &default-node-flags
   - very thick
 default-options: &default-node-options
   "rectangle split parts": 5
-  draw: "pink!80"
-  fill: "pink!5"
+  draw: pink!80
+  fill: pink!5
   "minimum width": 5cm
   "outer sep": 0cm
+  "inner sep": 2pt
 
+default-style:
+  flags: *default-node-flags
+  options: *default-node-options
 
 styles:
-  - name: "defaultEdge"
-    description: "Default edge style"
+  - name: major_grid
+    description: Grid
+    style:
+      flags:
+        - black
+      options:
+        step: 20pt
+  - name: minor_grid
+    description: Grid
+    style:
+      flags:
+        - very thin
+      options:
+        step: 10pt
+  - name: defaultEdge
+    description: Default edge style
     style:
       flags:
         - thick
@@ -21,42 +39,42 @@ styles:
         in: 90
         "out distance": 2cm
         "in distance": 2cm
-  - name: "defaultLabel"
-    description: "Default label style"
+  - name: defaultLabel
+    description: Default label style
     style:
       flags:
         - auto
       options:
         pos: 0.65
-  - name: "OperationLayer_style"
-    description: "Style for the OperationLayer"
+  - name: OperationLayer_style
+    description: Style for the OperationLayer
     style:
       flags: *default-node-flags
       options:
         <<: *default-node-options
-        draw: "violet!80"
-        fill: "violet!5"
-  - name: "UtilityLayer_style"
-    description: "Style for the UtilityLayer"
+        draw: violet!80
+        fill: violet!5
+  - name: UtilityLayer_style
+    description: Style for the UtilityLayer
     style:
       flags: *default-node-flags
       options:
         <<: *default-node-options
-        draw: "gray!80"
-        fill: "gray!5"
+        draw: gray!80
+        fill: gray!5
   - name: TrainableLayer_style
-    description: "Style for the TrainableLayer"
+    description: Style for the TrainableLayer
     style:
       flags: *default-node-flags
       options:
         <<: *default-node-options
-        draw: "blue!80"
-        fill: "blue!5"
+        draw: blue!80
+        fill: blue!5
 
 
 layer-types:
   utility:
-    description: "Layers that may play a big role during training, but are not/minimally used during inference."
+    description: Layers that may play a big role during training, but are not/minimally used during inference.
     items:
       - Dropout
       - BatchNormalization
@@ -69,7 +87,7 @@ layer-types:
       - ActivityRegularization
       - Masking
   operation:
-    description: "Layers that perform an operation on the input. But do not have any trainable parameters themselves."
+    description: Layers that perform an operation on the input. But do not have any trainable parameters themselves.
     items:
       - Add
       - Subtract
@@ -85,8 +103,25 @@ dot:
     ratio: compress
     rankdir: TB
     splines: true
-    nodesep: 1
-    ranksep: 1
+    nodesep: 0.5
+    ranksep: 0.5
+    rank: min
+    concentrate: true
   node:
     shape: rectangle
     width: 1.5
+
+diagram:
+  text:
+    font-size: 10
+  coordinate-system:
+    x:
+      value: 30
+      unit: pt
+    y:
+      value: 30
+      unit: pt
+
+canvas:
+  width: 20
+  height: 60

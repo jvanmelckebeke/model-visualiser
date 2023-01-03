@@ -1,6 +1,6 @@
 import keras.layers
 
-from visualizer.layers.layer import Layer
+from visualizer.diagram.layers.layer import Layer
 from visualizer.backend.edge import Edge
 from visualizer.util.const import UTILITY_LAYER_TYPES
 
@@ -28,6 +28,6 @@ class TrainableLayer(Layer):
 
     def create_edges(self):
         edges = []
-        for inbound_layer in self.input_layers:
+        for inbound_layer in self.keras_input_layers:
             edges.append(Edge(inbound_layer.name, self.name, format(self.num_params, ",d")))
         return edges

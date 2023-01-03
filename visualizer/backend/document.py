@@ -1,3 +1,5 @@
+from typing import Iterable
+
 from visualizer.backend.base import TikzElement
 
 
@@ -26,7 +28,7 @@ class Document:
                "\\usepackage{tikz}\n" \
                "\\usetikzlibrary{positioning, shapes.multipart, calc, graphs, graphs.standard}\n" \
                "\\begin{document}\n" \
-               "\\begin{tikzpicture}\n" \
+               "\\begin{tikzpicture}[x=30pt, y=30pt]\n" \
                f"{self._styles_code}\n"
 
     def generate_footer(self):
@@ -36,7 +38,7 @@ class Document:
     def add_element(self, element: TikzElement):
         self.latex_elements.append(element)
 
-    def add_elements(self, elements: list[TikzElement]):
+    def add_elements(self, elements: Iterable[TikzElement]):
         self.latex_elements.extend(elements)
 
     def generate_code(self):

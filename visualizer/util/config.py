@@ -5,7 +5,7 @@ class Config:
     config = None
 
     @classmethod
-    def load_from_config(cls, *properties):
+    def load(cls, *properties):
         if cls.config is None:
             with open('config.yaml') as f:
                 cls.config = yaml.full_load(f)
@@ -15,8 +15,16 @@ class Config:
         return value
 
     @classmethod
+    def load_int(cls, *properties):
+        return int(cls.load(*properties))
+
+    @classmethod
+    def load_float(cls, *properties):
+        return float(cls.load(*properties))
+
+    @classmethod
     def load_dot_args(cls):
-        dot_config = cls.load_from_config('dot')
+        dot_config = cls.load('dot')
         dot_args = ""
 
         for arg_group, options in dot_config.items():
@@ -29,7 +37,7 @@ class Config:
     def load_styles(cls):
         from visualizer.backend.misc.style import TikzStyle
 
-        cfg_styles = cls.load_from_config('styles')
+        cfg_styles = cls.load('styles')
         styles = {}
         for item in cfg_styles:
             style = item['style']

@@ -1,7 +1,7 @@
 import keras.layers
 
 from visualizer.util.tools import str_shape
-from visualizer.backend.node import Node
+from visualizer.backend.node import Node, NodeGroup
 from visualizer.backend.misc.position import Position
 
 
@@ -34,8 +34,9 @@ class Layer:
 
     def __init__(self, layer: keras.layers.Layer):
         self.layer = layer
-        self.name = layer.name
-        self.type = layer.__class__.__name__
+        self.name: str = layer.name
+        self.type: str = layer.__class__.__name__
+        self.type_group: str = self.__class__.__name__
         self.position = Position()
 
         self.inbound_layers_names = []
@@ -54,11 +55,11 @@ class Layer:
         return trainable_params
 
     @property
-    def input_layers(self):
+    def keras_input_layers(self):
         return self.get_keras_input_layers(self.layer)
 
     @property
-    def output_layers(self):
+    def keras_output_layers(self):
         return self.get_keras_output_layers(self.layer)
 
     @property
@@ -89,13 +90,13 @@ class Layer:
 
     def _get_siblings(self):
         siblings = set()
-        if len(self.input_layers) != 0:
-            for inbound_layer in self.input_layers:
+        if len(self.keras_input_layers) != 0:
+            for inbound_layer in self.keras_input_layers:
                 for sibling in self.get_keras_output_layers(inbound_layer):
                     siblings.add(sibling)
 
-        if len(self.output_layers) != 0:
-            for outbound_layer in self.output_layers:
+        if len(self.keras_output_layers) != 0:
+            for outbound_layer in self.keras_output_layers:
                 for sibling in self.get_keras_input_layers(outbound_layer):
                     siblings.add(sibling)
         print(f"Siblings of {self.name}: {siblings}")
@@ -119,7 +120,7 @@ class Layer:
                     *self.layer_description,
                     node_style_name=self.get_style_name(),
                     position=position,
-                    depends_on=self.dependency_layers)
+                    depends_on=[])
 
     def create_edges(self):
         return []
@@ -129,3 +130,48 @@ class Layer:
 
     def __lt__(self, other):
         return self.sort_order < other.sort_order or (self.sort_order == other.sort_order and self.name < other.name)
+
+
+class LayerGroup:
+    def __init__(self, primary_layer: Layer, layer_before: Layer = None, layer_after: Layer = None, name: str = None):
+        if name is None:
+            name = f"{primary_layer.name}_group"
+        self.name = name
+        self.primary_layer = primary_layer
+        self.layer_before = layer_before
+        self.layer_after = layer_after
+
+        self.layers = [primary_layer, layer_before, layer_after]
+        self.layers = [l for l in self.layers if l is not None]
+
+    def create_node_group(self, position: Position = None):
+        return NodeGroup(self.primary_layer.create_node(position=position),
+                         node_before=self.layer_before.create_node() if self.layer_before is not None else None,
+                         node_after=self.layer_after.create_node() if self.layer_after is not None else None)
+
+    @property
+    def top_layer_name(self):
+        if self.layer_before is not None:
+            return self.layer_before.name
+        return self.primary_layer.name
+
+    @property
+    def bottom_layer_name(self):
+        if self.layer_after is not None:
+            return self.layer_after.name
+        return self.primary_layer.name
+
+    @property
+    def input_layers(self) -> list[str]:
+        if self.layer_before is None:
+            return [l.name for l in self.primary_layer.keras_input_layers]
+        return [l.name for l in self.layer_before.keras_input_layers]
+
+    @property
+    def output_layers(self) -> list[str]:
+        if self.layer_after is None:
+            return [l.name for l in self.primary_layer.keras_output_layers]
+        return [l.name for l in self.layer_after.keras_output_layers]
+
+    def contains_layer_name(self, name):
+        return any([l.name == name for l in self.layers])

@@ -28,3 +28,7 @@ def run_command(cmd):
     exit_code = os.system(cmd)
     if exit_code != 0:
         raise Exception("Error while running command: " + cmd)
+
+
+def pt_to_mm(pt):
+    return pt / 2.834645669

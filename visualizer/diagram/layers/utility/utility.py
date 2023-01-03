@@ -1,4 +1,4 @@
-from visualizer.layers.layer import Layer
+from visualizer.diagram.layers.layer import Layer
 from visualizer.backend.edge import Edge
 import keras.layers
 
@@ -16,6 +16,6 @@ class UtilityLayer(Layer):
     def create_edges(self):
         edges = []
 
-        for inbound_layer in self.input_layers:
+        for inbound_layer in self.keras_input_layers:
             edges.append(Edge(inbound_layer.name, self.name))
         return edges
