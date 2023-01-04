@@ -23,3 +23,157 @@ layer-types:
       - Minimum
       - Concatenate
       - Dot
+
+
+
+layer-content:
+  default:
+    - label: name
+      property: name
+      type: string
+  groups:
+    - name: Input
+      layers:
+        - InputLayer
+      content:
+        - label: input shape
+          property: batch_input_shape
+          type: shape
+    - name: Dense
+      layers:
+        - Dense
+      content:
+        - label: units
+          property: units
+          type: number
+        - label: activation
+          property: activation
+          type: string
+    - name: Convolution
+      layers:
+        - Conv1D
+        - Conv2D
+        - Conv3D
+        - Conv2DTranspose
+        - Conv3DTranspose
+        - SeparableConv1D
+        - SeparableConv2D
+        - Conv1DTranspose
+        - Conv2DTranspose
+        - Conv3DTranspose
+      content:
+        - label: filters
+          property: filters
+          type: number
+        - label: kernel
+          property: kernel_size
+          type: shape
+        - label: activation
+          property: activation
+          type: string
+    - name: Depthwise Convolution
+      layers:
+        - DepthwiseConv2D
+      content:
+        - label: kernel
+          property: kernel_size
+          type: shape
+        - label: depth multiplier
+          property: depth_multiplier
+          type: number
+        - label: activation
+          property: activation
+          type: string
+    - name: Pooling
+      layers:
+        - MaxPooling1D
+        - MaxPooling2D
+        - MaxPooling3D
+        - AveragePooling1D
+        - AveragePooling2D
+        - AveragePooling3D
+      content:
+        - label: pool
+          property: pool_size
+          type: shape
+
+    - name: Global Pooling
+      layers:
+        - GlobalMaxPooling1D
+        - GlobalAveragePooling1D
+        - GlobalMaxPooling2D
+        - GlobalAveragePooling2D
+        - GlobalMaxPooling3D
+        - GlobalAveragePooling3D
+      content:
+        -
+
+    - name: Activation
+      layers:
+        - ReLU
+        - LeakyReLU
+        - ELU
+      content:
+        -
+    - name: Dropout
+      layers:
+        - Dropout
+        - SpatialDropout1D
+        - SpatialDropout2D
+        - SpatialDropout3D
+        - GaussianNoise
+        - GaussianDropout
+        - AlphaDropout
+      content:
+        - label: rate
+          property: rate
+          type: float
+    - name: BatchNormalization
+      layers:
+        - BatchNormalization
+      content:
+        -
+    - name: Embedding
+      layers:
+        - Embedding
+      content:
+        - label: input dim
+          property: input_dim
+          type: int
+        - label: output dim
+          property: output_dim
+          type: int
+        - label: input length
+          property: input_length
+          type: int
+    - name: Recurrent
+      layers:
+        - SimpleRNN
+        - GRU
+        - LSTM
+        - ConvLSTM2D
+        - SimpleRNNCell
+        - GRUCell
+        - LSTMCell
+        - CuDNNGRU
+        - CuDNNLSTM
+      content:
+        - label: units
+          property: units
+          type: int
+        - label: dropout
+          property: dropout
+          type: float
+        - label: return sequences
+          property: return_sequences
+          type: boolean
+
+    - name: Padding
+      layers:
+        - ZeroPadding1D
+        - ZeroPadding2D
+        - ZeroPadding3D
+      content:
+        - label: padding
+          property: padding
+          type: shape

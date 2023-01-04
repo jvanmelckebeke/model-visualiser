@@ -34,7 +34,7 @@ class Node(TikzElement):
     def generate_description_code(self):
         text = ""
         description_parts = [str(part) for part in self.description_parts]
-        description_parts.append(self.internal_name)
+        # description_parts.append(self.internal_name)
         for i, part in enumerate(description_parts):
             part = part.replace("_", r"\_")
             part_number = self.inflector.number_to_words(i + 1)

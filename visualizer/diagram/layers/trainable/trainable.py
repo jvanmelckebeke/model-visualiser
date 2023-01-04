@@ -2,7 +2,9 @@ import keras.layers
 
 from visualizer.diagram.layers.layer import Layer
 from visualizer.backend.edge import Edge
+from visualizer.util.config import LayerConfig
 from visualizer.util.const import UTILITY_LAYER_TYPES
+from visualizer.util.tools import str_shape
 
 
 class TrainableLayer(Layer):
@@ -21,10 +23,6 @@ class TrainableLayer(Layer):
     def __init__(self, layer: keras.layers.Layer):
         self.num_params = layer.count_params()
         super().__init__(layer)
-
-    @property
-    def layer_description(self) -> tuple:
-        return self.type, f"input shape: {self.input_shape}", f"output shape: {self.output_shape}"
 
     def create_edges(self):
         edges = []

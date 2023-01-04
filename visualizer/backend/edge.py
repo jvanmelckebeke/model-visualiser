@@ -18,7 +18,7 @@ class Edge(TikzElement):
 
     def to_code(self):
         out = f"% edge from {self.from_node} to {self.to_node}\n"
-        style_str = f"->, {self.edge_style}"
+        style_str = f"-Stealth, {self.edge_style}"
         if self.extra_style is not None:
             style_str += f", {self.extra_style.to_code()}"
         out += rf"\draw[{style_str}] ({self.from_node}) " \

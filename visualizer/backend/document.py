@@ -38,7 +38,7 @@ class Document:
         return "\\documentclass{standalone}\n" \
                "\\usepackage{xcolor}\n" \
                "\\usepackage{tikz}\n" \
-               "\\usetikzlibrary{positioning, shapes.multipart, calc, graphs, graphs.standard}\n" \
+               "\\usetikzlibrary{positioning, shapes.multipart, calc, graphs, graphs.standard, arrows.meta}\n" \
                "\\begin{document}\n" \
                F"\\begin{{tikzpicture}}[x={x_scale}, y={y_scale}, scale={scale_value}]\n" \
                f"{self._styles_code}\n"

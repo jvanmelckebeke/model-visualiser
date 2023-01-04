@@ -1,3 +1,6 @@
+import json
+
+import keras.applications
 from keras.models import load_model
 
 from visualizer.backend.diagram import Diagram
@@ -17,33 +20,30 @@ def create_pdf(document: Document):
     # run_command('pdf2svg out/generated_graph.pdf out/generated_graph.svg')
 
 
-def create_grids():
-    width = Config.load_float('canvas', 'width')
-    height = Config.load_float('canvas', 'height')
-    major_grid = Grid(to_x=width, to_y=height, grid_style_name='major_grid')
-    minor_grid = Grid(to_x=width, to_y=height, grid_style_name='minor_grid')
+def visualize(model):
+    print(model.get_config())
+    input_layer = model.get_layer(name=model.inputs[0].name)
+    output_layer = model.get_layer(index=-1)
+    diagram_graph = DiagramGraph(input_layer, output_layer)
 
-    return [major_grid, minor_grid]
+    document = Document()
+    diagram = Diagram()
+    document.add_styles(StyleConfig.load_styles())
+
+    # document.add_elements(create_grids())
+
+    utility_layers_done = set()
+
+    for node in diagram_graph.create_nodes():
+        diagram.add_node(node)
+    diagram.add_edges(diagram_graph.create_edges())
+
+    document.add_element(diagram)
+
+    # model.summary(line_length=222)
+    create_pdf(document)
 
 
-model = load_model("model.h5")
-input_layer = model.get_layer(name=model.inputs[0].name)
-output_layer = model.get_layer(index=-1)
-diagram_graph = DiagramGraph(input_layer, output_layer)
-
-document = Document()
-diagram = Diagram()
-document.add_styles(StyleConfig.load_styles())
-
-# document.add_elements(create_grids())
-
-utility_layers_done = set()
-
-for node in diagram_graph.create_nodes():
-    diagram.add_node(node)
-diagram.add_edges(diagram_graph.create_edges())
-
-document.add_element(diagram)
-
-# model.summary(line_length=222)
-create_pdf(document)
+# model = load_model('model.h5')
+model = keras.applications.MobileNetV2(weights=None)
+visualize(model)

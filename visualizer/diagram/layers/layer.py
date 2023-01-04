@@ -1,5 +1,6 @@
 import keras.layers
 
+from visualizer.util.config import LayerConfig
 from visualizer.util.tools import str_shape
 from visualizer.backend.node import Node
 from visualizer.backend.misc.position import Position
@@ -112,7 +113,39 @@ class Layer:
 
     @property
     def layer_description(self) -> tuple:
-        return self.type, f"output_shape: {self.output_shape}"
+        layer_type = self.type
+        layer = self.layer
+
+        content_lst = [self.type]
+        if self.type == "Bidirectional":
+            layer_type = self.layer.layer.__class__.__name__
+            layer = self.layer.layer
+            content_lst = [f"{self.type}({layer_type})"]
+
+        layer_content_config = LayerConfig.load_layer_content(layer_type)
+
+        for content_config in layer_content_config:
+            if content_config is None:
+                continue
+
+            content_label = content_config['label']
+            content_prop = content_config['property']
+            content_type = content_config['type']
+
+            content_value = layer.get_config()
+            for prop in content_prop.split('.'):
+                content_value = content_value[prop]
+
+            if content_type == 'int':
+                content_value = format(content_value, ",d")
+            elif content_type == 'float':
+                content_value = format(content_value, ".2f")
+            elif content_type == 'shape':
+                content_value = str_shape(content_value)
+
+            content_lst.append(f"{content_label}: {content_value}")
+
+        return tuple(content_lst)
 
     def create_node(self, position: Position = None):
 

@@ -9,10 +9,6 @@ class UtilityLayer(Layer):
     def __init__(self, layer: keras.layers.Layer):
         super().__init__(layer)
 
-    @property
-    def layer_description(self) -> tuple:
-        return self.type,
-
     def create_edges(self):
         edges = []
 
