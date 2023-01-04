@@ -1,14 +1,11 @@
-import inflect
 from visualizer.backend.base import TikzElement
 from visualizer.backend.misc.position import Position
 from visualizer.backend.node import Node
 
-p = inflect.engine()
-
 DEBUG_OFFSET = 0
 
-
 class NodeGroup(TikzElement):
+
     def __init__(self, primary_node: Node, node_before: Node = None, node_after: Node = None, name=None):
         if name is None:
             name = primary_node.name + "_group"

@@ -9,7 +9,7 @@ from visualizer.diagram.layers.layer_group import LayerGroup
 from visualizer.diagram.layers.operation.operation import OperationLayer
 from visualizer.diagram.layers.trainable.trainable import TrainableLayer
 from visualizer.diagram.layers.utility.utility import UtilityLayer
-from visualizer.util.config import Config
+from visualizer.util.config import Config, DotConfig
 from visualizer.util.const import UTILITY_LAYER_TYPES, OPERATION_LAYER_TYPES
 
 
@@ -95,7 +95,7 @@ class DiagramGraph:
 
     def _build_graph(self):
         self.graph = nx.from_dict_of_lists(self.group_child_list, create_using=nx.DiGraph)
-        self.positions = nx.nx_agraph.graphviz_layout(self.graph, prog='dot', args=Config.load_dot_args())
+        self.positions = nx.nx_agraph.graphviz_layout(self.graph, prog='dot', args=DotConfig.load_dot_args())
         nx.nx_agraph.write_dot(self.graph, 'graph.dot')
         # scale positions to fit in the canvas
         min_x = min([pos[0] for pos in self.positions.values()])

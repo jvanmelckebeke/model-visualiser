@@ -5,12 +5,12 @@ from visualizer.util.const import FONT_SIZE, INNER_SEP, SCALE_Y
 
 from visualizer.util.tools import INDENT_STR
 
-p = inflect.engine()
-
 DEBUG_OFFSET = 0
 
 
 class Node(TikzElement):
+    inflector = inflect.engine()
+
     def __init__(self, name, *args, node_style_name="default_node",
                  position: Position = None, depends_on=None):
         self.name = name
@@ -26,7 +26,7 @@ class Node(TikzElement):
 
     @property
     def height(self):
-        return ((float(INNER_SEP + FONT_SIZE) * (len(self.description_parts))) - INNER_SEP*2 ) / SCALE_Y
+        return ((float(INNER_SEP + FONT_SIZE) * (len(self.description_parts))) - INNER_SEP * 2) / SCALE_Y
 
     def draw(self):
         return self.to_code()
@@ -37,8 +37,9 @@ class Node(TikzElement):
         description_parts.append(self.internal_name)
         for i, part in enumerate(description_parts):
             part = part.replace("_", r"\_")
+            part_number = self.inflector.number_to_words(i + 1)
             text += "\n" + INDENT_STR
-            text += fr"\nodepart{{{p.number_to_words(i + 1)}}}{{{part}}}"
+            text += fr"\nodepart{{{part_number}}}{{{part}}}"
         return text
 
     def to_code(self):

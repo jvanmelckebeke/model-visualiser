@@ -1,0 +1,25 @@
+layer-types:
+  utility:
+    description: Layers that may play a big role during training, but are not/minimally used during inference.
+    items:
+      - Dropout
+      - BatchNormalization
+      - SpatialDropout1D
+      - SpatialDropout2D
+      - SpatialDropout3D
+      - GaussianNoise
+      - GaussianDropout
+      - AlphaDropout
+      - ActivityRegularization
+      - Masking
+  operation:
+    description: Layers that perform an operation on the input. But do not have any trainable parameters themselves.
+    items:
+      - Add
+      - Subtract
+      - Multiply
+      - Average
+      - Maximum
+      - Minimum
+      - Concatenate
+      - Dot

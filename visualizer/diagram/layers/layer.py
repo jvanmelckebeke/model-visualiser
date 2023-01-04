@@ -2,7 +2,6 @@ import keras.layers
 
 from visualizer.util.tools import str_shape
 from visualizer.backend.node import Node
-from visualizer.backend.node_group import NodeGroup
 from visualizer.backend.misc.position import Position
 
 

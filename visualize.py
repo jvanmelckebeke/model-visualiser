@@ -4,7 +4,7 @@ from visualizer.backend.diagram import Diagram
 from visualizer.backend.document import Document
 from visualizer.backend.misc.grid import Grid
 from visualizer.diagram.diagram_graph import DiagramGraph
-from visualizer.util.config import Config
+from visualizer.util.config import Config, StyleConfig
 from visualizer.util.tools import run_command
 
 
@@ -20,8 +20,8 @@ def create_pdf(document: Document):
 def create_grids():
     width = Config.load_float('canvas', 'width')
     height = Config.load_float('canvas', 'height')
-    major_grid = Grid(to_x=1, to_y=1, grid_style_name='major_grid')
-    minor_grid = Grid(to_x=1, to_y=1, grid_style_name='minor_grid')
+    major_grid = Grid(to_x=width, to_y=height, grid_style_name='major_grid')
+    minor_grid = Grid(to_x=width, to_y=height, grid_style_name='minor_grid')
 
     return [major_grid, minor_grid]
 
@@ -33,7 +33,7 @@ diagram_graph = DiagramGraph(input_layer, output_layer)
 
 document = Document()
 diagram = Diagram()
-document.add_styles(Config.load_styles())
+document.add_styles(StyleConfig.load_styles())
 
 # document.add_elements(create_grids())
 
