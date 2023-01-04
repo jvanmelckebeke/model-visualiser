@@ -46,7 +46,7 @@ styles:
       flags:
         - auto
       options:
-        pos: 0.5
+        anchor: south west
   - name: OperationLayer_style
     description: Style for the OperationLayer
     style:

@@ -34,6 +34,12 @@ class TikzOptions(TikzElement):
         self.options.extend([TikzArg(key, value) for key, value in kwargs.items()])
         super().__init__(generate_uuid(), depends_on=None)
 
+    def add_option(self, key, value):
+        self.options.append(TikzArg(key, value))
+
+    def add_flag(self, flag):
+        self.options.append(TikzArg(flag))
+
     def to_code(self):
         return str(self)
 

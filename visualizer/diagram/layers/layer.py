@@ -99,7 +99,7 @@ class Layer:
             for outbound_layer in self.keras_output_layers:
                 for sibling in self.get_keras_input_layers(outbound_layer):
                     siblings.add(sibling)
-        print(f"Siblings of {self.name}: {siblings}")
+        # print(f"Siblings of {self.name}: {siblings}")
         siblings = list(siblings)
         siblings.sort(key=lambda x: x.name)
         return [sibling.name for sibling in siblings]

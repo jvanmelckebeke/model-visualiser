@@ -59,7 +59,7 @@ class NodeGroup(TikzElement):
     def to_code(self):
         code = f"% node group: {self.name}\n"
         self.reposition_nodes()
-        print(self)
+        # print(self)
         if self.node_before is not None:
             code += self.node_before.draw()
 
