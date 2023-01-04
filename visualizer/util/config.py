@@ -23,6 +23,10 @@ class Config:
         return float(cls.load(*properties))
 
     @classmethod
+    def load_str(cls, *properties):
+        return str(cls.load(*properties))
+
+    @classmethod
     def load_dot_args(cls):
         dot_config = cls.load('dot')
         dot_args = ""

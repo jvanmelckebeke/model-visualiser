@@ -3,7 +3,7 @@ from keras.models import load_model
 from visualizer.backend.diagram import Diagram
 from visualizer.backend.document import Document
 from visualizer.backend.misc.grid import Grid
-from visualizer.diagram.diagramgraph import DiagramGraph
+from visualizer.diagram.diagram_graph import DiagramGraph
 from visualizer.util.config import Config
 from visualizer.util.tools import run_command
 

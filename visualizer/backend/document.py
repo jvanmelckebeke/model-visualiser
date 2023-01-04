@@ -1,6 +1,7 @@
 from typing import Iterable
 
 from visualizer.backend.base import TikzElement
+from visualizer.util.config import Config
 
 
 class Document:
@@ -23,12 +24,23 @@ class Document:
         return out
 
     def generate_header(self):
+        x_scale_value = Config.load_float('diagram', 'coordinate-system', 'x', 'value')
+        x_scale_unit = Config.load_str('diagram', 'coordinate-system', 'x', 'unit')
+
+        y_scale_value = Config.load_float('diagram', 'coordinate-system', 'y', 'value')
+        y_scale_unit = Config.load_str('diagram', 'coordinate-system', 'y', 'unit')
+
+        scale_value = Config.load_float('diagram', 'coordinate-system', 'scale')
+
+        x_scale = f"{x_scale_value}{x_scale_unit}"
+        y_scale = f"{y_scale_value}{y_scale_unit}"
+
         return "\\documentclass{standalone}\n" \
                "\\usepackage{xcolor}\n" \
                "\\usepackage{tikz}\n" \
                "\\usetikzlibrary{positioning, shapes.multipart, calc, graphs, graphs.standard}\n" \
                "\\begin{document}\n" \
-               "\\begin{tikzpicture}[x=30pt, y=30pt]\n" \
+               F"\\begin{{tikzpicture}}[x={x_scale}, y={y_scale}, scale={scale_value}]\n" \
                f"{self._styles_code}\n"
 
     def generate_footer(self):

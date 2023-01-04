@@ -1,12 +1,11 @@
-import json
-
 import keras.layers
 import networkx as nx
 
 from visualizer.backend.edge import Edge
 from visualizer.backend.misc.position import Position
-from visualizer.backend.node import NodeGroup
-from visualizer.diagram.layers.layer import Layer, LayerGroup
+from visualizer.diagram.layers.layer import Layer
+from visualizer.diagram.layers.layer_group import LayerGroup
+
 from visualizer.diagram.layers.operation.operation import OperationLayer
 from visualizer.diagram.layers.trainable.trainable import TrainableLayer
 from visualizer.diagram.layers.utility.utility import UtilityLayer
@@ -95,9 +94,9 @@ class DiagramGraph:
         self.group_parent_list = group_parent_list
 
     def _build_graph(self):
-        self.graph = nx.from_dict_of_lists(self.group_child_list)
+        self.graph = nx.from_dict_of_lists(self.group_child_list, create_using=nx.DiGraph)
         self.positions = nx.nx_agraph.graphviz_layout(self.graph, prog='dot', args=Config.load_dot_args())
-
+        nx.nx_agraph.write_dot(self.graph, 'graph.dot')
         # scale positions to fit in the canvas
         min_x = min([pos[0] for pos in self.positions.values()])
         min_y = min([pos[1] for pos in self.positions.values()])
@@ -110,6 +109,10 @@ class DiagramGraph:
         for group_name, pos in self.positions.items():
             new_x = (pos[0] - min_x) / (max_x - min_x) * canvas_width if max_x != min_x else 0
             new_y = (pos[1] - min_y) / (max_y - min_y) * canvas_height if max_y != min_y else 0
+
+            new_x = round(new_x, 2)
+            new_y = round(new_y, 2)
+
             self.positions[group_name] = Position(new_x, new_y)
 
     def _build_layer_groups(self):
