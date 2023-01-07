@@ -1,7 +1,7 @@
 layer-types:
-  utility:
+  - name: utility
     description: Layers that may play a big role during training, but are not/minimally used during inference.
-    items:
+    layers:
       - Dropout
       - BatchNormalization
       - SpatialDropout1D
@@ -12,9 +12,9 @@ layer-types:
       - AlphaDropout
       - ActivityRegularization
       - Masking
-  operation:
+  - name: operation
     description: Layers that perform an operation on the input. But do not have any trainable parameters themselves.
-    items:
+    layers:
       - Add
       - Subtract
       - Multiply
@@ -23,7 +23,25 @@ layer-types:
       - Minimum
       - Concatenate
       - Dot
-
+  - name: pool
+    description: Layers that reduce the dimensionality of the input.
+    layers:
+      - MaxPooling1D
+      - MaxPooling2D
+      - MaxPooling3D
+      - AveragePooling1D
+      - AveragePooling2D
+      - AveragePooling3D
+      - GlobalMaxPooling1D
+      - GlobalAveragePooling1D
+      - GlobalMaxPooling2D
+      - GlobalAveragePooling2D
+      - GlobalMaxPooling3D
+      - GlobalAveragePooling3D
+  - name: misc
+    description: Layers that do not fit into any other category.
+    layers:
+      - Activation
 
 
 layer-content:
@@ -96,6 +114,9 @@ layer-content:
         - label: pool
           property: pool_size
           type: shape
+        - label: output shape
+          property: output_shape
+          type: shape
 
     - name: Global Pooling
       layers:
@@ -106,9 +127,17 @@ layer-content:
         - GlobalMaxPooling3D
         - GlobalAveragePooling3D
       content:
-        -
-
+        - label: output shape
+          property: output_shape
+          type: shape
     - name: Activation
+      layers:
+        - Activation
+      content:
+        - label: activation
+          property: activation
+          type: string
+    - name: Activation Functions
       layers:
         - ReLU
         - LeakyReLU
@@ -176,4 +205,21 @@ layer-content:
       content:
         - label: padding
           property: padding
+          type: shape
+        - label: input shape
+          property: input_shape
+          type: shape
+        - label: output shape
+          property: output_shape
+          type: shape
+    - name: Operation
+      layers:
+        - Add
+        - Subtract
+        - Multiply
+        - Average
+        - Concatenate
+      content:
+        - label: output shape
+          property: output_shape
           type: shape

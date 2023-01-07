@@ -44,6 +44,6 @@ def visualize(model):
     create_pdf(document)
 
 
-# model = load_model('model.h5')
-model = keras.applications.MobileNetV2(weights=None)
+model = load_model('model.h5')
+# model = keras.applications.Xception(weights=None)
 visualize(model)

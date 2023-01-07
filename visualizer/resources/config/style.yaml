@@ -47,27 +47,43 @@ styles:
         - auto
       options:
         anchor: south west
-  - name: OperationLayer_style
-    description: Style for the OperationLayer
+  - name: operation_layer_style
+    description: Style for operation layers
     style:
       flags: *default-node-flags
       options:
         <<: *default-node-options
         draw: violet!80
         fill: violet!5
-  - name: UtilityLayer_style
-    description: Style for the UtilityLayer
+  - name: pool_layer_style
+    description: Style for pooling layers
+    style:
+      flags: *default-node-flags
+      options:
+        <<: *default-node-options
+        draw: brown!80
+        fill: brown!5
+  - name: utility_layer_style
+    description: Style for utility layers
     style:
       flags: *default-node-flags
       options:
         <<: *default-node-options
         draw: gray!80
         fill: gray!5
-  - name: TrainableLayer_style
-    description: Style for the TrainableLayer
+  - name: default_layer_style
+    description: Style for the default layers (probably training layers)
     style:
       flags: *default-node-flags
       options:
         <<: *default-node-options
         draw: blue!80
         fill: blue!5
+  - name: misc_layer_style
+    description: Style for the misc layers
+    style:
+      flags: *default-node-flags
+      options:
+        <<: *default-node-options
+        draw: teal!80
+        fill: teal!5

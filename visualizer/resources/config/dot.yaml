@@ -5,7 +5,7 @@ dot:
     splines: true
     nodesep: 0.2
     ranksep: 1
-    size: "50,50"
+    size: "100,100"
   node:
     shape: rectangle
     width: 1.5

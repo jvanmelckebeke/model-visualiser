@@ -1,4 +1,7 @@
 diagram:
+  color:
+    colormap: OrRd
+    divisions: 7
   text:
     font-size: 10
   coordinate-system:
@@ -11,5 +14,5 @@ diagram:
     scale: 2
 
 canvas:
-  width: 20
-  height: 400
+  width: 50
+  height: 100

@@ -12,1449 +12,522 @@
 \tikzstyle{defaultEdge}=[thick,out=-90,in=90,out distance=1.5cm,in distance=1.5cm,looseness=1.5]
 % style: defaultLabel
 \tikzstyle{defaultLabel}=[auto,anchor=south west]
-% style: OperationLayer_style
-\tikzstyle{OperationLayer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=violet!80,fill=violet!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
-% style: UtilityLayer_style
-\tikzstyle{UtilityLayer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=gray!80,fill=gray!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
-% style: TrainableLayer_style
-\tikzstyle{TrainableLayer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=blue!80,fill=blue!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
+% style: operation_layer_style
+\tikzstyle{operation_layer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=violet!80,fill=violet!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
+% style: pool_layer_style
+\tikzstyle{pool_layer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=brown!80,fill=brown!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
+% style: utility_layer_style
+\tikzstyle{utility_layer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=gray!80,fill=gray!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
+% style: default_layer_style
+\tikzstyle{default_layer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=blue!80,fill=blue!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
+% style: misc_layer_style
+\tikzstyle{misc_layer_style}=[rectangle split,rectangle split ignore empty parts,very thick,rectangle split parts=5,draw=teal!80,fill=teal!5,minimum width=4cm,outer sep=0cm,inner sep=2pt]
 
+\definecolor{COLOR0}{RGB}{253,231,199}
+\definecolor{COLOR1}{RGB}{253,211,157}
+\definecolor{COLOR2}{RGB}{252,186,131}
+\definecolor{COLOR3}{RGB}{251,140,88}
+\definecolor{COLOR4}{RGB}{238,99,71}
+\definecolor{COLOR5}{RGB}{214,46,30}
+\definecolor{COLOR6}{RGB}{177,0,0}
 % node group: input_1_group
 % node: input_1
-\node[TrainableLayer_style] (input_1) at (20.0, 400.0)
+\node[default_layer_style] (input_1) at (23.99, 100.0)
     {
     \nodepart{one}{InputLayer}
-    \nodepart{two}{input shape: (224, 224, 3)}};
+    \nodepart{two}{input shape: 256}};
 % end of node group: input_1_group
 
-% node group: Conv1_group
-% node: bn_Conv1
-\node[UtilityLayer_style] (bn_Conv1) at (20.0, 395.05)
+% node group: b_1_group
+% node: batch_normalization_3
+\node[utility_layer_style] (batch_normalization_3) at (15.4, 94.13)
     {
     \nodepart{one}{BatchNormalization}};
-% node: Conv1
-\node[TrainableLayer_style] (Conv1) at (20.0, 396.12)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 32}
-    \nodepart{three}{kernel: (3, 3)}
-    \nodepart{four}{activation: linear}};
-% end of node group: Conv1_group
-
-% node group: Conv1_relu_group
-% node: Conv1_relu
-\node[TrainableLayer_style] (Conv1_relu) at (20.0, 392.23)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: Conv1_relu_group
-
-% node group: expanded_conv_depthwise_group
-% node: expanded_conv_depthwise_BN
-\node[UtilityLayer_style] (expanded_conv_depthwise_BN) at (20.0, 387.28)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: expanded_conv_depthwise
-\node[TrainableLayer_style] (expanded_conv_depthwise) at (20.0, 388.35)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: expanded_conv_depthwise_group
-
-% node group: expanded_conv_depthwise_relu_group
-% node: expanded_conv_depthwise_relu
-\node[TrainableLayer_style] (expanded_conv_depthwise_relu) at (20.0, 384.47)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: expanded_conv_depthwise_relu_group
-
-% node group: expanded_conv_project_group
-% node: expanded_conv_project_BN
-\node[UtilityLayer_style] (expanded_conv_project_BN) at (20.0, 379.51)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: expanded_conv_project
-\node[TrainableLayer_style] (expanded_conv_project) at (20.0, 380.58)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 16}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: expanded_conv_project_group
-
-% node group: block_1_expand_group
-% node: block_1_expand_BN
-\node[UtilityLayer_style] (block_1_expand_BN) at (20.0, 375.63)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_1_expand
-\node[TrainableLayer_style] (block_1_expand) at (20.0, 376.7)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 96}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_1_expand_group
-
-% node group: block_1_expand_relu_group
-% node: block_1_expand_relu
-\node[TrainableLayer_style] (block_1_expand_relu) at (20.0, 372.82)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_1_expand_relu_group
-
-% node group: block_1_pad_group
-% node: block_1_pad
-\node[TrainableLayer_style] (block_1_pad) at (20.0, 368.93)
-    {
-    \nodepart{one}{ZeroPadding2D}
-    \nodepart{two}{padding: ((0, 1), (0, 1))}};
-% end of node group: block_1_pad_group
-
-% node group: block_1_depthwise_group
-% node: block_1_depthwise_BN
-\node[UtilityLayer_style] (block_1_depthwise_BN) at (20.0, 363.98)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_1_depthwise
-\node[TrainableLayer_style] (block_1_depthwise) at (20.0, 365.05)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_1_depthwise_group
-
-% node group: block_1_depthwise_relu_group
-% node: block_1_depthwise_relu
-\node[TrainableLayer_style] (block_1_depthwise_relu) at (20.0, 361.17)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_1_depthwise_relu_group
-
-% node group: block_1_project_group
-% node: block_1_project_BN
-\node[UtilityLayer_style] (block_1_project_BN) at (20.0, 356.21)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_1_project
-\node[TrainableLayer_style] (block_1_project) at (20.0, 357.28)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 24}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_1_project_group
-
-% node group: block_2_expand_group
-% node: block_2_expand_BN
-\node[UtilityLayer_style] (block_2_expand_BN) at (0.0, 352.33)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_2_expand
-\node[TrainableLayer_style] (block_2_expand) at (0.0, 353.4)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 144}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_2_expand_group
-
-% node group: block_2_add_group
-% node: block_2_add
-\node[OperationLayer_style] (block_2_add) at (20.0, 333.98)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_2_add_group
-
-% node group: block_3_expand_group
-% node: block_3_expand_BN
-\node[UtilityLayer_style] (block_3_expand_BN) at (20.0, 329.03)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_3_expand
-\node[TrainableLayer_style] (block_3_expand) at (20.0, 330.1)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 144}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_3_expand_group
-
-% node group: block_2_expand_relu_group
-% node: block_2_expand_relu
-\node[TrainableLayer_style] (block_2_expand_relu) at (0.0, 349.51)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_2_expand_relu_group
-
-% node group: block_2_depthwise_group
-% node: block_2_depthwise_BN
-\node[UtilityLayer_style] (block_2_depthwise_BN) at (0.0, 344.56)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_2_depthwise
-\node[TrainableLayer_style] (block_2_depthwise) at (0.0, 345.63)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_2_depthwise_group
-
-% node group: block_3_expand_relu_group
-% node: block_3_expand_relu
-\node[TrainableLayer_style] (block_3_expand_relu) at (20.0, 326.21)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_3_expand_relu_group
-
-% node group: block_3_pad_group
-% node: block_3_pad
-\node[TrainableLayer_style] (block_3_pad) at (20.0, 322.33)
-    {
-    \nodepart{one}{ZeroPadding2D}
-    \nodepart{two}{padding: ((0, 1), (0, 1))}};
-% end of node group: block_3_pad_group
-
-% node group: block_2_depthwise_relu_group
-% node: block_2_depthwise_relu
-\node[TrainableLayer_style] (block_2_depthwise_relu) at (0.0, 341.75)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_2_depthwise_relu_group
-
-% node group: block_3_depthwise_group
-% node: block_3_depthwise_BN
-\node[UtilityLayer_style] (block_3_depthwise_BN) at (20.0, 317.38)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_3_depthwise
-\node[TrainableLayer_style] (block_3_depthwise) at (20.0, 318.45)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_3_depthwise_group
-
-% node group: block_2_project_group
-% node: block_2_project_BN
-\node[UtilityLayer_style] (block_2_project_BN) at (0.0, 336.79)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_2_project
-\node[TrainableLayer_style] (block_2_project) at (0.0, 337.86)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 24}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_2_project_group
-
-% node group: block_3_depthwise_relu_group
-% node: block_3_depthwise_relu
-\node[TrainableLayer_style] (block_3_depthwise_relu) at (20.0, 314.56)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_3_depthwise_relu_group
-
-% node group: block_3_project_group
-% node: block_3_project_BN
-\node[UtilityLayer_style] (block_3_project_BN) at (20.0, 309.61)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_3_project
-\node[TrainableLayer_style] (block_3_project) at (20.0, 310.68)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 32}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_3_project_group
-
-% node group: block_4_expand_group
-% node: block_4_expand_BN
-\node[UtilityLayer_style] (block_4_expand_BN) at (0.0, 305.73)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_4_expand
-\node[TrainableLayer_style] (block_4_expand) at (0.0, 306.8)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 192}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_4_expand_group
-
-% node group: block_4_add_group
-% node: block_4_add
-\node[OperationLayer_style] (block_4_add) at (20.0, 287.38)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_4_add_group
-
-% node group: block_5_expand_group
-% node: block_5_expand_BN
-\node[UtilityLayer_style] (block_5_expand_BN) at (0.0, 282.43)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_5_expand
-\node[TrainableLayer_style] (block_5_expand) at (0.0, 283.5)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 192}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_5_expand_group
-
-% node group: block_5_add_group
-% node: block_5_add
-\node[OperationLayer_style] (block_5_add) at (20.0, 264.08)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_5_add_group
-
-% node group: block_4_expand_relu_group
-% node: block_4_expand_relu
-\node[TrainableLayer_style] (block_4_expand_relu) at (0.0, 302.91)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_4_expand_relu_group
-
-% node group: block_6_expand_group
-% node: block_6_expand_BN
-\node[UtilityLayer_style] (block_6_expand_BN) at (20.0, 259.12)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_6_expand
-\node[TrainableLayer_style] (block_6_expand) at (20.0, 260.19)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 192}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_6_expand_group
-
-% node group: block_4_depthwise_group
-% node: block_4_depthwise_BN
-\node[UtilityLayer_style] (block_4_depthwise_BN) at (0.0, 297.96)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_4_depthwise
-\node[TrainableLayer_style] (block_4_depthwise) at (0.0, 299.03)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_4_depthwise_group
-
-% node group: block_5_expand_relu_group
-% node: block_5_expand_relu
-\node[TrainableLayer_style] (block_5_expand_relu) at (0.0, 279.61)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_5_expand_relu_group
-
-% node group: block_5_depthwise_group
-% node: block_5_depthwise_BN
-\node[UtilityLayer_style] (block_5_depthwise_BN) at (0.0, 274.66)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_5_depthwise
-\node[TrainableLayer_style] (block_5_depthwise) at (0.0, 275.73)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_5_depthwise_group
-
-% node group: block_6_expand_relu_group
-% node: block_6_expand_relu
-\node[TrainableLayer_style] (block_6_expand_relu) at (20.0, 256.31)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_6_expand_relu_group
-
-% node group: block_4_depthwise_relu_group
-% node: block_4_depthwise_relu
-\node[TrainableLayer_style] (block_4_depthwise_relu) at (0.0, 295.15)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_4_depthwise_relu_group
-
-% node group: block_6_pad_group
-% node: block_6_pad
-\node[TrainableLayer_style] (block_6_pad) at (20.0, 252.43)
-    {
-    \nodepart{one}{ZeroPadding2D}
-    \nodepart{two}{padding: ((0, 1), (0, 1))}};
-% end of node group: block_6_pad_group
-
-% node group: block_4_project_group
-% node: block_4_project_BN
-\node[UtilityLayer_style] (block_4_project_BN) at (0.0, 290.19)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_4_project
-\node[TrainableLayer_style] (block_4_project) at (0.0, 291.26)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 32}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_4_project_group
-
-% node group: block_5_depthwise_relu_group
-% node: block_5_depthwise_relu
-\node[TrainableLayer_style] (block_5_depthwise_relu) at (0.0, 271.84)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_5_depthwise_relu_group
-
-% node group: block_6_depthwise_group
-% node: block_6_depthwise_BN
-\node[UtilityLayer_style] (block_6_depthwise_BN) at (20.0, 247.47)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_6_depthwise
-\node[TrainableLayer_style] (block_6_depthwise) at (20.0, 248.54)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_6_depthwise_group
-
-% node group: block_5_project_group
-% node: block_5_project_BN
-\node[UtilityLayer_style] (block_5_project_BN) at (0.0, 266.89)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_5_project
-\node[TrainableLayer_style] (block_5_project) at (0.0, 267.96)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 32}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_5_project_group
-
-% node group: block_6_depthwise_relu_group
-% node: block_6_depthwise_relu
-\node[TrainableLayer_style] (block_6_depthwise_relu) at (20.0, 244.66)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_6_depthwise_relu_group
-
-% node group: block_6_project_group
-% node: block_6_project_BN
-\node[UtilityLayer_style] (block_6_project_BN) at (20.0, 239.71)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_6_project
-\node[TrainableLayer_style] (block_6_project) at (20.0, 240.78)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 64}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_6_project_group
-
-% node group: block_7_expand_group
-% node: block_7_expand_BN
-\node[UtilityLayer_style] (block_7_expand_BN) at (0.0, 235.82)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_7_expand
-\node[TrainableLayer_style] (block_7_expand) at (0.0, 236.89)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 384}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_7_expand_group
-
-% node group: block_7_add_group
-% node: block_7_add
-\node[OperationLayer_style] (block_7_add) at (20.0, 217.48)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_7_add_group
-
-% node group: block_8_expand_group
-% node: block_8_expand_BN
-\node[UtilityLayer_style] (block_8_expand_BN) at (0.0, 212.52)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_8_expand
-\node[TrainableLayer_style] (block_8_expand) at (0.0, 213.59)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 384}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_8_expand_group
-
-% node group: block_8_add_group
-% node: block_8_add
-\node[OperationLayer_style] (block_8_add) at (20.0, 194.17)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_8_add_group
-
-% node group: block_7_expand_relu_group
-% node: block_7_expand_relu
-\node[TrainableLayer_style] (block_7_expand_relu) at (0.0, 233.01)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_7_expand_relu_group
-
-% node group: block_9_expand_group
-% node: block_9_expand_BN
-\node[UtilityLayer_style] (block_9_expand_BN) at (0.0, 189.22)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_9_expand
-\node[TrainableLayer_style] (block_9_expand) at (0.0, 190.29)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 384}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_9_expand_group
-
-% node group: block_9_add_group
-% node: block_9_add
-\node[OperationLayer_style] (block_9_add) at (20.0, 170.87)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_9_add_group
-
-% node group: block_7_depthwise_group
-% node: block_7_depthwise_BN
-\node[UtilityLayer_style] (block_7_depthwise_BN) at (0.0, 228.06)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_7_depthwise
-\node[TrainableLayer_style] (block_7_depthwise) at (0.0, 229.13)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_7_depthwise_group
-
-% node group: block_8_expand_relu_group
-% node: block_8_expand_relu
-\node[TrainableLayer_style] (block_8_expand_relu) at (0.0, 209.71)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_8_expand_relu_group
-
-% node group: block_10_expand_group
-% node: block_10_expand_BN
-\node[UtilityLayer_style] (block_10_expand_BN) at (20.0, 165.92)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_10_expand
-\node[TrainableLayer_style] (block_10_expand) at (20.0, 166.99)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 384}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_10_expand_group
-
-% node group: block_8_depthwise_group
-% node: block_8_depthwise_BN
-\node[UtilityLayer_style] (block_8_depthwise_BN) at (0.0, 204.76)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_8_depthwise
-\node[TrainableLayer_style] (block_8_depthwise) at (0.0, 205.83)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_8_depthwise_group
-
-% node group: block_9_expand_relu_group
-% node: block_9_expand_relu
-\node[TrainableLayer_style] (block_9_expand_relu) at (0.0, 186.41)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_9_expand_relu_group
-
-% node group: block_7_depthwise_relu_group
-% node: block_7_depthwise_relu
-\node[TrainableLayer_style] (block_7_depthwise_relu) at (0.0, 225.24)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_7_depthwise_relu_group
-
-% node group: block_9_depthwise_group
-% node: block_9_depthwise_BN
-\node[UtilityLayer_style] (block_9_depthwise_BN) at (0.0, 181.45)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_9_depthwise
-\node[TrainableLayer_style] (block_9_depthwise) at (0.0, 182.52)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_9_depthwise_group
-
-% node group: block_10_expand_relu_group
-% node: block_10_expand_relu
-\node[TrainableLayer_style] (block_10_expand_relu) at (20.0, 163.11)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_10_expand_relu_group
-
-% node group: block_7_project_group
-% node: block_7_project_BN
-\node[UtilityLayer_style] (block_7_project_BN) at (0.0, 220.29)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_7_project
-\node[TrainableLayer_style] (block_7_project) at (0.0, 221.36)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 64}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_7_project_group
-
-% node group: block_8_depthwise_relu_group
-% node: block_8_depthwise_relu
-\node[TrainableLayer_style] (block_8_depthwise_relu) at (0.0, 201.94)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_8_depthwise_relu_group
-
-% node group: block_10_depthwise_group
-% node: block_10_depthwise_BN
-\node[UtilityLayer_style] (block_10_depthwise_BN) at (20.0, 158.15)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_10_depthwise
-\node[TrainableLayer_style] (block_10_depthwise) at (20.0, 159.22)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_10_depthwise_group
-
-% node group: block_8_project_group
-% node: block_8_project_BN
-\node[UtilityLayer_style] (block_8_project_BN) at (0.0, 196.99)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_8_project
-\node[TrainableLayer_style] (block_8_project) at (0.0, 198.06)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 64}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_8_project_group
-
-% node group: block_9_depthwise_relu_group
-% node: block_9_depthwise_relu
-\node[TrainableLayer_style] (block_9_depthwise_relu) at (0.0, 178.64)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_9_depthwise_relu_group
-
-% node group: block_9_project_group
-% node: block_9_project_BN
-\node[UtilityLayer_style] (block_9_project_BN) at (0.0, 173.69)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_9_project
-\node[TrainableLayer_style] (block_9_project) at (0.0, 174.76)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 64}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_9_project_group
-
-% node group: block_10_depthwise_relu_group
-% node: block_10_depthwise_relu
-\node[TrainableLayer_style] (block_10_depthwise_relu) at (20.0, 155.34)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_10_depthwise_relu_group
-
-% node group: block_10_project_group
-% node: block_10_project_BN
-\node[UtilityLayer_style] (block_10_project_BN) at (20.0, 150.39)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_10_project
-\node[TrainableLayer_style] (block_10_project) at (20.0, 151.46)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 96}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_10_project_group
-
-% node group: block_11_expand_group
-% node: block_11_expand_BN
-\node[UtilityLayer_style] (block_11_expand_BN) at (0.0, 146.5)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_11_expand
-\node[TrainableLayer_style] (block_11_expand) at (0.0, 147.57)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 576}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_11_expand_group
-
-% node group: block_11_add_group
-% node: block_11_add
-\node[OperationLayer_style] (block_11_add) at (20.0, 128.16)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_11_add_group
-
-% node group: block_12_expand_group
-% node: block_12_expand_BN
-\node[UtilityLayer_style] (block_12_expand_BN) at (0.0, 123.2)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_12_expand
-\node[TrainableLayer_style] (block_12_expand) at (0.0, 124.27)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 576}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_12_expand_group
-
-% node group: block_12_add_group
-% node: block_12_add
-\node[OperationLayer_style] (block_12_add) at (20.0, 104.85)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_12_add_group
-
-% node group: block_11_expand_relu_group
-% node: block_11_expand_relu
-\node[TrainableLayer_style] (block_11_expand_relu) at (0.0, 143.69)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_11_expand_relu_group
-
-% node group: block_13_expand_group
-% node: block_13_expand_BN
-\node[UtilityLayer_style] (block_13_expand_BN) at (20.0, 99.9)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_13_expand
-\node[TrainableLayer_style] (block_13_expand) at (20.0, 100.97)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 576}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_13_expand_group
-
-% node group: block_11_depthwise_group
-% node: block_11_depthwise_BN
-\node[UtilityLayer_style] (block_11_depthwise_BN) at (0.0, 138.74)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_11_depthwise
-\node[TrainableLayer_style] (block_11_depthwise) at (0.0, 139.81)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_11_depthwise_group
-
-% node group: block_12_expand_relu_group
-% node: block_12_expand_relu
-\node[TrainableLayer_style] (block_12_expand_relu) at (0.0, 120.39)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_12_expand_relu_group
-
-% node group: block_12_depthwise_group
-% node: block_12_depthwise_BN
-\node[UtilityLayer_style] (block_12_depthwise_BN) at (0.0, 115.43)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_12_depthwise
-\node[TrainableLayer_style] (block_12_depthwise) at (0.0, 116.5)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_12_depthwise_group
-
-% node group: block_13_expand_relu_group
-% node: block_13_expand_relu
-\node[TrainableLayer_style] (block_13_expand_relu) at (20.0, 97.09)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_13_expand_relu_group
-
-% node group: block_11_depthwise_relu_group
-% node: block_11_depthwise_relu
-\node[TrainableLayer_style] (block_11_depthwise_relu) at (0.0, 135.92)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_11_depthwise_relu_group
-
-% node group: block_13_pad_group
-% node: block_13_pad
-\node[TrainableLayer_style] (block_13_pad) at (20.0, 93.2)
-    {
-    \nodepart{one}{ZeroPadding2D}
-    \nodepart{two}{padding: ((0, 1), (0, 1))}};
-% end of node group: block_13_pad_group
-
-% node group: block_11_project_group
-% node: block_11_project_BN
-\node[UtilityLayer_style] (block_11_project_BN) at (0.0, 130.97)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_11_project
-\node[TrainableLayer_style] (block_11_project) at (0.0, 132.04)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 96}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_11_project_group
-
-% node group: block_12_depthwise_relu_group
-% node: block_12_depthwise_relu
-\node[TrainableLayer_style] (block_12_depthwise_relu) at (0.0, 112.62)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_12_depthwise_relu_group
-
-% node group: block_13_depthwise_group
-% node: block_13_depthwise_BN
-\node[UtilityLayer_style] (block_13_depthwise_BN) at (20.0, 88.25)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_13_depthwise
-\node[TrainableLayer_style] (block_13_depthwise) at (20.0, 89.32)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_13_depthwise_group
-
-% node group: block_12_project_group
-% node: block_12_project_BN
-\node[UtilityLayer_style] (block_12_project_BN) at (0.0, 107.67)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_12_project
-\node[TrainableLayer_style] (block_12_project) at (0.0, 108.74)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 96}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_12_project_group
-
-% node group: block_13_depthwise_relu_group
-% node: block_13_depthwise_relu
-\node[TrainableLayer_style] (block_13_depthwise_relu) at (20.0, 85.44)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_13_depthwise_relu_group
-
-% node group: block_13_project_group
-% node: block_13_project_BN
-\node[UtilityLayer_style] (block_13_project_BN) at (20.0, 80.48)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_13_project
-\node[TrainableLayer_style] (block_13_project) at (20.0, 81.55)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 160}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_13_project_group
-
-% node group: block_14_expand_group
-% node: block_14_expand_BN
-\node[UtilityLayer_style] (block_14_expand_BN) at (0.0, 76.6)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_14_expand
-\node[TrainableLayer_style] (block_14_expand) at (0.0, 77.67)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 960}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_14_expand_group
-
-% node group: block_14_add_group
-% node: block_14_add
-\node[OperationLayer_style] (block_14_add) at (20.0, 58.25)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_14_add_group
-
-% node group: block_15_expand_group
-% node: block_15_expand_BN
-\node[UtilityLayer_style] (block_15_expand_BN) at (0.0, 53.3)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_15_expand
-\node[TrainableLayer_style] (block_15_expand) at (0.0, 54.37)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 960}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_15_expand_group
-
-% node group: block_15_add_group
-% node: block_15_add
-\node[OperationLayer_style] (block_15_add) at (20.0, 34.95)
-    {
-    \nodepart{one}{Add}};
-% end of node group: block_15_add_group
-
-% node group: block_14_expand_relu_group
-% node: block_14_expand_relu
-\node[TrainableLayer_style] (block_14_expand_relu) at (0.0, 73.79)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_14_expand_relu_group
-
-% node group: block_16_expand_group
-% node: block_16_expand_BN
-\node[UtilityLayer_style] (block_16_expand_BN) at (20.0, 30.0)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_16_expand
-\node[TrainableLayer_style] (block_16_expand) at (20.0, 31.07)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 960}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_16_expand_group
-
-% node group: block_14_depthwise_group
-% node: block_14_depthwise_BN
-\node[UtilityLayer_style] (block_14_depthwise_BN) at (0.0, 68.83)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_14_depthwise
-\node[TrainableLayer_style] (block_14_depthwise) at (0.0, 69.9)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_14_depthwise_group
-
-% node group: block_15_expand_relu_group
-% node: block_15_expand_relu
-\node[TrainableLayer_style] (block_15_expand_relu) at (0.0, 50.49)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_15_expand_relu_group
-
-% node group: block_15_depthwise_group
-% node: block_15_depthwise_BN
-\node[UtilityLayer_style] (block_15_depthwise_BN) at (0.0, 45.53)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_15_depthwise
-\node[TrainableLayer_style] (block_15_depthwise) at (0.0, 46.6)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_15_depthwise_group
-
-% node group: block_16_expand_relu_group
-% node: block_16_expand_relu
-\node[TrainableLayer_style] (block_16_expand_relu) at (20.0, 27.18)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_16_expand_relu_group
-
-% node group: block_14_depthwise_relu_group
-% node: block_14_depthwise_relu
-\node[TrainableLayer_style] (block_14_depthwise_relu) at (0.0, 66.02)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_14_depthwise_relu_group
-
-% node group: block_16_depthwise_group
-% node: block_16_depthwise_BN
-\node[UtilityLayer_style] (block_16_depthwise_BN) at (20.0, 22.23)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_16_depthwise
-\node[TrainableLayer_style] (block_16_depthwise) at (20.0, 23.3)
-    {
-    \nodepart{one}{DepthwiseConv2D}
-    \nodepart{two}{kernel: (3, 3)}
-    \nodepart{three}{depth multiplier: 1}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_16_depthwise_group
-
-% node group: block_14_project_group
-% node: block_14_project_BN
-\node[UtilityLayer_style] (block_14_project_BN) at (0.0, 61.07)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_14_project
-\node[TrainableLayer_style] (block_14_project) at (0.0, 62.14)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 160}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_14_project_group
-
-% node group: block_15_depthwise_relu_group
-% node: block_15_depthwise_relu
-\node[TrainableLayer_style] (block_15_depthwise_relu) at (0.0, 42.72)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_15_depthwise_relu_group
-
-% node group: block_15_project_group
-% node: block_15_project_BN
-\node[UtilityLayer_style] (block_15_project_BN) at (0.0, 37.76)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_15_project
-\node[TrainableLayer_style] (block_15_project) at (0.0, 38.83)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 160}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_15_project_group
-
-% node group: block_16_depthwise_relu_group
-% node: block_16_depthwise_relu
-\node[TrainableLayer_style] (block_16_depthwise_relu) at (20.0, 19.42)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: block_16_depthwise_relu_group
-
-% node group: block_16_project_group
-% node: block_16_project_BN
-\node[UtilityLayer_style] (block_16_project_BN) at (20.0, 14.46)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: block_16_project
-\node[TrainableLayer_style] (block_16_project) at (20.0, 15.53)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 320}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: block_16_project_group
-
-% node group: Conv_1_group
-% node: Conv_1_bn
-\node[UtilityLayer_style] (Conv_1_bn) at (20.0, 10.58)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: Conv_1
-\node[TrainableLayer_style] (Conv_1) at (20.0, 11.65)
-    {
-    \nodepart{one}{Conv2D}
-    \nodepart{two}{filters: 1280}
-    \nodepart{three}{kernel: (1, 1)}
-    \nodepart{four}{activation: linear}};
-% end of node group: Conv_1_group
-
-% node group: out_relu_group
-% node: out_relu
-\node[TrainableLayer_style] (out_relu) at (20.0, 7.77)
-    {
-    \nodepart{one}{ReLU}};
-% end of node group: out_relu_group
-
-% node group: global_average_pooling2d_group
-% node: global_average_pooling2d
-\node[TrainableLayer_style] (global_average_pooling2d) at (20.0, 3.88)
-    {
-    \nodepart{one}{GlobalAveragePooling2D}};
-% end of node group: global_average_pooling2d_group
-
-% node group: predictions_group
-% node: predictions
-\node[TrainableLayer_style] (predictions) at (20.0, 0.0)
+% node: dropout_3
+\node[utility_layer_style] (dropout_3) at (15.4, 92.26)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: b_1
+\node[default_layer_style] (b_1) at (15.4, 93.33)
     {
     \nodepart{one}{Dense}
-    \nodepart{two}{units: 1000}
+    \nodepart{two}{units: 512}
+    \nodepart{three}{activation: relu}};
+% end of node group: b_1_group
+
+% node group: a_1_group
+% node: batch_normalization
+\node[utility_layer_style] (batch_normalization) at (32.7, 94.13)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout
+\node[utility_layer_style] (dropout) at (32.7, 92.26)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: a_1
+\node[default_layer_style] (a_1) at (32.7, 93.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 256}
+    \nodepart{three}{activation: relu}};
+% end of node group: a_1_group
+
+% node group: sum_a_group
+% node: sum_a
+\node[operation_layer_style] (sum_a) at (32.7, 80.0)
+    {
+    \nodepart{one}{Add}
+    \nodepart{two}{output shape: 256}};
+% end of node group: sum_a_group
+
+% node group: b1_1_group
+% node: batch_normalization_4
+\node[utility_layer_style] (batch_normalization_4) at (15.4, 87.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_4
+\node[utility_layer_style] (dropout_4) at (15.4, 85.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: b1_1
+\node[default_layer_style] (b1_1) at (15.4, 86.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{activation: relu}};
+% end of node group: b1_1_group
+
+% node group: b2_1_group
+% node: batch_normalization_6
+\node[utility_layer_style] (batch_normalization_6) at (0.0, 87.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_6
+\node[utility_layer_style] (dropout_6) at (0.0, 85.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: b2_1
+\node[default_layer_style] (b2_1) at (0.0, 86.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{activation: relu}};
+% end of node group: b2_1_group
+
+% node group: a1_1_group
+% node: batch_normalization_1
+\node[utility_layer_style] (batch_normalization_1) at (34.6, 87.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_1
+\node[utility_layer_style] (dropout_1) at (34.6, 85.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: a1_1
+\node[default_layer_style] (a1_1) at (34.6, 86.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 256}
+    \nodepart{three}{activation: relu}};
+% end of node group: a1_1_group
+
+% node group: a2_1_group
+% node: batch_normalization_2
+\node[utility_layer_style] (batch_normalization_2) at (50.0, 87.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_2
+\node[utility_layer_style] (dropout_2) at (50.0, 85.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: a2_1
+\node[default_layer_style] (a2_1) at (50.0, 86.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 256}
+    \nodepart{three}{activation: relu}};
+% end of node group: a2_1_group
+
+% node group: sum_ab_group
+% node: sum_ab
+\node[operation_layer_style] (sum_ab) at (21.09, 53.33)
+    {
+    \nodepart{one}{Add}
+    \nodepart{two}{output shape: 256}};
+% end of node group: sum_ab_group
+
+% node group: e_1_group
+% node: batch_normalization_12
+\node[utility_layer_style] (batch_normalization_12) at (9.6, 47.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_12
+\node[utility_layer_style] (dropout_12) at (9.6, 45.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: e_1
+\node[default_layer_style] (e_1) at (9.6, 46.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{activation: relu}};
+% end of node group: e_1_group
+
+% node group: d_1_group
+% node: batch_normalization_10
+\node[utility_layer_style] (batch_normalization_10) at (25.0, 47.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_10
+\node[utility_layer_style] (dropout_10) at (25.0, 45.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: d_1
+\node[default_layer_style] (d_1) at (25.0, 46.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1024}
+    \nodepart{three}{activation: relu}};
+% end of node group: d_1_group
+
+% node group: b1_2_group
+% node: batch_normalization_5
+\node[utility_layer_style] (batch_normalization_5) at (15.4, 80.8)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_5
+\node[utility_layer_style] (dropout_5) at (15.4, 78.93)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: b1_2
+\node[default_layer_style] (b1_2) at (15.4, 80.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{activation: relu}};
+% end of node group: b1_2_group
+
+% node group: b2_2_group
+% node: batch_normalization_7
+\node[utility_layer_style] (batch_normalization_7) at (0.0, 80.8)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_7
+\node[utility_layer_style] (dropout_7) at (0.0, 78.93)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: b2_2
+\node[default_layer_style] (b2_2) at (0.0, 80.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{activation: relu}};
+% end of node group: b2_2_group
+
+% node group: sum_b_group
+% node: sum_b
+\node[operation_layer_style] (sum_b) at (15.4, 73.33)
+    {
+    \nodepart{one}{Add}
+    \nodepart{two}{output shape: 32}};
+% end of node group: sum_b_group
+
+% node group: sum_b2_e_group
+% node: sum_b2_e
+\node[operation_layer_style] (sum_b2_e) at (0.0, 26.67)
+    {
+    \nodepart{one}{Add}
+    \nodepart{two}{output shape: 32}};
+% end of node group: sum_b2_e_group
+
+% node group: e_2_group
+% node: batch_normalization_13
+\node[utility_layer_style] (batch_normalization_13) at (9.6, 40.8)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_13
+\node[utility_layer_style] (dropout_13) at (9.6, 38.93)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: e_2
+\node[default_layer_style] (e_2) at (9.6, 40.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{activation: relu}};
+% end of node group: e_2_group
+
+% node group: d_2_group
+% node: batch_normalization_11
+\node[utility_layer_style] (batch_normalization_11) at (25.0, 34.13)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_11
+\node[utility_layer_style] (dropout_11) at (25.0, 32.26)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: d_2
+\node[default_layer_style] (d_2) at (25.0, 33.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1024}
+    \nodepart{three}{activation: relu}};
+% end of node group: d_2_group
+
+% node group: b_2_group
+% node: batch_normalization_8
+\node[utility_layer_style] (batch_normalization_8) at (17.3, 67.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_8
+\node[utility_layer_style] (dropout_8) at (17.3, 65.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: b_2
+\node[default_layer_style] (b_2) at (17.3, 66.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 256}
+    \nodepart{three}{activation: relu}};
+% end of node group: b_2_group
+
+% node group: e2_1_group
+% node: batch_normalization_17
+\node[utility_layer_style] (batch_normalization_17) at (0.0, 20.8)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_17
+\node[utility_layer_style] (dropout_17) at (0.0, 18.93)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: e2_1
+\node[default_layer_style] (e2_1) at (0.0, 20.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1024}
+    \nodepart{three}{activation: relu}};
+% end of node group: e2_1_group
+
+% node group: sum_d_e_group
+% node: sum_d_e
+\node[operation_layer_style] (sum_d_e) at (15.4, 6.67)
+    {
+    \nodepart{one}{Add}
+    \nodepart{two}{output shape: 1024}};
+% end of node group: sum_d_e_group
+
+% node group: e_3_group
+% node: batch_normalization_14
+\node[utility_layer_style] (batch_normalization_14) at (9.6, 34.13)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_14
+\node[utility_layer_style] (dropout_14) at (9.6, 32.26)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: e_3
+\node[default_layer_style] (e_3) at (9.6, 33.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{activation: relu}};
+% end of node group: e_3_group
+
+% node group: output_group
+% node: dropout_out
+\node[utility_layer_style] (dropout_out) at (15.4, 1.07)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: output
+\node[default_layer_style] (output) at (15.4, 0.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 10}
     \nodepart{three}{activation: softmax}};
-% end of node group: predictions_group
+% end of node group: output_group
+
+% node group: b_3_group
+% node: batch_normalization_9
+\node[utility_layer_style] (batch_normalization_9) at (17.3, 60.8)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_9
+\node[utility_layer_style] (dropout_9) at (17.3, 58.93)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: b_3
+\node[default_layer_style] (b_3) at (17.3, 60.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 256}
+    \nodepart{three}{activation: relu}};
+% end of node group: b_3_group
+
+% node group: e2_2_group
+% node: batch_normalization_18
+\node[utility_layer_style] (batch_normalization_18) at (0.0, 14.13)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_18
+\node[utility_layer_style] (dropout_18) at (0.0, 12.26)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: e2_2
+\node[default_layer_style] (e2_2) at (0.0, 13.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1024}
+    \nodepart{three}{activation: relu}};
+% end of node group: e2_2_group
+
+% node group: e1_1_group
+% node: batch_normalization_15
+\node[utility_layer_style] (batch_normalization_15) at (15.4, 27.47)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_15
+\node[utility_layer_style] (dropout_15) at (15.4, 25.6)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: e1_1
+\node[default_layer_style] (e1_1) at (15.4, 26.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1024}
+    \nodepart{three}{activation: relu}};
+% end of node group: e1_1_group
+
+% node group: e1_2_group
+% node: batch_normalization_16
+\node[utility_layer_style] (batch_normalization_16) at (15.4, 14.13)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: dropout_16
+\node[utility_layer_style] (dropout_16) at (15.4, 12.26)
+    {
+    \nodepart{one}{Dropout}
+    \nodepart{two}{rate: 0.25}};
+% node: e1_2
+\node[default_layer_style] (e1_2) at (15.4, 13.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1024}
+    \nodepart{three}{activation: relu}};
+% end of node group: e1_2_group
+
+% edge from input_1 to batch_normalization_3
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (input_1) to node [defaultLabel] {131,584} (batch_normalization_3);
+
+% edge from input_1 to batch_normalization
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (input_1) to node [defaultLabel] {65,792} (batch_normalization);
+
+% edge from dropout_3 to batch_normalization_4
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (dropout_3) to node [defaultLabel] {16,416} (batch_normalization_4);
+
+% edge from dropout_3 to batch_normalization_6
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (dropout_3) to node [defaultLabel] {16,416} (batch_normalization_6);
+
+% edge from dropout to batch_normalization_1
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (dropout) to node [defaultLabel] {65,792} (batch_normalization_1);
+
+% edge from dropout to batch_normalization_2
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (dropout) to node [defaultLabel] {65,792} (batch_normalization_2);
+
+% edge from dropout to sum_a
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout) to node [defaultLabel] {} (sum_a);
+
+% edge from sum_a to sum_ab
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=13.34cm,draw=black,line width=1pt] (sum_a) to node [defaultLabel] {} (sum_ab);
+
+% edge from dropout_4 to batch_normalization_5
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_4) to node [defaultLabel] {1,056} (batch_normalization_5);
+
+% edge from dropout_6 to batch_normalization_7
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_6) to node [defaultLabel] {1,056} (batch_normalization_7);
 
-% edge from input_1 to Conv1
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (input_1) to node [defaultLabel] {864} (Conv1);
+% edge from dropout_1 to sum_a
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_1) to node [defaultLabel] {} (sum_a);
 
-% edge from bn_Conv1 to Conv1_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (bn_Conv1) to node [defaultLabel] {} (Conv1_relu);
+% edge from dropout_2 to sum_a
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_2) to node [defaultLabel] {} (sum_a);
 
-% edge from Conv1_relu to expanded_conv_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (Conv1_relu) to node [defaultLabel] {288} (expanded_conv_depthwise);
+% edge from sum_ab to batch_normalization_12
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR2,line width=1.6pt] (sum_ab) to node [defaultLabel] {8,224} (batch_normalization_12);
 
-% edge from expanded_conv_depthwise_BN to expanded_conv_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (expanded_conv_depthwise_BN) to node [defaultLabel] {} (expanded_conv_depthwise_relu);
+% edge from sum_ab to batch_normalization_10
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (sum_ab) to node [defaultLabel] {263,168} (batch_normalization_10);
 
-% edge from expanded_conv_depthwise_relu to expanded_conv_project
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (expanded_conv_depthwise_relu) to node [defaultLabel] {512} (expanded_conv_project);
+% edge from dropout_12 to batch_normalization_13
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_12) to node [defaultLabel] {1,056} (batch_normalization_13);
 
-% edge from expanded_conv_project_BN to block_1_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (expanded_conv_project_BN) to node [defaultLabel] {1,536} (block_1_expand);
+% edge from dropout_10 to batch_normalization_11
+\draw[-Stealth, defaultEdge, in distance=4.0cm,out distance=4.0cm,draw=COLOR6,line width=1.6pt] (dropout_10) to node [defaultLabel] {1,049,600} (batch_normalization_11);
 
-% edge from block_1_expand_BN to block_1_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_1_expand_BN) to node [defaultLabel] {} (block_1_expand_relu);
+% edge from dropout_5 to sum_b
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_5) to node [defaultLabel] {} (sum_b);
 
-% edge from block_1_expand_relu to block_1_pad
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_1_expand_relu) to node [defaultLabel] {} (block_1_pad);
+% edge from dropout_7 to sum_b
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_7) to node [defaultLabel] {} (sum_b);
 
-% edge from block_1_pad to block_1_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_1_pad) to node [defaultLabel] {864} (block_1_depthwise);
+% edge from dropout_7 to sum_b2_e
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_7) to node [defaultLabel] {} (sum_b2_e);
 
-% edge from block_1_depthwise_BN to block_1_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_1_depthwise_BN) to node [defaultLabel] {} (block_1_depthwise_relu);
+% edge from sum_b to batch_normalization_8
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR2,line width=1.6pt] (sum_b) to node [defaultLabel] {8,448} (batch_normalization_8);
 
-% edge from block_1_depthwise_relu to block_1_project
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_1_depthwise_relu) to node [defaultLabel] {2,304} (block_1_project);
+% edge from sum_b2_e to batch_normalization_17
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (sum_b2_e) to node [defaultLabel] {33,792} (batch_normalization_17);
 
-% edge from block_1_project_BN to block_2_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_1_project_BN) to node [defaultLabel] {3,456} (block_2_expand);
+% edge from dropout_13 to batch_normalization_14
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_13) to node [defaultLabel] {1,056} (batch_normalization_14);
 
-% edge from block_1_project_BN to block_2_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_1_project_BN) to node [defaultLabel] {} (block_2_add);
+% edge from dropout_11 to sum_d_e
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=13.33cm,draw=black,line width=1pt] (dropout_11) to node [defaultLabel] {} (sum_d_e);
 
-% edge from block_2_expand_BN to block_2_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_2_expand_BN) to node [defaultLabel] {} (block_2_expand_relu);
+% edge from dropout_8 to batch_normalization_9
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (dropout_8) to node [defaultLabel] {65,792} (batch_normalization_9);
 
-% edge from block_2_add to block_3_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_2_add) to node [defaultLabel] {3,456} (block_3_expand);
+% edge from dropout_17 to batch_normalization_18
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR6,line width=1.6pt] (dropout_17) to node [defaultLabel] {1,049,600} (batch_normalization_18);
 
-% edge from block_3_expand_BN to block_3_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_3_expand_BN) to node [defaultLabel] {} (block_3_expand_relu);
+% edge from sum_d_e to dropout_out
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR2,line width=1.6pt] (sum_d_e) to node [defaultLabel] {10,250} (dropout_out);
 
-% edge from block_2_expand_relu to block_2_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_2_expand_relu) to node [defaultLabel] {1,296} (block_2_depthwise);
+% edge from dropout_14 to sum_b2_e
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_14) to node [defaultLabel] {} (sum_b2_e);
 
-% edge from block_2_depthwise_BN to block_2_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_2_depthwise_BN) to node [defaultLabel] {} (block_2_depthwise_relu);
+% edge from dropout_14 to batch_normalization_15
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (dropout_14) to node [defaultLabel] {33,792} (batch_normalization_15);
 
-% edge from block_3_expand_relu to block_3_pad
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_3_expand_relu) to node [defaultLabel] {} (block_3_pad);
+% edge from dropout_9 to sum_ab
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_9) to node [defaultLabel] {} (sum_ab);
 
-% edge from block_3_pad to block_3_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_3_pad) to node [defaultLabel] {1,296} (block_3_depthwise);
+% edge from dropout_18 to sum_d_e
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_18) to node [defaultLabel] {} (sum_d_e);
 
-% edge from block_2_depthwise_relu to block_2_project
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_2_depthwise_relu) to node [defaultLabel] {3,456} (block_2_project);
+% edge from dropout_15 to batch_normalization_16
+\draw[-Stealth, defaultEdge, in distance=4.0cm,out distance=4.0cm,draw=COLOR6,line width=1.6pt] (dropout_15) to node [defaultLabel] {1,049,600} (batch_normalization_16);
 
-% edge from block_3_depthwise_BN to block_3_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_3_depthwise_BN) to node [defaultLabel] {} (block_3_depthwise_relu);
-
-% edge from block_2_project_BN to block_2_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_2_project_BN) to node [defaultLabel] {} (block_2_add);
-
-% edge from block_3_depthwise_relu to block_3_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_3_depthwise_relu) to node [defaultLabel] {4,608} (block_3_project);
-
-% edge from block_3_project_BN to block_4_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_3_project_BN) to node [defaultLabel] {6,144} (block_4_expand);
-
-% edge from block_3_project_BN to block_4_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_3_project_BN) to node [defaultLabel] {} (block_4_add);
-
-% edge from block_4_expand_BN to block_4_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_4_expand_BN) to node [defaultLabel] {} (block_4_expand_relu);
-
-% edge from block_4_add to block_5_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_4_add) to node [defaultLabel] {6,144} (block_5_expand);
-
-% edge from block_4_add to block_5_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_4_add) to node [defaultLabel] {} (block_5_add);
-
-% edge from block_5_expand_BN to block_5_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_5_expand_BN) to node [defaultLabel] {} (block_5_expand_relu);
-
-% edge from block_5_add to block_6_expand
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_5_add) to node [defaultLabel] {6,144} (block_6_expand);
-
-% edge from block_4_expand_relu to block_4_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_4_expand_relu) to node [defaultLabel] {1,728} (block_4_depthwise);
-
-% edge from block_6_expand_BN to block_6_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_6_expand_BN) to node [defaultLabel] {} (block_6_expand_relu);
-
-% edge from block_4_depthwise_BN to block_4_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_4_depthwise_BN) to node [defaultLabel] {} (block_4_depthwise_relu);
-
-% edge from block_5_expand_relu to block_5_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_5_expand_relu) to node [defaultLabel] {1,728} (block_5_depthwise);
-
-% edge from block_5_depthwise_BN to block_5_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_5_depthwise_BN) to node [defaultLabel] {} (block_5_depthwise_relu);
-
-% edge from block_6_expand_relu to block_6_pad
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_6_expand_relu) to node [defaultLabel] {} (block_6_pad);
-
-% edge from block_4_depthwise_relu to block_4_project
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_4_depthwise_relu) to node [defaultLabel] {6,144} (block_4_project);
-
-% edge from block_6_pad to block_6_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_6_pad) to node [defaultLabel] {1,728} (block_6_depthwise);
-
-% edge from block_4_project_BN to block_4_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_4_project_BN) to node [defaultLabel] {} (block_4_add);
-
-% edge from block_5_depthwise_relu to block_5_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_5_depthwise_relu) to node [defaultLabel] {6,144} (block_5_project);
-
-% edge from block_6_depthwise_BN to block_6_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_6_depthwise_BN) to node [defaultLabel] {} (block_6_depthwise_relu);
-
-% edge from block_5_project_BN to block_5_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_5_project_BN) to node [defaultLabel] {} (block_5_add);
-
-% edge from block_6_depthwise_relu to block_6_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_6_depthwise_relu) to node [defaultLabel] {12,288} (block_6_project);
-
-% edge from block_6_project_BN to block_7_expand
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_6_project_BN) to node [defaultLabel] {24,576} (block_7_expand);
-
-% edge from block_6_project_BN to block_7_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.17cm] (block_6_project_BN) to node [defaultLabel] {} (block_7_add);
-
-% edge from block_7_expand_BN to block_7_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_7_expand_BN) to node [defaultLabel] {} (block_7_expand_relu);
-
-% edge from block_7_add to block_8_expand
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_7_add) to node [defaultLabel] {24,576} (block_8_expand);
-
-% edge from block_7_add to block_8_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_7_add) to node [defaultLabel] {} (block_8_add);
-
-% edge from block_8_expand_BN to block_8_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_8_expand_BN) to node [defaultLabel] {} (block_8_expand_relu);
-
-% edge from block_8_add to block_9_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_8_add) to node [defaultLabel] {24,576} (block_9_expand);
-
-% edge from block_8_add to block_9_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.16cm] (block_8_add) to node [defaultLabel] {} (block_9_add);
-
-% edge from block_7_expand_relu to block_7_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_7_expand_relu) to node [defaultLabel] {3,456} (block_7_depthwise);
-
-% edge from block_9_expand_BN to block_9_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_9_expand_BN) to node [defaultLabel] {} (block_9_expand_relu);
-
-% edge from block_9_add to block_10_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_9_add) to node [defaultLabel] {24,576} (block_10_expand);
-
-% edge from block_7_depthwise_BN to block_7_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_7_depthwise_BN) to node [defaultLabel] {} (block_7_depthwise_relu);
-
-% edge from block_8_expand_relu to block_8_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_8_expand_relu) to node [defaultLabel] {3,456} (block_8_depthwise);
-
-% edge from block_10_expand_BN to block_10_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_10_expand_BN) to node [defaultLabel] {} (block_10_expand_relu);
-
-% edge from block_8_depthwise_BN to block_8_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_8_depthwise_BN) to node [defaultLabel] {} (block_8_depthwise_relu);
-
-% edge from block_9_expand_relu to block_9_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_9_expand_relu) to node [defaultLabel] {3,456} (block_9_depthwise);
-
-% edge from block_7_depthwise_relu to block_7_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_7_depthwise_relu) to node [defaultLabel] {24,576} (block_7_project);
-
-% edge from block_9_depthwise_BN to block_9_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_9_depthwise_BN) to node [defaultLabel] {} (block_9_depthwise_relu);
-
-% edge from block_10_expand_relu to block_10_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_10_expand_relu) to node [defaultLabel] {3,456} (block_10_depthwise);
-
-% edge from block_7_project_BN to block_7_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_7_project_BN) to node [defaultLabel] {} (block_7_add);
-
-% edge from block_8_depthwise_relu to block_8_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_8_depthwise_relu) to node [defaultLabel] {24,576} (block_8_project);
-
-% edge from block_10_depthwise_BN to block_10_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_10_depthwise_BN) to node [defaultLabel] {} (block_10_depthwise_relu);
-
-% edge from block_8_project_BN to block_8_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_8_project_BN) to node [defaultLabel] {} (block_8_add);
-
-% edge from block_9_depthwise_relu to block_9_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_9_depthwise_relu) to node [defaultLabel] {24,576} (block_9_project);
-
-% edge from block_9_project_BN to block_9_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_9_project_BN) to node [defaultLabel] {} (block_9_add);
-
-% edge from block_10_depthwise_relu to block_10_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_10_depthwise_relu) to node [defaultLabel] {36,864} (block_10_project);
-
-% edge from block_10_project_BN to block_11_expand
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_10_project_BN) to node [defaultLabel] {55,296} (block_11_expand);
-
-% edge from block_10_project_BN to block_11_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.17cm] (block_10_project_BN) to node [defaultLabel] {} (block_11_add);
-
-% edge from block_11_expand_BN to block_11_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_11_expand_BN) to node [defaultLabel] {} (block_11_expand_relu);
-
-% edge from block_11_add to block_12_expand
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_11_add) to node [defaultLabel] {55,296} (block_12_expand);
-
-% edge from block_11_add to block_12_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_11_add) to node [defaultLabel] {} (block_12_add);
-
-% edge from block_12_expand_BN to block_12_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_12_expand_BN) to node [defaultLabel] {} (block_12_expand_relu);
-
-% edge from block_12_add to block_13_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_12_add) to node [defaultLabel] {55,296} (block_13_expand);
-
-% edge from block_11_expand_relu to block_11_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_11_expand_relu) to node [defaultLabel] {5,184} (block_11_depthwise);
-
-% edge from block_13_expand_BN to block_13_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_13_expand_BN) to node [defaultLabel] {} (block_13_expand_relu);
-
-% edge from block_11_depthwise_BN to block_11_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_11_depthwise_BN) to node [defaultLabel] {} (block_11_depthwise_relu);
-
-% edge from block_12_expand_relu to block_12_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_12_expand_relu) to node [defaultLabel] {5,184} (block_12_depthwise);
-
-% edge from block_12_depthwise_BN to block_12_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_12_depthwise_BN) to node [defaultLabel] {} (block_12_depthwise_relu);
-
-% edge from block_13_expand_relu to block_13_pad
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_13_expand_relu) to node [defaultLabel] {} (block_13_pad);
-
-% edge from block_11_depthwise_relu to block_11_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_11_depthwise_relu) to node [defaultLabel] {55,296} (block_11_project);
-
-% edge from block_13_pad to block_13_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_13_pad) to node [defaultLabel] {5,184} (block_13_depthwise);
-
-% edge from block_11_project_BN to block_11_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_11_project_BN) to node [defaultLabel] {} (block_11_add);
-
-% edge from block_12_depthwise_relu to block_12_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_12_depthwise_relu) to node [defaultLabel] {55,296} (block_12_project);
-
-% edge from block_13_depthwise_BN to block_13_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_13_depthwise_BN) to node [defaultLabel] {} (block_13_depthwise_relu);
-
-% edge from block_12_project_BN to block_12_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_12_project_BN) to node [defaultLabel] {} (block_12_add);
-
-% edge from block_13_depthwise_relu to block_13_project
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_13_depthwise_relu) to node [defaultLabel] {92,160} (block_13_project);
-
-% edge from block_13_project_BN to block_14_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_13_project_BN) to node [defaultLabel] {153,600} (block_14_expand);
-
-% edge from block_13_project_BN to block_14_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.16cm] (block_13_project_BN) to node [defaultLabel] {} (block_14_add);
-
-% edge from block_14_expand_BN to block_14_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_14_expand_BN) to node [defaultLabel] {} (block_14_expand_relu);
-
-% edge from block_14_add to block_15_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_14_add) to node [defaultLabel] {153,600} (block_15_expand);
-
-% edge from block_14_add to block_15_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_14_add) to node [defaultLabel] {} (block_15_add);
-
-% edge from block_15_expand_BN to block_15_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_15_expand_BN) to node [defaultLabel] {} (block_15_expand_relu);
-
-% edge from block_15_add to block_16_expand
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_15_add) to node [defaultLabel] {153,600} (block_16_expand);
-
-% edge from block_14_expand_relu to block_14_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_14_expand_relu) to node [defaultLabel] {8,640} (block_14_depthwise);
-
-% edge from block_16_expand_BN to block_16_expand_relu
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_16_expand_BN) to node [defaultLabel] {} (block_16_expand_relu);
-
-% edge from block_14_depthwise_BN to block_14_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_14_depthwise_BN) to node [defaultLabel] {} (block_14_depthwise_relu);
-
-% edge from block_15_expand_relu to block_15_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_15_expand_relu) to node [defaultLabel] {8,640} (block_15_depthwise);
-
-% edge from block_15_depthwise_BN to block_15_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_15_depthwise_BN) to node [defaultLabel] {} (block_15_depthwise_relu);
-
-% edge from block_16_expand_relu to block_16_depthwise
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_16_expand_relu) to node [defaultLabel] {8,640} (block_16_depthwise);
-
-% edge from block_14_depthwise_relu to block_14_project
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_14_depthwise_relu) to node [defaultLabel] {153,600} (block_14_project);
-
-% edge from block_16_depthwise_BN to block_16_depthwise_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_16_depthwise_BN) to node [defaultLabel] {} (block_16_depthwise_relu);
-
-% edge from block_14_project_BN to block_14_add
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_14_project_BN) to node [defaultLabel] {} (block_14_add);
-
-% edge from block_15_depthwise_relu to block_15_project
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_15_depthwise_relu) to node [defaultLabel] {153,600} (block_15_project);
-
-% edge from block_15_project_BN to block_15_add
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_15_project_BN) to node [defaultLabel] {} (block_15_add);
-
-% edge from block_16_depthwise_relu to block_16_project
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (block_16_depthwise_relu) to node [defaultLabel] {307,200} (block_16_project);
-
-% edge from block_16_project_BN to Conv_1
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (block_16_project_BN) to node [defaultLabel] {409,600} (Conv_1);
-
-% edge from Conv_1_bn to out_relu
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (Conv_1_bn) to node [defaultLabel] {} (out_relu);
-
-% edge from out_relu to global_average_pooling2d
-\draw[-Stealth, defaultEdge, in distance=1.17cm,out distance=1.17cm] (out_relu) to node [defaultLabel] {} (global_average_pooling2d);
-
-% edge from global_average_pooling2d to predictions
-\draw[-Stealth, defaultEdge, in distance=1.16cm,out distance=1.16cm] (global_average_pooling2d) to node [defaultLabel] {1,281,000} (predictions);
+% edge from dropout_16 to sum_d_e
+\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_16) to node [defaultLabel] {} (sum_d_e);
 
 \end{tikzpicture}\end{document}

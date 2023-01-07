@@ -9,9 +9,8 @@ from visualizer.backend.misc.position import Position
 class Layer:
     sort_order = 9999
 
-    @classmethod
-    def get_style_name(cls) -> str:
-        return f"{cls.__name__}_style"
+    def get_style_name(self) -> str:
+        return f"{self.type_group}_layer_style"
 
     @classmethod
     def get_keras_output_layers(cls, layer: keras.layers.Layer):
@@ -37,7 +36,7 @@ class Layer:
         self.layer = layer
         self.name: str = layer.name
         self.type: str = layer.__class__.__name__
-        self.type_group: str = self.__class__.__name__
+        self.type_group: str = LayerConfig.get_type_group(self.type)
         self.position = Position()
 
         self.inbound_layers_names = []
@@ -132,9 +131,14 @@ class Layer:
             content_prop = content_config['property']
             content_type = content_config['type']
 
-            content_value = layer.get_config()
-            for prop in content_prop.split('.'):
-                content_value = content_value[prop]
+            if content_prop == 'output_shape':
+                content_value = str_shape(layer.output_shape)
+            elif content_prop == 'input_shape':
+                content_value = str_shape(layer.input_shape)
+            else:
+                content_value = layer.get_config()
+                for prop in content_prop.split('.'):
+                    content_value = content_value[prop]
 
             if content_type == 'int':
                 content_value = format(content_value, ",d")
@@ -154,9 +158,6 @@ class Layer:
                     node_style_name=self.get_style_name(),
                     position=position,
                     depends_on=[])
-
-    def create_edges(self):
-        return []
 
     def __str__(self):
         return f"Layer(name={self.name}, type={self.type})"

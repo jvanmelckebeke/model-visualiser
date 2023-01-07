@@ -9,37 +9,33 @@ from visualizer.backend.misc.position import Position
 from visualizer.diagram.layers.layer import Layer
 from visualizer.diagram.layers.layer_group import LayerGroup
 
-from visualizer.diagram.layers.operation.operation import OperationLayer
-from visualizer.diagram.layers.trainable.trainable import TrainableLayer
-from visualizer.diagram.layers.utility.utility import UtilityLayer
 from visualizer.util.config import Config, DotConfig
-from visualizer.util.const import UTILITY_LAYER_TYPES, OPERATION_LAYER_TYPES
+
+import seaborn as sns
+import numpy as np
+
+from visualizer.util.const import COLOR_MAP
 
 
 def is_trainable_layer(layer: Layer):
-    return isinstance(layer, TrainableLayer)
+    return not is_operation_layer(layer) and not is_utility_layer(layer)
 
 
 def is_operation_layer(layer: Layer):
-    return isinstance(layer, OperationLayer)
+    return layer.type_group == 'operation'
 
 
 def is_utility_layer(layer: Layer):
-    return isinstance(layer, UtilityLayer)
+    return layer.type_group == 'utility'
 
 
 class DiagramGraph:
     @classmethod
     def create_layer(cls, layer: keras.layers.Layer) -> Layer:
-        layer_type = layer.__class__.__name__
-        if layer_type in UTILITY_LAYER_TYPES:
-            return UtilityLayer(layer)
-        elif layer_type in OPERATION_LAYER_TYPES:
-            return OperationLayer(layer)
-        else:
-            return TrainableLayer(layer)
+        return Layer(layer)
 
     def __init__(self, input_keras_layer: keras.layers.Layer, output_keras_layer: keras.layers.Layer):
+        self.edge_colors = COLOR_MAP
         self._input_keras_layer = input_keras_layer
         self._output_keras_layer = output_keras_layer
 
@@ -99,7 +95,7 @@ class DiagramGraph:
     def _build_graph(self):
         self.graph = nx.from_dict_of_lists(self.group_child_list, create_using=nx.DiGraph)
         self.positions = nx.nx_agraph.graphviz_layout(self.graph, prog='dot', args=DotConfig.load_dot_args())
-        nx.nx_agraph.write_dot(self.graph, 'graph.dot')
+
         # scale positions to fit in the canvas
         min_x = min([pos[0] for pos in self.positions.values()])
         min_y = min([pos[1] for pos in self.positions.values()])
@@ -177,6 +173,8 @@ class DiagramGraph:
         for layer_group in self.layer_groups:
             if layer_group.contains_layer_name(layer_name):
                 return layer_group
+        print(self.layer_groups)
+        raise ValueError(f'Layer {layer_name} not found')
 
     def get_layer(self, name: str) -> Layer:
         return self.layer_map[name]
@@ -228,6 +226,8 @@ class DiagramGraph:
 
         # average x position of the other layers
         other_layers_x = [self.positions[layer].x for layer in other_layers]
+        if len(other_layers_x) == 0:
+            return 'right'
         other_layers_x_avg = sum(other_layers_x) / len(other_layers_x)
 
         # if the average x position is smaller than the child layer, the bend direction is left
@@ -280,22 +280,51 @@ class DiagramGraph:
             options.add_option(f'bend {bend_direction}', '70')
             options.add_option('in', '180')
 
-        print(f"between {parent_layer_name} and {child_layer_name} "
-              f"(y distance: {y_distance}, x distance: {x_distance}, distance: {distance}) "
-              f"in_distance: {in_distance} out_distance: {out_distance}")
+        # print(f"between {parent_layer_name} and {child_layer_name} "
+        #       f"(y distance: {y_distance}, x distance: {x_distance}, distance: {distance}) "
+        #       f"in_distance: {in_distance} out_distance: {out_distance}")
 
         options.add_option('in distance', f"{in_distance}cm")
         options.add_option('out distance', f"{out_distance}cm")
         return options
 
     def create_edges(self):
+        amount_of_bins = len(self.edge_colors)
+        eligible_trainable_layers = [layer for layer in self.layers if is_trainable_layer(layer)]
+        trainable_params_list = [layer.trainable_params for layer in eligible_trainable_layers]
+        trainable_params_list = [params for params in trainable_params_list if params != 0]
+
+        trainable_params_list = sorted(trainable_params_list)
+
+        bins = np.array_split(trainable_params_list, amount_of_bins - 1)
+        trainable_params_list_bins = [bin[0] for bin in bins]
+        print(sorted(trainable_params_list))
+        max_edge_weight = max(trainable_params_list)
+
+        # trainable_params_list_bins = np.cumsum(trainable_params_list_bins)
+        print("bins:", trainable_params_list_bins)
+
+        def get_edge_color(edge_weight):
+            if edge_weight == 0:
+                return "black"
+            # calculate the bin index of the edge weight
+            bin_index = np.digitize(edge_weight, trainable_params_list_bins)
+            print(f"edge weight {edge_weight} is in bin {bin_index}")
+            return f"COLOR{bin_index}"
+
         edges = []
         for layer_group in self.layer_groups:
             for child_layer_group_name in self.group_child_list[layer_group.name]:
                 child_group = self.layer_groups_map[child_layer_group_name]
                 label = child_group.primary_layer.trainable_params
+
+                color = get_edge_color(label)
+
                 label = f'{label:,}' if label != 0 else ''
                 extra_args = self.calc_extra_edge_args(layer_group.name, child_layer_group_name)
+
                 edges.append(
-                    Edge(layer_group.bottom_layer_name, child_group.top_layer_name, label=label, extra_args=extra_args))
+                    Edge(layer_group.bottom_layer_name,
+                         child_group.top_layer_name,
+                         label=label, color=color, extra_args=extra_args))
         return edges

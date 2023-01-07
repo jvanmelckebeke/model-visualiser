@@ -1,6 +1,7 @@
 from visualizer.backend.base import TikzElement
 from visualizer.backend.edge import Edge
 from visualizer.backend.node import Node
+from visualizer.util.const import COLOR_MAP
 
 
 class Diagram(TikzElement):
@@ -74,9 +75,16 @@ class Diagram(TikzElement):
             old_len_waiting_line = len(waiting_line)
         return stack_out
 
+    def register_color_map(self):
+        code = ""
+
+        for i, (r, g, b) in enumerate(COLOR_MAP):
+            code += rf"\definecolor{{COLOR{i}}}{{RGB}}{{{r},{g},{b}}}" + "\n"
+        return code
+
     def generate_code(self):
         drawing_order = self.get_drawing_order()
-        code = ""
+        code = self.register_color_map()
 
         for element_name in drawing_order:
             code += self.element_map[element_name].to_code() + "\n"

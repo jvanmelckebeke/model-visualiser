@@ -46,3 +46,11 @@ class LayerGroup:
 
     def contains_layer_name(self, name):
         return any([l.name == name for l in self.layers])
+
+    def __repr__(self):
+        return f"LayerGroup({self.name}) primary layer {self.primary_layer.name} with before: " \
+               f"{self.layer_before.name if self.layer_before is not None else None}, with after: " \
+               f"{self.layer_after.name if self.layer_after is not None else None})"
+
+    def __str__(self):
+        return self.__repr__()
