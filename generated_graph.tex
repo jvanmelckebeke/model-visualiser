@@ -30,504 +30,472 @@
 \definecolor{COLOR4}{RGB}{238,99,71}
 \definecolor{COLOR5}{RGB}{214,46,30}
 \definecolor{COLOR6}{RGB}{177,0,0}
-% node group: input_1_group
-% node: input_1
-\node[default_layer_style] (input_1) at (23.99, 100.0)
+% node group: input_5_group
+% node: input_5
+\node[default_layer_style] (input_5) at (21.5, 100.0)
     {
     \nodepart{one}{InputLayer}
-    \nodepart{two}{input shape: 256}};
-% end of node group: input_1_group
+    \nodepart{two}{input shape: 50}};
+% end of node group: input_5_group
 
-% node group: b_1_group
-% node: batch_normalization_3
-\node[utility_layer_style] (batch_normalization_3) at (15.4, 94.13)
+% node group: embedding_1_group
+% node: embedding_1
+\node[default_layer_style] (embedding_1) at (21.5, 90.91)
+    {
+    \nodepart{one}{Embedding}
+    \nodepart{two}{input dim: 12,000}
+    \nodepart{three}{output dim: 200}
+    \nodepart{four}{input length: 50}};
+% end of node group: embedding_1_group
+
+% node group: spatial_dropout1d_12_group
+% node: spatial_dropout1d_12
+\node[utility_layer_style] (spatial_dropout1d_12) at (14.3, 81.82)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% end of node group: spatial_dropout1d_12_group
+
+% node group: spatial_dropout1d_19_group
+% node: spatial_dropout1d_19
+\node[utility_layer_style] (spatial_dropout1d_19) at (28.81, 81.82)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% end of node group: spatial_dropout1d_19_group
+
+% node group: bidirectional_7_group
+% node: batch_normalization_32
+\node[utility_layer_style] (batch_normalization_32) at (13.88, 73.8)
     {
     \nodepart{one}{BatchNormalization}};
-% node: dropout_3
-\node[utility_layer_style] (dropout_3) at (15.4, 92.26)
+% node: spatial_dropout1d_13
+\node[utility_layer_style] (spatial_dropout1d_13) at (13.88, 71.4)
     {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: b_1
-\node[default_layer_style] (b_1) at (15.4, 93.33)
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: bidirectional_7
+\node[default_layer_style] (bidirectional_7) at (13.88, 72.73)
     {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 512}
-    \nodepart{three}{activation: relu}};
-% end of node group: b_1_group
+    \nodepart{one}{Bidirectional(LSTM)}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{dropout: 0.55}
+    \nodepart{four}{return sequences: True}};
+% end of node group: bidirectional_7_group
 
-% node group: a_1_group
-% node: batch_normalization
-\node[utility_layer_style] (batch_normalization) at (32.7, 94.13)
+% node group: conv1d_11_group
+% node: batch_normalization_38
+\node[utility_layer_style] (batch_normalization_38) at (29.03, 64.71)
     {
     \nodepart{one}{BatchNormalization}};
-% node: dropout
-\node[utility_layer_style] (dropout) at (32.7, 92.26)
+% node: conv1d_11
+\node[default_layer_style] (conv1d_11) at (29.03, 63.64)
+    {
+    \nodepart{one}{Conv1D}
+    \nodepart{two}{filters: 128}
+    \nodepart{three}{kernel: 4}
+    \nodepart{four}{activation: relu}};
+% end of node group: conv1d_11_group
+
+% node group: max_pooling1d_10_group
+% node: spatial_dropout1d_21
+\node[utility_layer_style] (spatial_dropout1d_21) at (29.03, 53.48)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: max_pooling1d_10
+\node[pool_layer_style] (max_pooling1d_10) at (29.03, 54.55)
+    {
+    \nodepart{one}{MaxPooling1D}
+    \nodepart{two}{pool: 2}
+    \nodepart{three}{output shape: (23, 128)}};
+% end of node group: max_pooling1d_10_group
+
+% node group: bidirectional_10_group
+% node: batch_normalization_39
+\node[utility_layer_style] (batch_normalization_39) at (45.97, 55.62)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: spatial_dropout1d_20
+\node[utility_layer_style] (spatial_dropout1d_20) at (45.97, 53.22)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: bidirectional_10
+\node[default_layer_style] (bidirectional_10) at (45.97, 54.55)
+    {
+    \nodepart{one}{Bidirectional(LSTM)}
+    \nodepart{two}{units: 128}
+    \nodepart{three}{dropout: 0.55}
+    \nodepart{four}{return sequences: True}};
+% end of node group: bidirectional_10_group
+
+% node group: conv1d_7_group
+% node: batch_normalization_33
+\node[utility_layer_style] (batch_normalization_33) at (0.21, 64.71)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: conv1d_7
+\node[default_layer_style] (conv1d_7) at (0.21, 63.64)
+    {
+    \nodepart{one}{Conv1D}
+    \nodepart{two}{filters: 128}
+    \nodepart{three}{kernel: 4}
+    \nodepart{four}{activation: relu}};
+% end of node group: conv1d_7_group
+
+% node group: bidirectional_8_group
+% node: batch_normalization_35
+\node[utility_layer_style] (batch_normalization_35) at (13.88, 64.71)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: spatial_dropout1d_16
+\node[utility_layer_style] (spatial_dropout1d_16) at (13.88, 62.31)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: bidirectional_8
+\node[default_layer_style] (bidirectional_8) at (13.88, 63.64)
+    {
+    \nodepart{one}{Bidirectional(LSTM)}
+    \nodepart{two}{units: 32}
+    \nodepart{three}{dropout: 0.55}
+    \nodepart{four}{return sequences: True}};
+% end of node group: bidirectional_8_group
+
+% node group: max_pooling1d_6_group
+% node: spatial_dropout1d_14
+\node[utility_layer_style] (spatial_dropout1d_14) at (0.0, 53.48)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: max_pooling1d_6
+\node[pool_layer_style] (max_pooling1d_6) at (0.0, 54.55)
+    {
+    \nodepart{one}{MaxPooling1D}
+    \nodepart{two}{pool: 2}
+    \nodepart{three}{output shape: (25, 128)}};
+% end of node group: max_pooling1d_6_group
+
+% node group: bidirectional_11_group
+% node: bidirectional_11
+\node[default_layer_style] (bidirectional_11) at (50.0, 18.18)
+    {
+    \nodepart{one}{Bidirectional(LSTM)}
+    \nodepart{two}{units: 64}
+    \nodepart{three}{dropout: 0.55}
+    \nodepart{four}{return sequences: False}};
+% end of node group: bidirectional_11_group
+
+% node group: conv1d_12_group
+% node: batch_normalization_40
+\node[utility_layer_style] (batch_normalization_40) at (29.03, 46.52)
+    {
+    \nodepart{one}{BatchNormalization}};
+% node: conv1d_12
+\node[default_layer_style] (conv1d_12) at (29.03, 45.45)
+    {
+    \nodepart{one}{Conv1D}
+    \nodepart{two}{filters: 64}
+    \nodepart{three}{kernel: 4}
+    \nodepart{four}{activation: relu}};
+% end of node group: conv1d_12_group
+
+% node group: bidirectional_9_group
+% node: dropout_26
+\node[utility_layer_style] (dropout_26) at (8.05, 16.85)
     {
     \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: a_1
-\node[default_layer_style] (a_1) at (32.7, 93.33)
+    \nodepart{two}{rate: 0.55}};
+% node: bidirectional_9
+\node[default_layer_style] (bidirectional_9) at (8.05, 18.18)
     {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 256}
-    \nodepart{three}{activation: relu}};
-% end of node group: a_1_group
+    \nodepart{one}{Bidirectional(LSTM)}
+    \nodepart{two}{units: 64}
+    \nodepart{three}{dropout: 0.55}
+    \nodepart{four}{return sequences: False}};
+% end of node group: bidirectional_9_group
 
-% node group: sum_a_group
-% node: sum_a
-\node[operation_layer_style] (sum_a) at (32.7, 80.0)
+% node group: add_1_group
+% node: add_1
+\node[operation_layer_style] (add_1) at (27.44, 9.09)
     {
     \nodepart{one}{Add}
-    \nodepart{two}{output shape: 256}};
-% end of node group: sum_a_group
+    \nodepart{two}{output shape: 128}};
+% end of node group: add_1_group
 
-% node group: b1_1_group
-% node: batch_normalization_4
-\node[utility_layer_style] (batch_normalization_4) at (15.4, 87.47)
+% node group: max_pooling1d_11_group
+% node: spatial_dropout1d_23
+\node[utility_layer_style] (spatial_dropout1d_23) at (29.03, 35.29)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: max_pooling1d_11
+\node[pool_layer_style] (max_pooling1d_11) at (29.03, 36.36)
+    {
+    \nodepart{one}{MaxPooling1D}
+    \nodepart{two}{pool: 2}
+    \nodepart{three}{output shape: (10, 64)}};
+% end of node group: max_pooling1d_11_group
+
+% node group: conv1d_9_group
+% node: batch_normalization_36
+\node[utility_layer_style] (batch_normalization_36) at (16.1, 55.62)
     {
     \nodepart{one}{BatchNormalization}};
-% node: dropout_4
-\node[utility_layer_style] (dropout_4) at (15.4, 85.6)
+% node: conv1d_9
+\node[default_layer_style] (conv1d_9) at (16.1, 54.55)
     {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: b1_1
-\node[default_layer_style] (b1_1) at (15.4, 86.67)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{activation: relu}};
-% end of node group: b1_1_group
+    \nodepart{one}{Conv1D}
+    \nodepart{two}{filters: 128}
+    \nodepart{three}{kernel: 4}
+    \nodepart{four}{activation: relu}};
+% end of node group: conv1d_9_group
 
-% node group: b2_1_group
-% node: batch_normalization_6
-\node[utility_layer_style] (batch_normalization_6) at (0.0, 87.47)
+% node group: bidirectional_12_group
+% node: batch_normalization_41
+\node[utility_layer_style] (batch_normalization_41) at (41.95, 37.43)
     {
     \nodepart{one}{BatchNormalization}};
-% node: dropout_6
-\node[utility_layer_style] (dropout_6) at (0.0, 85.6)
+% node: spatial_dropout1d_22
+\node[utility_layer_style] (spatial_dropout1d_22) at (41.95, 35.03)
     {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: b2_1
-\node[default_layer_style] (b2_1) at (0.0, 86.67)
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: bidirectional_12
+\node[default_layer_style] (bidirectional_12) at (41.95, 36.36)
     {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{activation: relu}};
-% end of node group: b2_1_group
+    \nodepart{one}{Bidirectional(LSTM)}
+    \nodepart{two}{units: 64}
+    \nodepart{three}{dropout: 0.55}
+    \nodepart{four}{return sequences: True}};
+% end of node group: bidirectional_12_group
 
-% node group: a1_1_group
-% node: batch_normalization_1
-\node[utility_layer_style] (batch_normalization_1) at (34.6, 87.47)
+% node group: conv1d_8_group
+% node: batch_normalization_34
+\node[utility_layer_style] (batch_normalization_34) at (0.0, 46.52)
     {
     \nodepart{one}{BatchNormalization}};
-% node: dropout_1
-\node[utility_layer_style] (dropout_1) at (34.6, 85.6)
+% node: conv1d_8
+\node[default_layer_style] (conv1d_8) at (0.0, 45.45)
+    {
+    \nodepart{one}{Conv1D}
+    \nodepart{two}{filters: 128}
+    \nodepart{three}{kernel: 4}
+    \nodepart{four}{activation: relu}};
+% end of node group: conv1d_8_group
+
+% node group: max_pooling1d_8_group
+% node: spatial_dropout1d_17
+\node[utility_layer_style] (spatial_dropout1d_17) at (16.1, 44.38)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: max_pooling1d_8
+\node[pool_layer_style] (max_pooling1d_8) at (16.1, 45.45)
+    {
+    \nodepart{one}{MaxPooling1D}
+    \nodepart{two}{pool: 2}
+    \nodepart{three}{output shape: (25, 128)}};
+% end of node group: max_pooling1d_8_group
+
+% node group: dense_1_group
+% node: dropout_27
+\node[utility_layer_style] (dropout_27) at (27.44, 1.07)
     {
     \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: a1_1
-\node[default_layer_style] (a1_1) at (34.6, 86.67)
+    \nodepart{two}{rate: 0.55}};
+% node: dense_1
+\node[default_layer_style] (dense_1) at (27.44, 0.0)
     {
     \nodepart{one}{Dense}
-    \nodepart{two}{units: 256}
-    \nodepart{three}{activation: relu}};
-% end of node group: a1_1_group
-
-% node group: a2_1_group
-% node: batch_normalization_2
-\node[utility_layer_style] (batch_normalization_2) at (50.0, 87.47)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_2
-\node[utility_layer_style] (dropout_2) at (50.0, 85.6)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: a2_1
-\node[default_layer_style] (a2_1) at (50.0, 86.67)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 256}
-    \nodepart{three}{activation: relu}};
-% end of node group: a2_1_group
-
-% node group: sum_ab_group
-% node: sum_ab
-\node[operation_layer_style] (sum_ab) at (21.09, 53.33)
-    {
-    \nodepart{one}{Add}
-    \nodepart{two}{output shape: 256}};
-% end of node group: sum_ab_group
-
-% node group: e_1_group
-% node: batch_normalization_12
-\node[utility_layer_style] (batch_normalization_12) at (9.6, 47.47)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_12
-\node[utility_layer_style] (dropout_12) at (9.6, 45.6)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: e_1
-\node[default_layer_style] (e_1) at (9.6, 46.67)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{activation: relu}};
-% end of node group: e_1_group
-
-% node group: d_1_group
-% node: batch_normalization_10
-\node[utility_layer_style] (batch_normalization_10) at (25.0, 47.47)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_10
-\node[utility_layer_style] (dropout_10) at (25.0, 45.6)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: d_1
-\node[default_layer_style] (d_1) at (25.0, 46.67)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 1024}
-    \nodepart{three}{activation: relu}};
-% end of node group: d_1_group
-
-% node group: b1_2_group
-% node: batch_normalization_5
-\node[utility_layer_style] (batch_normalization_5) at (15.4, 80.8)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_5
-\node[utility_layer_style] (dropout_5) at (15.4, 78.93)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: b1_2
-\node[default_layer_style] (b1_2) at (15.4, 80.0)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{activation: relu}};
-% end of node group: b1_2_group
-
-% node group: b2_2_group
-% node: batch_normalization_7
-\node[utility_layer_style] (batch_normalization_7) at (0.0, 80.8)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_7
-\node[utility_layer_style] (dropout_7) at (0.0, 78.93)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: b2_2
-\node[default_layer_style] (b2_2) at (0.0, 80.0)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{activation: relu}};
-% end of node group: b2_2_group
-
-% node group: sum_b_group
-% node: sum_b
-\node[operation_layer_style] (sum_b) at (15.4, 73.33)
-    {
-    \nodepart{one}{Add}
-    \nodepart{two}{output shape: 32}};
-% end of node group: sum_b_group
-
-% node group: sum_b2_e_group
-% node: sum_b2_e
-\node[operation_layer_style] (sum_b2_e) at (0.0, 26.67)
-    {
-    \nodepart{one}{Add}
-    \nodepart{two}{output shape: 32}};
-% end of node group: sum_b2_e_group
-
-% node group: e_2_group
-% node: batch_normalization_13
-\node[utility_layer_style] (batch_normalization_13) at (9.6, 40.8)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_13
-\node[utility_layer_style] (dropout_13) at (9.6, 38.93)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: e_2
-\node[default_layer_style] (e_2) at (9.6, 40.0)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{activation: relu}};
-% end of node group: e_2_group
-
-% node group: d_2_group
-% node: batch_normalization_11
-\node[utility_layer_style] (batch_normalization_11) at (25.0, 34.13)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_11
-\node[utility_layer_style] (dropout_11) at (25.0, 32.26)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: d_2
-\node[default_layer_style] (d_2) at (25.0, 33.33)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 1024}
-    \nodepart{three}{activation: relu}};
-% end of node group: d_2_group
-
-% node group: b_2_group
-% node: batch_normalization_8
-\node[utility_layer_style] (batch_normalization_8) at (17.3, 67.47)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_8
-\node[utility_layer_style] (dropout_8) at (17.3, 65.6)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: b_2
-\node[default_layer_style] (b_2) at (17.3, 66.67)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 256}
-    \nodepart{three}{activation: relu}};
-% end of node group: b_2_group
-
-% node group: e2_1_group
-% node: batch_normalization_17
-\node[utility_layer_style] (batch_normalization_17) at (0.0, 20.8)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_17
-\node[utility_layer_style] (dropout_17) at (0.0, 18.93)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: e2_1
-\node[default_layer_style] (e2_1) at (0.0, 20.0)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 1024}
-    \nodepart{three}{activation: relu}};
-% end of node group: e2_1_group
-
-% node group: sum_d_e_group
-% node: sum_d_e
-\node[operation_layer_style] (sum_d_e) at (15.4, 6.67)
-    {
-    \nodepart{one}{Add}
-    \nodepart{two}{output shape: 1024}};
-% end of node group: sum_d_e_group
-
-% node group: e_3_group
-% node: batch_normalization_14
-\node[utility_layer_style] (batch_normalization_14) at (9.6, 34.13)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_14
-\node[utility_layer_style] (dropout_14) at (9.6, 32.26)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: e_3
-\node[default_layer_style] (e_3) at (9.6, 33.33)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{activation: relu}};
-% end of node group: e_3_group
-
-% node group: output_group
-% node: dropout_out
-\node[utility_layer_style] (dropout_out) at (15.4, 1.07)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: output
-\node[default_layer_style] (output) at (15.4, 0.0)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 10}
+    \nodepart{two}{units: 3}
     \nodepart{three}{activation: softmax}};
-% end of node group: output_group
+% end of node group: dense_1_group
 
-% node group: b_3_group
-% node: batch_normalization_9
-\node[utility_layer_style] (batch_normalization_9) at (17.3, 60.8)
+% node group: conv1d_13_group
+% node: conv1d_13
+\node[default_layer_style] (conv1d_13) at (29.03, 27.27)
+    {
+    \nodepart{one}{Conv1D}
+    \nodepart{two}{filters: 128}
+    \nodepart{three}{kernel: 4}
+    \nodepart{four}{activation: relu}};
+% end of node group: conv1d_13_group
+
+% node group: max_pooling1d_7_group
+% node: spatial_dropout1d_15
+\node[utility_layer_style] (spatial_dropout1d_15) at (0.0, 35.29)
+    {
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: max_pooling1d_7
+\node[pool_layer_style] (max_pooling1d_7) at (0.0, 36.36)
+    {
+    \nodepart{one}{MaxPooling1D}
+    \nodepart{two}{pool: 2}
+    \nodepart{three}{output shape: (12, 128)}};
+% end of node group: max_pooling1d_7_group
+
+% node group: bidirectional_13_group
+% node: bidirectional_13
+\node[default_layer_style] (bidirectional_13) at (41.95, 27.27)
+    {
+    \nodepart{one}{Bidirectional(LSTM)}
+    \nodepart{two}{units: 64}
+    \nodepart{three}{dropout: 0.55}
+    \nodepart{four}{return sequences: False}};
+% end of node group: bidirectional_13_group
+
+% node group: global_max_pooling1d_5_group
+% node: global_max_pooling1d_5
+\node[pool_layer_style] (global_max_pooling1d_5) at (33.9, 18.18)
+    {
+    \nodepart{one}{GlobalMaxPooling1D}
+    \nodepart{two}{output shape: 128}};
+% end of node group: global_max_pooling1d_5_group
+
+% node group: global_max_pooling1d_3_group
+% node: global_max_pooling1d_3
+\node[pool_layer_style] (global_max_pooling1d_3) at (0.0, 27.27)
+    {
+    \nodepart{one}{GlobalMaxPooling1D}
+    \nodepart{two}{output shape: 128}};
+% end of node group: global_max_pooling1d_3_group
+
+% node group: conv1d_10_group
+% node: batch_normalization_37
+\node[utility_layer_style] (batch_normalization_37) at (16.1, 37.43)
     {
     \nodepart{one}{BatchNormalization}};
-% node: dropout_9
-\node[utility_layer_style] (dropout_9) at (17.3, 58.93)
+% node: conv1d_10
+\node[default_layer_style] (conv1d_10) at (16.1, 36.36)
     {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: b_3
-\node[default_layer_style] (b_3) at (17.3, 60.0)
+    \nodepart{one}{Conv1D}
+    \nodepart{two}{filters: 128}
+    \nodepart{three}{kernel: 4}
+    \nodepart{four}{activation: relu}};
+% end of node group: conv1d_10_group
+
+% node group: max_pooling1d_9_group
+% node: spatial_dropout1d_18
+\node[utility_layer_style] (spatial_dropout1d_18) at (16.1, 26.2)
     {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 256}
-    \nodepart{three}{activation: relu}};
-% end of node group: b_3_group
-
-% node group: e2_2_group
-% node: batch_normalization_18
-\node[utility_layer_style] (batch_normalization_18) at (0.0, 14.13)
+    \nodepart{one}{SpatialDropout1D}
+    \nodepart{two}{rate: 0.55}};
+% node: max_pooling1d_9
+\node[pool_layer_style] (max_pooling1d_9) at (16.1, 27.27)
     {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_18
-\node[utility_layer_style] (dropout_18) at (0.0, 12.26)
+    \nodepart{one}{MaxPooling1D}
+    \nodepart{two}{pool: 2}
+    \nodepart{three}{output shape: (12, 128)}};
+% end of node group: max_pooling1d_9_group
+
+% node group: global_max_pooling1d_4_group
+% node: global_max_pooling1d_4
+\node[pool_layer_style] (global_max_pooling1d_4) at (20.97, 18.18)
     {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: e2_2
-\node[default_layer_style] (e2_2) at (0.0, 13.33)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 1024}
-    \nodepart{three}{activation: relu}};
-% end of node group: e2_2_group
+    \nodepart{one}{GlobalMaxPooling1D}
+    \nodepart{two}{output shape: 128}};
+% end of node group: global_max_pooling1d_4_group
 
-% node group: e1_1_group
-% node: batch_normalization_15
-\node[utility_layer_style] (batch_normalization_15) at (15.4, 27.47)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_15
-\node[utility_layer_style] (dropout_15) at (15.4, 25.6)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: e1_1
-\node[default_layer_style] (e1_1) at (15.4, 26.67)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 1024}
-    \nodepart{three}{activation: relu}};
-% end of node group: e1_1_group
+% edge from input_5 to embedding_1
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (input_5) to node [defaultLabel] {2,400,000} (embedding_1);
 
-% node group: e1_2_group
-% node: batch_normalization_16
-\node[utility_layer_style] (batch_normalization_16) at (15.4, 14.13)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: dropout_16
-\node[utility_layer_style] (dropout_16) at (15.4, 12.26)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.25}};
-% node: e1_2
-\node[default_layer_style] (e1_2) at (15.4, 13.33)
-    {
-    \nodepart{one}{Dense}
-    \nodepart{two}{units: 1024}
-    \nodepart{three}{activation: relu}};
-% end of node group: e1_2_group
+% edge from embedding_1 to spatial_dropout1d_12
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (embedding_1) to node [defaultLabel] {} (spatial_dropout1d_12);
 
-% edge from input_1 to batch_normalization_3
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (input_1) to node [defaultLabel] {131,584} (batch_normalization_3);
+% edge from embedding_1 to spatial_dropout1d_19
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (embedding_1) to node [defaultLabel] {} (spatial_dropout1d_19);
 
-% edge from input_1 to batch_normalization
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (input_1) to node [defaultLabel] {65,792} (batch_normalization);
+% edge from spatial_dropout1d_12 to batch_normalization_32
+\draw[-Stealth, defaultEdge, in distance=0.91cm,out distance=0.91cm,draw=black,line width=1pt] (spatial_dropout1d_12) to node [defaultLabel] {59,648} (batch_normalization_32);
 
-% edge from dropout_3 to batch_normalization_4
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (dropout_3) to node [defaultLabel] {16,416} (batch_normalization_4);
+% edge from spatial_dropout1d_19 to batch_normalization_38
+\draw[-Stealth, defaultEdge, in distance=1.82cm,out distance=1.82cm,draw=black,line width=1pt] (spatial_dropout1d_19) to node [defaultLabel] {102,528} (batch_normalization_38);
 
-% edge from dropout_3 to batch_normalization_6
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (dropout_3) to node [defaultLabel] {16,416} (batch_normalization_6);
+% edge from spatial_dropout1d_13 to batch_normalization_33
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_13) to node [defaultLabel] {32,896} (batch_normalization_33);
 
-% edge from dropout to batch_normalization_1
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (dropout) to node [defaultLabel] {65,792} (batch_normalization_1);
+% edge from spatial_dropout1d_13 to batch_normalization_35
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_13) to node [defaultLabel] {24,832} (batch_normalization_35);
 
-% edge from dropout to batch_normalization_2
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (dropout) to node [defaultLabel] {65,792} (batch_normalization_2);
+% edge from conv1d_11 to batch_normalization_39
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_11) to node [defaultLabel] {263,168} (batch_normalization_39);
 
-% edge from dropout to sum_a
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout) to node [defaultLabel] {} (sum_a);
+% edge from conv1d_11 to max_pooling1d_10
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_11) to node [defaultLabel] {} (max_pooling1d_10);
 
-% edge from sum_a to sum_ab
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=13.34cm,draw=black,line width=1pt] (sum_a) to node [defaultLabel] {} (sum_ab);
+% edge from spatial_dropout1d_21 to batch_normalization_40
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_21) to node [defaultLabel] {32,832} (batch_normalization_40);
 
-% edge from dropout_4 to batch_normalization_5
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_4) to node [defaultLabel] {1,056} (batch_normalization_5);
+% edge from spatial_dropout1d_20 to bidirectional_11
+\draw[-Stealth, defaultEdge, in distance=10.91cm,out distance=10.91cm,draw=black,line width=1pt] (spatial_dropout1d_20) to node [defaultLabel] {164,352} (bidirectional_11);
 
-% edge from dropout_6 to batch_normalization_7
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_6) to node [defaultLabel] {1,056} (batch_normalization_7);
+% edge from conv1d_7 to max_pooling1d_6
+\draw[-Stealth, defaultEdge, in distance=0.91cm,out distance=0.91cm,draw=black,line width=1pt] (conv1d_7) to node [defaultLabel] {} (max_pooling1d_6);
 
-% edge from dropout_1 to sum_a
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_1) to node [defaultLabel] {} (sum_a);
+% edge from spatial_dropout1d_16 to batch_normalization_36
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_16) to node [defaultLabel] {32,896} (batch_normalization_36);
 
-% edge from dropout_2 to sum_a
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_2) to node [defaultLabel] {} (sum_a);
+% edge from spatial_dropout1d_16 to bidirectional_9
+\draw[-Stealth, defaultEdge, in distance=22.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_16) to node [defaultLabel] {66,048} (bidirectional_9);
 
-% edge from sum_ab to batch_normalization_12
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR2,line width=1.6pt] (sum_ab) to node [defaultLabel] {8,224} (batch_normalization_12);
+% edge from spatial_dropout1d_14 to batch_normalization_34
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_14) to node [defaultLabel] {65,664} (batch_normalization_34);
 
-% edge from sum_ab to batch_normalization_10
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (sum_ab) to node [defaultLabel] {263,168} (batch_normalization_10);
+% edge from bidirectional_11 to add_1
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (bidirectional_11) to node [defaultLabel] {} (add_1);
 
-% edge from dropout_12 to batch_normalization_13
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_12) to node [defaultLabel] {1,056} (batch_normalization_13);
+% edge from conv1d_12 to batch_normalization_41
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_12) to node [defaultLabel] {66,048} (batch_normalization_41);
 
-% edge from dropout_10 to batch_normalization_11
-\draw[-Stealth, defaultEdge, in distance=4.0cm,out distance=4.0cm,draw=COLOR6,line width=1.6pt] (dropout_10) to node [defaultLabel] {1,049,600} (batch_normalization_11);
+% edge from conv1d_12 to max_pooling1d_11
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_12) to node [defaultLabel] {} (max_pooling1d_11);
 
-% edge from dropout_5 to sum_b
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_5) to node [defaultLabel] {} (sum_b);
+% edge from dropout_26 to add_1
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (dropout_26) to node [defaultLabel] {} (add_1);
 
-% edge from dropout_7 to sum_b
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_7) to node [defaultLabel] {} (sum_b);
+% edge from add_1 to dropout_27
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (add_1) to node [defaultLabel] {387} (dropout_27);
 
-% edge from dropout_7 to sum_b2_e
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_7) to node [defaultLabel] {} (sum_b2_e);
+% edge from spatial_dropout1d_23 to conv1d_13
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_23) to node [defaultLabel] {32,896} (conv1d_13);
 
-% edge from sum_b to batch_normalization_8
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR2,line width=1.6pt] (sum_b) to node [defaultLabel] {8,448} (batch_normalization_8);
+% edge from conv1d_9 to max_pooling1d_8
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_9) to node [defaultLabel] {} (max_pooling1d_8);
 
-% edge from sum_b2_e to batch_normalization_17
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (sum_b2_e) to node [defaultLabel] {33,792} (batch_normalization_17);
+% edge from spatial_dropout1d_22 to bidirectional_13
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_22) to node [defaultLabel] {98,816} (bidirectional_13);
 
-% edge from dropout_13 to batch_normalization_14
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR1,line width=1.6pt] (dropout_13) to node [defaultLabel] {1,056} (batch_normalization_14);
+% edge from conv1d_8 to max_pooling1d_7
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_8) to node [defaultLabel] {} (max_pooling1d_7);
 
-% edge from dropout_11 to sum_d_e
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=13.33cm,draw=black,line width=1pt] (dropout_11) to node [defaultLabel] {} (sum_d_e);
+% edge from spatial_dropout1d_17 to batch_normalization_37
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_17) to node [defaultLabel] {65,664} (batch_normalization_37);
 
-% edge from dropout_8 to batch_normalization_9
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR5,line width=1.6pt] (dropout_8) to node [defaultLabel] {65,792} (batch_normalization_9);
+% edge from conv1d_13 to global_max_pooling1d_5
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_13) to node [defaultLabel] {} (global_max_pooling1d_5);
 
-% edge from dropout_17 to batch_normalization_18
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR6,line width=1.6pt] (dropout_17) to node [defaultLabel] {1,049,600} (batch_normalization_18);
+% edge from spatial_dropout1d_15 to global_max_pooling1d_3
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_15) to node [defaultLabel] {} (global_max_pooling1d_3);
 
-% edge from sum_d_e to dropout_out
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR2,line width=1.6pt] (sum_d_e) to node [defaultLabel] {10,250} (dropout_out);
+% edge from bidirectional_13 to add_1
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=9.09cm,draw=black,line width=1pt] (bidirectional_13) to node [defaultLabel] {} (add_1);
 
-% edge from dropout_14 to sum_b2_e
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_14) to node [defaultLabel] {} (sum_b2_e);
+% edge from global_max_pooling1d_5 to add_1
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (global_max_pooling1d_5) to node [defaultLabel] {} (add_1);
 
-% edge from dropout_14 to batch_normalization_15
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=COLOR3,line width=1.6pt] (dropout_14) to node [defaultLabel] {33,792} (batch_normalization_15);
+% edge from global_max_pooling1d_3 to add_1
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=9.09cm,draw=black,line width=1pt] (global_max_pooling1d_3) to node [defaultLabel] {} (add_1);
 
-% edge from dropout_9 to sum_ab
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_9) to node [defaultLabel] {} (sum_ab);
+% edge from conv1d_10 to max_pooling1d_9
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_10) to node [defaultLabel] {} (max_pooling1d_9);
 
-% edge from dropout_18 to sum_d_e
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_18) to node [defaultLabel] {} (sum_d_e);
+% edge from spatial_dropout1d_18 to global_max_pooling1d_4
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_18) to node [defaultLabel] {} (global_max_pooling1d_4);
 
-% edge from dropout_15 to batch_normalization_16
-\draw[-Stealth, defaultEdge, in distance=4.0cm,out distance=4.0cm,draw=COLOR6,line width=1.6pt] (dropout_15) to node [defaultLabel] {1,049,600} (batch_normalization_16);
-
-% edge from dropout_16 to sum_d_e
-\draw[-Stealth, defaultEdge, in distance=2.0cm,out distance=2.0cm,draw=black,line width=1pt] (dropout_16) to node [defaultLabel] {} (sum_d_e);
+% edge from global_max_pooling1d_4 to add_1
+\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (global_max_pooling1d_4) to node [defaultLabel] {} (add_1);
 
 \end{tikzpicture}\end{document}

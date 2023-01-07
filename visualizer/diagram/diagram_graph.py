@@ -288,24 +288,23 @@ class DiagramGraph:
         options.add_option('out distance', f"{out_distance}cm")
         return options
 
-    def create_edges(self):
+    def create_edges(self, use_color=False):
         amount_of_bins = len(self.edge_colors)
         eligible_trainable_layers = [layer for layer in self.layers if is_trainable_layer(layer)]
         trainable_params_list = [layer.trainable_params for layer in eligible_trainable_layers]
         trainable_params_list = [params for params in trainable_params_list if params != 0]
 
         trainable_params_list = sorted(trainable_params_list)
+        if use_color:
+            bins = np.array_split(trainable_params_list, amount_of_bins - 1)
+            trainable_params_list_bins = [bin[0] for bin in bins]
+            # print(sorted(trainable_params_list))
 
-        bins = np.array_split(trainable_params_list, amount_of_bins - 1)
-        trainable_params_list_bins = [bin[0] for bin in bins]
-        print(sorted(trainable_params_list))
-        max_edge_weight = max(trainable_params_list)
-
-        # trainable_params_list_bins = np.cumsum(trainable_params_list_bins)
-        print("bins:", trainable_params_list_bins)
+            # trainable_params_list_bins = np.cumsum(trainable_params_list_bins)
+            print("bins:", trainable_params_list_bins)
 
         def get_edge_color(edge_weight):
-            if edge_weight == 0:
+            if not use_color or edge_weight == 0:
                 return "black"
             # calculate the bin index of the edge weight
             bin_index = np.digitize(edge_weight, trainable_params_list_bins)

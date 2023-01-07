@@ -1,13 +1,10 @@
-import json
-
-import keras.applications
 from keras.models import load_model
-
+from wand.image import Image as WImage
+from wand.color import Color
 from visualizer.backend.diagram import Diagram
 from visualizer.backend.document import Document
-from visualizer.backend.misc.grid import Grid
 from visualizer.diagram.diagram_graph import DiagramGraph
-from visualizer.util.config import Config, StyleConfig
+from visualizer.util.config import StyleConfig
 from visualizer.util.tools import run_command
 
 
@@ -20,7 +17,7 @@ def create_pdf(document: Document):
     # run_command('pdf2svg out/generated_graph.pdf out/generated_graph.svg')
 
 
-def visualize(model):
+def visualize(model, resolution=200):
     print(model.get_config())
     input_layer = model.get_layer(name=model.inputs[0].name)
     output_layer = model.get_layer(index=-1)
@@ -42,8 +39,12 @@ def visualize(model):
 
     # model.summary(line_length=222)
     create_pdf(document)
+    img = WImage(filename='out/generated_graph.pdf', resolution=resolution)
+    img.background_color = Color('white')
+    img.alpha_channel = 'remove'
+    return img
 
 
-model = load_model('model.h5')
-# model = keras.applications.Xception(weights=None)
-visualize(model)
+if __name__ == '__main__':
+    model = load_model('model.h5')
+    visualize(model)
