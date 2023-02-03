@@ -34,13 +34,18 @@ class DiagramGraph:
     def create_layer(cls, layer: keras.layers.Layer) -> Layer:
         return Layer(layer)
 
-    def __init__(self, input_keras_layer: keras.layers.Layer, output_keras_layer: keras.layers.Layer):
+    def __init__(self, input_keras_layer: keras.layers.Layer, output_keras_layer: keras.layers.Layer, canvas_width=None,
+                 canvas_height=None):
+
         self.edge_colors = COLOR_MAP
         self._input_keras_layer = input_keras_layer
         self._output_keras_layer = output_keras_layer
 
         self.input_layer = self.create_layer(input_keras_layer)
         self.output_layer = self.create_layer(output_keras_layer)
+
+        self.canvas_width = canvas_width if canvas_width is not None else Config.load_int('canvas', 'width')
+        self.canvas_height = canvas_height if canvas_height is not None else Config.load_int('canvas', 'height')
 
         self.layers = []
         self.layer_groups: list[LayerGroup] = []
@@ -102,12 +107,9 @@ class DiagramGraph:
         max_x = max([pos[0] for pos in self.positions.values()])
         max_y = max([pos[1] for pos in self.positions.values()])
 
-        canvas_width = Config.load_float('canvas', 'width')
-        canvas_height = Config.load_float('canvas', 'height')
-
         for group_name, pos in self.positions.items():
-            new_x = (pos[0] - min_x) / (max_x - min_x) * canvas_width if max_x != min_x else 0
-            new_y = (pos[1] - min_y) / (max_y - min_y) * canvas_height if max_y != min_y else 0
+            new_x = (pos[0] - min_x) / (max_x - min_x) * self.canvas_width if max_x != min_x else 0
+            new_y = (pos[1] - min_y) / (max_y - min_y) * self.canvas_height if max_y != min_y else 0
 
             new_x = round(new_x, 2)
             new_y = round(new_y, 2)
@@ -173,7 +175,6 @@ class DiagramGraph:
         for layer_group in self.layer_groups:
             if layer_group.contains_layer_name(layer_name):
                 return layer_group
-        print(self.layer_groups)
         raise ValueError(f'Layer {layer_name} not found')
 
     def get_layer(self, name: str) -> Layer:
@@ -209,7 +210,7 @@ class DiagramGraph:
                     continue
                 if (range_rectangle[0].x <= position.x <= range_rectangle[1].x and
                         range_rectangle[0].y <= position.y <= range_rectangle[1].y):
-                    print(f'edge {parent_layer_name} -> {child_layer_name} is crossing {layer_group}')
+                    # print(f'edge {parent_layer_name} -> {child_layer_name} is crossing {layer_group}')
                     return True
 
     def calc_bend_direction(self, parent_layer_name, child_layer_name):
@@ -252,9 +253,9 @@ class DiagramGraph:
 
         min_parent_child_distance = min(parent_child_distances)
         min_child_parent_distance = min(child_parent_distances)
-        y_distance = round(parent_position.y_distance(child_position), 3)
+        # y_distance = round(parent_position.y_distance(child_position), 3)
         x_distance = round(parent_position.x_distance(child_position), 3)
-        distance = round(parent_position.distance(child_position), 3)
+        # distance = round(parent_position.distance(child_position), 3)
 
         ratio_in = 0.3
         ratio_out = 0.3
@@ -263,10 +264,10 @@ class DiagramGraph:
             ratio_in = ratio_out = 0.1
 
         if min_parent_child_distance >= 1.5 * min_child_parent_distance:
-            print(f"edge between {parent_layer_name} and {child_layer_name} is a long edge (out)")
+            # print(f"edge between {parent_layer_name} and {child_layer_name} is a long edge (out)")
             ratio_out = 0.5
         elif min_child_parent_distance >= 1.5 * min_parent_child_distance:
-            print(f"edge between {parent_layer_name} and {child_layer_name} is a long edge (in)")
+            # print(f"edge between {parent_layer_name} and {child_layer_name} is a long edge (in)")
             ratio_in = 0.5
 
         in_distance = round(min_child_parent_distance * ratio_in, 2)
@@ -301,14 +302,14 @@ class DiagramGraph:
             # print(sorted(trainable_params_list))
 
             # trainable_params_list_bins = np.cumsum(trainable_params_list_bins)
-            print("bins:", trainable_params_list_bins)
+            # print("bins:", trainable_params_list_bins)
 
         def get_edge_color(edge_weight):
             if not use_color or edge_weight == 0:
                 return "black"
             # calculate the bin index of the edge weight
             bin_index = np.digitize(edge_weight, trainable_params_list_bins)
-            print(f"edge weight {edge_weight} is in bin {bin_index}")
+            # print(f"edge weight {edge_weight} is in bin {bin_index}")
             return f"COLOR{bin_index}"
 
         edges = []

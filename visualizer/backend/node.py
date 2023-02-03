@@ -3,7 +3,7 @@ from visualizer.backend.base import TikzElement
 from visualizer.backend.misc.position import Position
 from visualizer.util.const import FONT_SIZE, INNER_SEP, SCALE_Y
 
-from visualizer.util.tools import INDENT_STR
+from visualizer.util.tools import INDENT_STR, latexify
 
 DEBUG_OFFSET = 0
 
@@ -23,6 +23,10 @@ class Node(TikzElement):
 
         if depends_on is None:
             self.depends_on = []
+
+    @property
+    def latex_name(self):
+        return latexify(self.name)
 
     @property
     def height(self):
@@ -48,7 +52,7 @@ class Node(TikzElement):
 
         code = f""
 
-        node_code = rf"\node[{self.node_style_name}] ({self.name}) {self.position.to_code()}" + \
+        node_code = rf"\node[{self.node_style_name}] ({self.latex_name}) {self.position.to_code()}" + \
                     f"\n{INDENT_STR}{{{layer_description}}};"
         node_code += "\n"
         code += node_code_comment + node_code

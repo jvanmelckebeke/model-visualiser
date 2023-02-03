@@ -30,472 +30,1788 @@
 \definecolor{COLOR4}{RGB}{238,99,71}
 \definecolor{COLOR5}{RGB}{214,46,30}
 \definecolor{COLOR6}{RGB}{177,0,0}
-% node group: input_5_group
-% node: input_5
-\node[default_layer_style] (input_5) at (21.5, 100.0)
+% node group: input_8_group
+% node: input_8
+\node[default_layer_style] (input**8) at (50.0, 280.0)
     {
     \nodepart{one}{InputLayer}
-    \nodepart{two}{input shape: 50}};
-% end of node group: input_5_group
+    \nodepart{two}{input shape: (32, 32, 3)}};
+% end of node group: input_8_group
 
-% node group: embedding_1_group
-% node: embedding_1
-\node[default_layer_style] (embedding_1) at (21.5, 90.91)
+% node group: convnext_tiny_prestem_normalization_group
+% node: convnext_tiny_prestem_normalization
+\node[default_layer_style] (convnext**tiny**prestem**normalization) at (50.0, 278.13)
     {
-    \nodepart{one}{Embedding}
-    \nodepart{two}{input dim: 12,000}
-    \nodepart{three}{output dim: 200}
-    \nodepart{four}{input length: 50}};
-% end of node group: embedding_1_group
+    \nodepart{one}{Normalization}
+    \nodepart{two}{name: convnext\_tiny\_prestem\_normalization}};
+% end of node group: convnext_tiny_prestem_normalization_group
 
-% node group: spatial_dropout1d_12_group
-% node: spatial_dropout1d_12
-\node[utility_layer_style] (spatial_dropout1d_12) at (14.3, 81.82)
+% node group: convnext_tiny_stem_group
+% node: convnext_tiny_stem
+\node[default_layer_style] (convnext**tiny**stem) at (50.0, 276.27)
     {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% end of node group: spatial_dropout1d_12_group
+    \nodepart{one}{Sequential}
+    \nodepart{two}{name: convnext\_tiny\_stem}};
+% end of node group: convnext_tiny_stem_group
 
-% node group: spatial_dropout1d_19_group
-% node: spatial_dropout1d_19
-\node[utility_layer_style] (spatial_dropout1d_19) at (28.81, 81.82)
+% node group: convnext_tiny_stage_0_block_0_depthwise_conv_group
+% node: convnext_tiny_stage_0_block_0_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**0**block**0**depthwise**conv) at (0.0, 274.4)
     {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% end of node group: spatial_dropout1d_19_group
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 96}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_0_depthwise_conv_group
 
-% node group: bidirectional_7_group
-% node: batch_normalization_32
-\node[utility_layer_style] (batch_normalization_32) at (13.88, 73.8)
+% node group: tf.__operators__.add_126_group
+% node: tf.__operators__.add_126
+\node[default_layer_style] (tf.****operators****.add**126) at (50.0, 261.33)
     {
-    \nodepart{one}{BatchNormalization}};
-% node: spatial_dropout1d_13
-\node[utility_layer_style] (spatial_dropout1d_13) at (13.88, 71.4)
-    {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: bidirectional_7
-\node[default_layer_style] (bidirectional_7) at (13.88, 72.73)
-    {
-    \nodepart{one}{Bidirectional(LSTM)}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{dropout: 0.55}
-    \nodepart{four}{return sequences: True}};
-% end of node group: bidirectional_7_group
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_126}};
+% end of node group: tf.__operators__.add_126_group
 
-% node group: conv1d_11_group
-% node: batch_normalization_38
-\node[utility_layer_style] (batch_normalization_38) at (29.03, 64.71)
+% node group: convnext_tiny_stage_0_block_0_layernorm_group
+% node: convnext_tiny_stage_0_block_0_layernorm
+\node[default_layer_style] (convnext**tiny**stage**0**block**0**layernorm) at (0.0, 272.53)
     {
-    \nodepart{one}{BatchNormalization}};
-% node: conv1d_11
-\node[default_layer_style] (conv1d_11) at (29.03, 63.64)
-    {
-    \nodepart{one}{Conv1D}
-    \nodepart{two}{filters: 128}
-    \nodepart{three}{kernel: 4}
-    \nodepart{four}{activation: relu}};
-% end of node group: conv1d_11_group
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_0\_block\_0\_layernorm}};
+% end of node group: convnext_tiny_stage_0_block_0_layernorm_group
 
-% node group: max_pooling1d_10_group
-% node: spatial_dropout1d_21
-\node[utility_layer_style] (spatial_dropout1d_21) at (29.03, 53.48)
+% node group: convnext_tiny_stage_0_block_1_depthwise_conv_group
+% node: convnext_tiny_stage_0_block_1_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**0**block**1**depthwise**conv) at (0.0, 259.47)
     {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: max_pooling1d_10
-\node[pool_layer_style] (max_pooling1d_10) at (29.03, 54.55)
-    {
-    \nodepart{one}{MaxPooling1D}
-    \nodepart{two}{pool: 2}
-    \nodepart{three}{output shape: (23, 128)}};
-% end of node group: max_pooling1d_10_group
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 96}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_1_depthwise_conv_group
 
-% node group: bidirectional_10_group
-% node: batch_normalization_39
-\node[utility_layer_style] (batch_normalization_39) at (45.97, 55.62)
+% node group: tf.__operators__.add_127_group
+% node: tf.__operators__.add_127
+\node[default_layer_style] (tf.****operators****.add**127) at (50.0, 246.4)
     {
-    \nodepart{one}{BatchNormalization}};
-% node: spatial_dropout1d_20
-\node[utility_layer_style] (spatial_dropout1d_20) at (45.97, 53.22)
-    {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: bidirectional_10
-\node[default_layer_style] (bidirectional_10) at (45.97, 54.55)
-    {
-    \nodepart{one}{Bidirectional(LSTM)}
-    \nodepart{two}{units: 128}
-    \nodepart{three}{dropout: 0.55}
-    \nodepart{four}{return sequences: True}};
-% end of node group: bidirectional_10_group
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_127}};
+% end of node group: tf.__operators__.add_127_group
 
-% node group: conv1d_7_group
-% node: batch_normalization_33
-\node[utility_layer_style] (batch_normalization_33) at (0.21, 64.71)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: conv1d_7
-\node[default_layer_style] (conv1d_7) at (0.21, 63.64)
-    {
-    \nodepart{one}{Conv1D}
-    \nodepart{two}{filters: 128}
-    \nodepart{three}{kernel: 4}
-    \nodepart{four}{activation: relu}};
-% end of node group: conv1d_7_group
-
-% node group: bidirectional_8_group
-% node: batch_normalization_35
-\node[utility_layer_style] (batch_normalization_35) at (13.88, 64.71)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: spatial_dropout1d_16
-\node[utility_layer_style] (spatial_dropout1d_16) at (13.88, 62.31)
-    {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: bidirectional_8
-\node[default_layer_style] (bidirectional_8) at (13.88, 63.64)
-    {
-    \nodepart{one}{Bidirectional(LSTM)}
-    \nodepart{two}{units: 32}
-    \nodepart{three}{dropout: 0.55}
-    \nodepart{four}{return sequences: True}};
-% end of node group: bidirectional_8_group
-
-% node group: max_pooling1d_6_group
-% node: spatial_dropout1d_14
-\node[utility_layer_style] (spatial_dropout1d_14) at (0.0, 53.48)
-    {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: max_pooling1d_6
-\node[pool_layer_style] (max_pooling1d_6) at (0.0, 54.55)
-    {
-    \nodepart{one}{MaxPooling1D}
-    \nodepart{two}{pool: 2}
-    \nodepart{three}{output shape: (25, 128)}};
-% end of node group: max_pooling1d_6_group
-
-% node group: bidirectional_11_group
-% node: bidirectional_11
-\node[default_layer_style] (bidirectional_11) at (50.0, 18.18)
-    {
-    \nodepart{one}{Bidirectional(LSTM)}
-    \nodepart{two}{units: 64}
-    \nodepart{three}{dropout: 0.55}
-    \nodepart{four}{return sequences: False}};
-% end of node group: bidirectional_11_group
-
-% node group: conv1d_12_group
-% node: batch_normalization_40
-\node[utility_layer_style] (batch_normalization_40) at (29.03, 46.52)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: conv1d_12
-\node[default_layer_style] (conv1d_12) at (29.03, 45.45)
-    {
-    \nodepart{one}{Conv1D}
-    \nodepart{two}{filters: 64}
-    \nodepart{three}{kernel: 4}
-    \nodepart{four}{activation: relu}};
-% end of node group: conv1d_12_group
-
-% node group: bidirectional_9_group
-% node: dropout_26
-\node[utility_layer_style] (dropout_26) at (8.05, 16.85)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.55}};
-% node: bidirectional_9
-\node[default_layer_style] (bidirectional_9) at (8.05, 18.18)
-    {
-    \nodepart{one}{Bidirectional(LSTM)}
-    \nodepart{two}{units: 64}
-    \nodepart{three}{dropout: 0.55}
-    \nodepart{four}{return sequences: False}};
-% end of node group: bidirectional_9_group
-
-% node group: add_1_group
-% node: add_1
-\node[operation_layer_style] (add_1) at (27.44, 9.09)
-    {
-    \nodepart{one}{Add}
-    \nodepart{two}{output shape: 128}};
-% end of node group: add_1_group
-
-% node group: max_pooling1d_11_group
-% node: spatial_dropout1d_23
-\node[utility_layer_style] (spatial_dropout1d_23) at (29.03, 35.29)
-    {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: max_pooling1d_11
-\node[pool_layer_style] (max_pooling1d_11) at (29.03, 36.36)
-    {
-    \nodepart{one}{MaxPooling1D}
-    \nodepart{two}{pool: 2}
-    \nodepart{three}{output shape: (10, 64)}};
-% end of node group: max_pooling1d_11_group
-
-% node group: conv1d_9_group
-% node: batch_normalization_36
-\node[utility_layer_style] (batch_normalization_36) at (16.1, 55.62)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: conv1d_9
-\node[default_layer_style] (conv1d_9) at (16.1, 54.55)
-    {
-    \nodepart{one}{Conv1D}
-    \nodepart{two}{filters: 128}
-    \nodepart{three}{kernel: 4}
-    \nodepart{four}{activation: relu}};
-% end of node group: conv1d_9_group
-
-% node group: bidirectional_12_group
-% node: batch_normalization_41
-\node[utility_layer_style] (batch_normalization_41) at (41.95, 37.43)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: spatial_dropout1d_22
-\node[utility_layer_style] (spatial_dropout1d_22) at (41.95, 35.03)
-    {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: bidirectional_12
-\node[default_layer_style] (bidirectional_12) at (41.95, 36.36)
-    {
-    \nodepart{one}{Bidirectional(LSTM)}
-    \nodepart{two}{units: 64}
-    \nodepart{three}{dropout: 0.55}
-    \nodepart{four}{return sequences: True}};
-% end of node group: bidirectional_12_group
-
-% node group: conv1d_8_group
-% node: batch_normalization_34
-\node[utility_layer_style] (batch_normalization_34) at (0.0, 46.52)
-    {
-    \nodepart{one}{BatchNormalization}};
-% node: conv1d_8
-\node[default_layer_style] (conv1d_8) at (0.0, 45.45)
-    {
-    \nodepart{one}{Conv1D}
-    \nodepart{two}{filters: 128}
-    \nodepart{three}{kernel: 4}
-    \nodepart{four}{activation: relu}};
-% end of node group: conv1d_8_group
-
-% node group: max_pooling1d_8_group
-% node: spatial_dropout1d_17
-\node[utility_layer_style] (spatial_dropout1d_17) at (16.1, 44.38)
-    {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: max_pooling1d_8
-\node[pool_layer_style] (max_pooling1d_8) at (16.1, 45.45)
-    {
-    \nodepart{one}{MaxPooling1D}
-    \nodepart{two}{pool: 2}
-    \nodepart{three}{output shape: (25, 128)}};
-% end of node group: max_pooling1d_8_group
-
-% node group: dense_1_group
-% node: dropout_27
-\node[utility_layer_style] (dropout_27) at (27.44, 1.07)
-    {
-    \nodepart{one}{Dropout}
-    \nodepart{two}{rate: 0.55}};
-% node: dense_1
-\node[default_layer_style] (dense_1) at (27.44, 0.0)
+% node group: convnext_tiny_stage_0_block_0_pointwise_conv_1_group
+% node: convnext_tiny_stage_0_block_0_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**0**block**0**pointwise**conv**1) at (0.0, 270.67)
     {
     \nodepart{one}{Dense}
-    \nodepart{two}{units: 3}
-    \nodepart{three}{activation: softmax}};
-% end of node group: dense_1_group
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_0_pointwise_conv_1_group
 
-% node group: conv1d_13_group
-% node: conv1d_13
-\node[default_layer_style] (conv1d_13) at (29.03, 27.27)
+% node group: convnext_tiny_stage_0_block_1_layernorm_group
+% node: convnext_tiny_stage_0_block_1_layernorm
+\node[default_layer_style] (convnext**tiny**stage**0**block**1**layernorm) at (0.0, 257.6)
     {
-    \nodepart{one}{Conv1D}
-    \nodepart{two}{filters: 128}
-    \nodepart{three}{kernel: 4}
-    \nodepart{four}{activation: relu}};
-% end of node group: conv1d_13_group
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_0\_block\_1\_layernorm}};
+% end of node group: convnext_tiny_stage_0_block_1_layernorm_group
 
-% node group: max_pooling1d_7_group
-% node: spatial_dropout1d_15
-\node[utility_layer_style] (spatial_dropout1d_15) at (0.0, 35.29)
+% node group: convnext_tiny_stage_0_block_2_depthwise_conv_group
+% node: convnext_tiny_stage_0_block_2_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**0**block**2**depthwise**conv) at (0.0, 244.53)
     {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: max_pooling1d_7
-\node[pool_layer_style] (max_pooling1d_7) at (0.0, 36.36)
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 96}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_2_depthwise_conv_group
+
+% node group: tf.__operators__.add_128_group
+% node: tf.__operators__.add_128
+\node[default_layer_style] (tf.****operators****.add**128) at (50.0, 231.47)
     {
-    \nodepart{one}{MaxPooling1D}
-    \nodepart{two}{pool: 2}
-    \nodepart{three}{output shape: (12, 128)}};
-% end of node group: max_pooling1d_7_group
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_128}};
+% end of node group: tf.__operators__.add_128_group
 
-% node group: bidirectional_13_group
-% node: bidirectional_13
-\node[default_layer_style] (bidirectional_13) at (41.95, 27.27)
+% node group: convnext_tiny_stage_0_block_0_gelu_group
+% node: convnext_tiny_stage_0_block_0_gelu
+\node[misc_layer_style] (convnext**tiny**stage**0**block**0**gelu) at (0.0, 268.8)
     {
-    \nodepart{one}{Bidirectional(LSTM)}
-    \nodepart{two}{units: 64}
-    \nodepart{three}{dropout: 0.55}
-    \nodepart{four}{return sequences: False}};
-% end of node group: bidirectional_13_group
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_0_block_0_gelu_group
 
-% node group: global_max_pooling1d_5_group
-% node: global_max_pooling1d_5
-\node[pool_layer_style] (global_max_pooling1d_5) at (33.9, 18.18)
+% node group: convnext_tiny_stage_0_block_1_pointwise_conv_1_group
+% node: convnext_tiny_stage_0_block_1_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**0**block**1**pointwise**conv**1) at (0.0, 255.73)
     {
-    \nodepart{one}{GlobalMaxPooling1D}
-    \nodepart{two}{output shape: 128}};
-% end of node group: global_max_pooling1d_5_group
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_1_pointwise_conv_1_group
 
-% node group: global_max_pooling1d_3_group
-% node: global_max_pooling1d_3
-\node[pool_layer_style] (global_max_pooling1d_3) at (0.0, 27.27)
+% node group: convnext_tiny_stage_0_block_2_layernorm_group
+% node: convnext_tiny_stage_0_block_2_layernorm
+\node[default_layer_style] (convnext**tiny**stage**0**block**2**layernorm) at (0.0, 242.67)
     {
-    \nodepart{one}{GlobalMaxPooling1D}
-    \nodepart{two}{output shape: 128}};
-% end of node group: global_max_pooling1d_3_group
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_0\_block\_2\_layernorm}};
+% end of node group: convnext_tiny_stage_0_block_2_layernorm_group
 
-% node group: conv1d_10_group
-% node: batch_normalization_37
-\node[utility_layer_style] (batch_normalization_37) at (16.1, 37.43)
+% node group: convnext_tiny_downsampling_block_0_group
+% node: convnext_tiny_downsampling_block_0
+\node[default_layer_style] (convnext**tiny**downsampling**block**0) at (50.0, 229.6)
     {
-    \nodepart{one}{BatchNormalization}};
-% node: conv1d_10
-\node[default_layer_style] (conv1d_10) at (16.1, 36.36)
+    \nodepart{one}{Sequential}
+    \nodepart{two}{name: convnext\_tiny\_downsampling\_block\_0}};
+% end of node group: convnext_tiny_downsampling_block_0_group
+
+% node group: convnext_tiny_stage_0_block_0_pointwise_conv_2_group
+% node: convnext_tiny_stage_0_block_0_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**0**block**0**pointwise**conv**2) at (0.0, 266.93)
     {
-    \nodepart{one}{Conv1D}
-    \nodepart{two}{filters: 128}
-    \nodepart{three}{kernel: 4}
-    \nodepart{four}{activation: relu}};
-% end of node group: conv1d_10_group
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 96}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_0_pointwise_conv_2_group
 
-% node group: max_pooling1d_9_group
-% node: spatial_dropout1d_18
-\node[utility_layer_style] (spatial_dropout1d_18) at (16.1, 26.2)
+% node group: convnext_tiny_stage_0_block_1_gelu_group
+% node: convnext_tiny_stage_0_block_1_gelu
+\node[misc_layer_style] (convnext**tiny**stage**0**block**1**gelu) at (0.0, 253.87)
     {
-    \nodepart{one}{SpatialDropout1D}
-    \nodepart{two}{rate: 0.55}};
-% node: max_pooling1d_9
-\node[pool_layer_style] (max_pooling1d_9) at (16.1, 27.27)
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_0_block_1_gelu_group
+
+% node group: convnext_tiny_stage_0_block_2_pointwise_conv_1_group
+% node: convnext_tiny_stage_0_block_2_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**0**block**2**pointwise**conv**1) at (0.0, 240.8)
     {
-    \nodepart{one}{MaxPooling1D}
-    \nodepart{two}{pool: 2}
-    \nodepart{three}{output shape: (12, 128)}};
-% end of node group: max_pooling1d_9_group
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_2_pointwise_conv_1_group
 
-% node group: global_max_pooling1d_4_group
-% node: global_max_pooling1d_4
-\node[pool_layer_style] (global_max_pooling1d_4) at (20.97, 18.18)
+% node group: convnext_tiny_stage_1_block_0_depthwise_conv_group
+% node: convnext_tiny_stage_1_block_0_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**1**block**0**depthwise**conv) at (0.0, 227.73)
     {
-    \nodepart{one}{GlobalMaxPooling1D}
-    \nodepart{two}{output shape: 128}};
-% end of node group: global_max_pooling1d_4_group
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 192}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_0_depthwise_conv_group
 
-% edge from input_5 to embedding_1
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (input_5) to node [defaultLabel] {2,400,000} (embedding_1);
+% node group: tf.__operators__.add_129_group
+% node: tf.__operators__.add_129
+\node[default_layer_style] (tf.****operators****.add**129) at (50.0, 214.67)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_129}};
+% end of node group: tf.__operators__.add_129_group
 
-% edge from embedding_1 to spatial_dropout1d_12
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (embedding_1) to node [defaultLabel] {} (spatial_dropout1d_12);
+% node group: convnext_tiny_stage_0_block_0_layer_scale_group
+% node: convnext_tiny_stage_0_block_0_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**0**block**0**layer**scale) at (0.0, 265.07)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_0\_block\_0\_layer\_scale}};
+% end of node group: convnext_tiny_stage_0_block_0_layer_scale_group
 
-% edge from embedding_1 to spatial_dropout1d_19
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (embedding_1) to node [defaultLabel] {} (spatial_dropout1d_19);
+% node group: convnext_tiny_stage_0_block_1_pointwise_conv_2_group
+% node: convnext_tiny_stage_0_block_1_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**0**block**1**pointwise**conv**2) at (0.0, 252.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 96}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_1_pointwise_conv_2_group
 
-% edge from spatial_dropout1d_12 to batch_normalization_32
-\draw[-Stealth, defaultEdge, in distance=0.91cm,out distance=0.91cm,draw=black,line width=1pt] (spatial_dropout1d_12) to node [defaultLabel] {59,648} (batch_normalization_32);
+% node group: convnext_tiny_stage_0_block_2_gelu_group
+% node: convnext_tiny_stage_0_block_2_gelu
+\node[misc_layer_style] (convnext**tiny**stage**0**block**2**gelu) at (0.0, 238.93)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_0_block_2_gelu_group
 
-% edge from spatial_dropout1d_19 to batch_normalization_38
-\draw[-Stealth, defaultEdge, in distance=1.82cm,out distance=1.82cm,draw=black,line width=1pt] (spatial_dropout1d_19) to node [defaultLabel] {102,528} (batch_normalization_38);
+% node group: convnext_tiny_stage_1_block_0_layernorm_group
+% node: convnext_tiny_stage_1_block_0_layernorm
+\node[default_layer_style] (convnext**tiny**stage**1**block**0**layernorm) at (0.0, 225.87)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_1\_block\_0\_layernorm}};
+% end of node group: convnext_tiny_stage_1_block_0_layernorm_group
 
-% edge from spatial_dropout1d_13 to batch_normalization_33
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_13) to node [defaultLabel] {32,896} (batch_normalization_33);
+% node group: convnext_tiny_stage_1_block_1_depthwise_conv_group
+% node: convnext_tiny_stage_1_block_1_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**1**block**1**depthwise**conv) at (0.0, 212.8)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 192}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_1_depthwise_conv_group
 
-% edge from spatial_dropout1d_13 to batch_normalization_35
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_13) to node [defaultLabel] {24,832} (batch_normalization_35);
+% node group: tf.__operators__.add_130_group
+% node: tf.__operators__.add_130
+\node[default_layer_style] (tf.****operators****.add**130) at (50.0, 199.73)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_130}};
+% end of node group: tf.__operators__.add_130_group
 
-% edge from conv1d_11 to batch_normalization_39
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_11) to node [defaultLabel] {263,168} (batch_normalization_39);
+% node group: convnext_tiny_stage_0_block_0_identity_group
+% node: convnext_tiny_stage_0_block_0_identity
+\node[misc_layer_style] (convnext**tiny**stage**0**block**0**identity) at (0.0, 263.2)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_0_identity_group
 
-% edge from conv1d_11 to max_pooling1d_10
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_11) to node [defaultLabel] {} (max_pooling1d_10);
+% node group: convnext_tiny_stage_0_block_1_layer_scale_group
+% node: convnext_tiny_stage_0_block_1_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**0**block**1**layer**scale) at (0.0, 250.13)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_0\_block\_1\_layer\_scale}};
+% end of node group: convnext_tiny_stage_0_block_1_layer_scale_group
 
-% edge from spatial_dropout1d_21 to batch_normalization_40
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_21) to node [defaultLabel] {32,832} (batch_normalization_40);
+% node group: convnext_tiny_stage_0_block_2_pointwise_conv_2_group
+% node: convnext_tiny_stage_0_block_2_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**0**block**2**pointwise**conv**2) at (0.0, 237.07)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 96}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_2_pointwise_conv_2_group
 
-% edge from spatial_dropout1d_20 to bidirectional_11
-\draw[-Stealth, defaultEdge, in distance=10.91cm,out distance=10.91cm,draw=black,line width=1pt] (spatial_dropout1d_20) to node [defaultLabel] {164,352} (bidirectional_11);
+% node group: convnext_tiny_stage_1_block_0_pointwise_conv_1_group
+% node: convnext_tiny_stage_1_block_0_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**1**block**0**pointwise**conv**1) at (0.0, 224.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 768}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_0_pointwise_conv_1_group
 
-% edge from conv1d_7 to max_pooling1d_6
-\draw[-Stealth, defaultEdge, in distance=0.91cm,out distance=0.91cm,draw=black,line width=1pt] (conv1d_7) to node [defaultLabel] {} (max_pooling1d_6);
+% node group: convnext_tiny_stage_1_block_1_layernorm_group
+% node: convnext_tiny_stage_1_block_1_layernorm
+\node[default_layer_style] (convnext**tiny**stage**1**block**1**layernorm) at (0.0, 210.93)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_1\_block\_1\_layernorm}};
+% end of node group: convnext_tiny_stage_1_block_1_layernorm_group
 
-% edge from spatial_dropout1d_16 to batch_normalization_36
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_16) to node [defaultLabel] {32,896} (batch_normalization_36);
+% node group: convnext_tiny_stage_1_block_2_depthwise_conv_group
+% node: convnext_tiny_stage_1_block_2_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**1**block**2**depthwise**conv) at (0.0, 197.87)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 192}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_2_depthwise_conv_group
 
-% edge from spatial_dropout1d_16 to bidirectional_9
-\draw[-Stealth, defaultEdge, in distance=22.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_16) to node [defaultLabel] {66,048} (bidirectional_9);
+% node group: tf.__operators__.add_131_group
+% node: tf.__operators__.add_131
+\node[default_layer_style] (tf.****operators****.add**131) at (50.0, 184.8)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_131}};
+% end of node group: tf.__operators__.add_131_group
 
-% edge from spatial_dropout1d_14 to batch_normalization_34
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_14) to node [defaultLabel] {65,664} (batch_normalization_34);
+% node group: convnext_tiny_stage_0_block_1_identity_group
+% node: convnext_tiny_stage_0_block_1_identity
+\node[misc_layer_style] (convnext**tiny**stage**0**block**1**identity) at (0.0, 248.27)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_1_identity_group
 
-% edge from bidirectional_11 to add_1
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (bidirectional_11) to node [defaultLabel] {} (add_1);
+% node group: convnext_tiny_stage_0_block_2_layer_scale_group
+% node: convnext_tiny_stage_0_block_2_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**0**block**2**layer**scale) at (0.0, 235.2)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_0\_block\_2\_layer\_scale}};
+% end of node group: convnext_tiny_stage_0_block_2_layer_scale_group
 
-% edge from conv1d_12 to batch_normalization_41
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_12) to node [defaultLabel] {66,048} (batch_normalization_41);
+% node group: convnext_tiny_stage_1_block_0_gelu_group
+% node: convnext_tiny_stage_1_block_0_gelu
+\node[misc_layer_style] (convnext**tiny**stage**1**block**0**gelu) at (0.0, 222.13)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_1_block_0_gelu_group
 
-% edge from conv1d_12 to max_pooling1d_11
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_12) to node [defaultLabel] {} (max_pooling1d_11);
+% node group: convnext_tiny_stage_1_block_1_pointwise_conv_1_group
+% node: convnext_tiny_stage_1_block_1_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**1**block**1**pointwise**conv**1) at (0.0, 209.07)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 768}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_1_pointwise_conv_1_group
 
-% edge from dropout_26 to add_1
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (dropout_26) to node [defaultLabel] {} (add_1);
+% node group: convnext_tiny_stage_1_block_2_layernorm_group
+% node: convnext_tiny_stage_1_block_2_layernorm
+\node[default_layer_style] (convnext**tiny**stage**1**block**2**layernorm) at (0.0, 196.0)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_1\_block\_2\_layernorm}};
+% end of node group: convnext_tiny_stage_1_block_2_layernorm_group
 
-% edge from add_1 to dropout_27
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (add_1) to node [defaultLabel] {387} (dropout_27);
+% node group: convnext_tiny_downsampling_block_1_group
+% node: convnext_tiny_downsampling_block_1
+\node[default_layer_style] (convnext**tiny**downsampling**block**1) at (50.0, 182.93)
+    {
+    \nodepart{one}{Sequential}
+    \nodepart{two}{name: convnext\_tiny\_downsampling\_block\_1}};
+% end of node group: convnext_tiny_downsampling_block_1_group
 
-% edge from spatial_dropout1d_23 to conv1d_13
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_23) to node [defaultLabel] {32,896} (conv1d_13);
+% node group: convnext_tiny_stage_0_block_2_identity_group
+% node: convnext_tiny_stage_0_block_2_identity
+\node[misc_layer_style] (convnext**tiny**stage**0**block**2**identity) at (0.0, 233.33)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_0_block_2_identity_group
 
-% edge from conv1d_9 to max_pooling1d_8
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_9) to node [defaultLabel] {} (max_pooling1d_8);
+% node group: convnext_tiny_stage_1_block_0_pointwise_conv_2_group
+% node: convnext_tiny_stage_1_block_0_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**1**block**0**pointwise**conv**2) at (0.0, 220.27)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 192}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_0_pointwise_conv_2_group
 
-% edge from spatial_dropout1d_22 to bidirectional_13
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_22) to node [defaultLabel] {98,816} (bidirectional_13);
+% node group: convnext_tiny_stage_1_block_1_gelu_group
+% node: convnext_tiny_stage_1_block_1_gelu
+\node[misc_layer_style] (convnext**tiny**stage**1**block**1**gelu) at (0.0, 207.2)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_1_block_1_gelu_group
 
-% edge from conv1d_8 to max_pooling1d_7
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_8) to node [defaultLabel] {} (max_pooling1d_7);
+% node group: convnext_tiny_stage_1_block_2_pointwise_conv_1_group
+% node: convnext_tiny_stage_1_block_2_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**1**block**2**pointwise**conv**1) at (0.0, 194.13)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 768}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_2_pointwise_conv_1_group
 
-% edge from spatial_dropout1d_17 to batch_normalization_37
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_17) to node [defaultLabel] {65,664} (batch_normalization_37);
+% node group: convnext_tiny_stage_2_block_0_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_0_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**0**depthwise**conv) at (0.0, 181.07)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_0_depthwise_conv_group
 
-% edge from conv1d_13 to global_max_pooling1d_5
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_13) to node [defaultLabel] {} (global_max_pooling1d_5);
+% node group: tf.__operators__.add_132_group
+% node: tf.__operators__.add_132
+\node[default_layer_style] (tf.****operators****.add**132) at (50.0, 168.0)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_132}};
+% end of node group: tf.__operators__.add_132_group
 
-% edge from spatial_dropout1d_15 to global_max_pooling1d_3
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_15) to node [defaultLabel] {} (global_max_pooling1d_3);
+% node group: convnext_tiny_stage_1_block_0_layer_scale_group
+% node: convnext_tiny_stage_1_block_0_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**1**block**0**layer**scale) at (0.0, 218.4)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_1\_block\_0\_layer\_scale}};
+% end of node group: convnext_tiny_stage_1_block_0_layer_scale_group
 
-% edge from bidirectional_13 to add_1
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=9.09cm,draw=black,line width=1pt] (bidirectional_13) to node [defaultLabel] {} (add_1);
+% node group: convnext_tiny_stage_1_block_1_pointwise_conv_2_group
+% node: convnext_tiny_stage_1_block_1_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**1**block**1**pointwise**conv**2) at (0.0, 205.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 192}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_1_pointwise_conv_2_group
 
-% edge from global_max_pooling1d_5 to add_1
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (global_max_pooling1d_5) to node [defaultLabel] {} (add_1);
+% node group: convnext_tiny_stage_1_block_2_gelu_group
+% node: convnext_tiny_stage_1_block_2_gelu
+\node[misc_layer_style] (convnext**tiny**stage**1**block**2**gelu) at (0.0, 192.27)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_1_block_2_gelu_group
 
-% edge from global_max_pooling1d_3 to add_1
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=9.09cm,draw=black,line width=1pt] (global_max_pooling1d_3) to node [defaultLabel] {} (add_1);
+% node group: convnext_tiny_stage_2_block_0_layernorm_group
+% node: convnext_tiny_stage_2_block_0_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**0**layernorm) at (0.0, 179.2)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_0\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_0_layernorm_group
 
-% edge from conv1d_10 to max_pooling1d_9
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (conv1d_10) to node [defaultLabel] {} (max_pooling1d_9);
+% node group: convnext_tiny_stage_2_block_1_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_1_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**1**depthwise**conv) at (0.0, 166.13)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_1_depthwise_conv_group
 
-% edge from spatial_dropout1d_18 to global_max_pooling1d_4
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (spatial_dropout1d_18) to node [defaultLabel] {} (global_max_pooling1d_4);
+% node group: tf.__operators__.add_133_group
+% node: tf.__operators__.add_133
+\node[default_layer_style] (tf.****operators****.add**133) at (50.0, 153.07)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_133}};
+% end of node group: tf.__operators__.add_133_group
 
-% edge from global_max_pooling1d_4 to add_1
-\draw[-Stealth, defaultEdge, in distance=2.73cm,out distance=2.73cm,draw=black,line width=1pt] (global_max_pooling1d_4) to node [defaultLabel] {} (add_1);
+% node group: convnext_tiny_stage_1_block_0_identity_group
+% node: convnext_tiny_stage_1_block_0_identity
+\node[misc_layer_style] (convnext**tiny**stage**1**block**0**identity) at (0.0, 216.53)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_0_identity_group
+
+% node group: convnext_tiny_stage_1_block_1_layer_scale_group
+% node: convnext_tiny_stage_1_block_1_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**1**block**1**layer**scale) at (0.0, 203.47)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_1\_block\_1\_layer\_scale}};
+% end of node group: convnext_tiny_stage_1_block_1_layer_scale_group
+
+% node group: convnext_tiny_stage_1_block_2_pointwise_conv_2_group
+% node: convnext_tiny_stage_1_block_2_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**1**block**2**pointwise**conv**2) at (0.0, 190.4)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 192}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_2_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_0_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_0_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**0**pointwise**conv**1) at (0.0, 177.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_0_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_1_layernorm_group
+% node: convnext_tiny_stage_2_block_1_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**1**layernorm) at (0.0, 164.27)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_1\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_1_layernorm_group
+
+% node group: convnext_tiny_stage_2_block_2_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_2_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**2**depthwise**conv) at (0.0, 151.2)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_2_depthwise_conv_group
+
+% node group: tf.__operators__.add_134_group
+% node: tf.__operators__.add_134
+\node[default_layer_style] (tf.****operators****.add**134) at (50.0, 138.13)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_134}};
+% end of node group: tf.__operators__.add_134_group
+
+% node group: convnext_tiny_stage_1_block_1_identity_group
+% node: convnext_tiny_stage_1_block_1_identity
+\node[misc_layer_style] (convnext**tiny**stage**1**block**1**identity) at (0.0, 201.6)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_1_identity_group
+
+% node group: convnext_tiny_stage_1_block_2_layer_scale_group
+% node: convnext_tiny_stage_1_block_2_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**1**block**2**layer**scale) at (0.0, 188.53)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_1\_block\_2\_layer\_scale}};
+% end of node group: convnext_tiny_stage_1_block_2_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_0_gelu_group
+% node: convnext_tiny_stage_2_block_0_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**0**gelu) at (0.0, 175.47)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_0_gelu_group
+
+% node group: convnext_tiny_stage_2_block_1_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_1_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**1**pointwise**conv**1) at (0.0, 162.4)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_1_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_2_layernorm_group
+% node: convnext_tiny_stage_2_block_2_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**2**layernorm) at (0.0, 149.33)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_2\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_2_layernorm_group
+
+% node group: convnext_tiny_stage_2_block_3_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_3_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**3**depthwise**conv) at (0.0, 136.27)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_3_depthwise_conv_group
+
+% node group: tf.__operators__.add_135_group
+% node: tf.__operators__.add_135
+\node[default_layer_style] (tf.****operators****.add**135) at (50.0, 123.2)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_135}};
+% end of node group: tf.__operators__.add_135_group
+
+% node group: convnext_tiny_stage_1_block_2_identity_group
+% node: convnext_tiny_stage_1_block_2_identity
+\node[misc_layer_style] (convnext**tiny**stage**1**block**2**identity) at (0.0, 186.67)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_1_block_2_identity_group
+
+% node group: convnext_tiny_stage_2_block_0_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_0_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**0**pointwise**conv**2) at (0.0, 173.6)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_0_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_1_gelu_group
+% node: convnext_tiny_stage_2_block_1_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**1**gelu) at (0.0, 160.53)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_1_gelu_group
+
+% node group: convnext_tiny_stage_2_block_2_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_2_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**2**pointwise**conv**1) at (0.0, 147.47)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_2_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_3_layernorm_group
+% node: convnext_tiny_stage_2_block_3_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**3**layernorm) at (0.0, 134.4)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_3\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_3_layernorm_group
+
+% node group: convnext_tiny_stage_2_block_4_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_4_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**4**depthwise**conv) at (0.0, 121.33)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_4_depthwise_conv_group
+
+% node group: tf.__operators__.add_136_group
+% node: tf.__operators__.add_136
+\node[default_layer_style] (tf.****operators****.add**136) at (50.0, 108.27)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_136}};
+% end of node group: tf.__operators__.add_136_group
+
+% node group: convnext_tiny_stage_2_block_0_layer_scale_group
+% node: convnext_tiny_stage_2_block_0_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**0**layer**scale) at (0.0, 171.73)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_0\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_0_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_1_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_1_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**1**pointwise**conv**2) at (0.0, 158.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_1_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_2_gelu_group
+% node: convnext_tiny_stage_2_block_2_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**2**gelu) at (0.0, 145.6)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_2_gelu_group
+
+% node group: convnext_tiny_stage_2_block_3_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_3_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**3**pointwise**conv**1) at (0.0, 132.53)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_3_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_4_layernorm_group
+% node: convnext_tiny_stage_2_block_4_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**4**layernorm) at (0.0, 119.47)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_4\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_4_layernorm_group
+
+% node group: convnext_tiny_stage_2_block_5_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_5_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**5**depthwise**conv) at (0.0, 106.4)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_5_depthwise_conv_group
+
+% node group: tf.__operators__.add_137_group
+% node: tf.__operators__.add_137
+\node[default_layer_style] (tf.****operators****.add**137) at (50.0, 93.33)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_137}};
+% end of node group: tf.__operators__.add_137_group
+
+% node group: convnext_tiny_stage_2_block_0_identity_group
+% node: convnext_tiny_stage_2_block_0_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**0**identity) at (0.0, 169.87)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_0_identity_group
+
+% node group: convnext_tiny_stage_2_block_1_layer_scale_group
+% node: convnext_tiny_stage_2_block_1_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**1**layer**scale) at (0.0, 156.8)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_1\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_1_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_2_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_2_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**2**pointwise**conv**2) at (0.0, 143.73)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_2_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_3_gelu_group
+% node: convnext_tiny_stage_2_block_3_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**3**gelu) at (0.0, 130.67)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_3_gelu_group
+
+% node group: convnext_tiny_stage_2_block_4_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_4_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**4**pointwise**conv**1) at (0.0, 117.6)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_4_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_5_layernorm_group
+% node: convnext_tiny_stage_2_block_5_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**5**layernorm) at (0.0, 104.53)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_5\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_5_layernorm_group
+
+% node group: convnext_tiny_stage_2_block_6_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_6_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**6**depthwise**conv) at (0.0, 91.47)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_6_depthwise_conv_group
+
+% node group: tf.__operators__.add_138_group
+% node: tf.__operators__.add_138
+\node[default_layer_style] (tf.****operators****.add**138) at (50.0, 78.4)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_138}};
+% end of node group: tf.__operators__.add_138_group
+
+% node group: convnext_tiny_stage_2_block_1_identity_group
+% node: convnext_tiny_stage_2_block_1_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**1**identity) at (0.0, 154.93)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_1_identity_group
+
+% node group: convnext_tiny_stage_2_block_2_layer_scale_group
+% node: convnext_tiny_stage_2_block_2_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**2**layer**scale) at (0.0, 141.87)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_2\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_2_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_3_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_3_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**3**pointwise**conv**2) at (0.0, 128.8)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_3_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_4_gelu_group
+% node: convnext_tiny_stage_2_block_4_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**4**gelu) at (0.0, 115.73)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_4_gelu_group
+
+% node group: convnext_tiny_stage_2_block_5_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_5_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**5**pointwise**conv**1) at (0.0, 102.67)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_5_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_6_layernorm_group
+% node: convnext_tiny_stage_2_block_6_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**6**layernorm) at (0.0, 89.6)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_6\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_6_layernorm_group
+
+% node group: convnext_tiny_stage_2_block_7_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_7_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**7**depthwise**conv) at (0.0, 76.53)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_7_depthwise_conv_group
+
+% node group: tf.__operators__.add_139_group
+% node: tf.__operators__.add_139
+\node[default_layer_style] (tf.****operators****.add**139) at (50.0, 63.47)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_139}};
+% end of node group: tf.__operators__.add_139_group
+
+% node group: convnext_tiny_stage_2_block_2_identity_group
+% node: convnext_tiny_stage_2_block_2_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**2**identity) at (0.0, 140.0)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_2_identity_group
+
+% node group: convnext_tiny_stage_2_block_3_layer_scale_group
+% node: convnext_tiny_stage_2_block_3_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**3**layer**scale) at (0.0, 126.93)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_3\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_3_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_4_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_4_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**4**pointwise**conv**2) at (0.0, 113.87)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_4_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_5_gelu_group
+% node: convnext_tiny_stage_2_block_5_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**5**gelu) at (0.0, 100.8)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_5_gelu_group
+
+% node group: convnext_tiny_stage_2_block_6_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_6_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**6**pointwise**conv**1) at (0.0, 87.73)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_6_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_7_layernorm_group
+% node: convnext_tiny_stage_2_block_7_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**7**layernorm) at (0.0, 74.67)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_7\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_7_layernorm_group
+
+% node group: convnext_tiny_stage_2_block_8_depthwise_conv_group
+% node: convnext_tiny_stage_2_block_8_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**2**block**8**depthwise**conv) at (0.0, 61.6)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 384}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_8_depthwise_conv_group
+
+% node group: tf.__operators__.add_140_group
+% node: tf.__operators__.add_140
+\node[default_layer_style] (tf.****operators****.add**140) at (50.0, 48.53)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_140}};
+% end of node group: tf.__operators__.add_140_group
+
+% node group: convnext_tiny_stage_2_block_3_identity_group
+% node: convnext_tiny_stage_2_block_3_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**3**identity) at (0.0, 125.07)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_3_identity_group
+
+% node group: convnext_tiny_stage_2_block_4_layer_scale_group
+% node: convnext_tiny_stage_2_block_4_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**4**layer**scale) at (0.0, 112.0)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_4\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_4_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_5_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_5_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**5**pointwise**conv**2) at (0.0, 98.93)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_5_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_6_gelu_group
+% node: convnext_tiny_stage_2_block_6_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**6**gelu) at (0.0, 85.87)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_6_gelu_group
+
+% node group: convnext_tiny_stage_2_block_7_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_7_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**7**pointwise**conv**1) at (0.0, 72.8)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_7_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_2_block_8_layernorm_group
+% node: convnext_tiny_stage_2_block_8_layernorm
+\node[default_layer_style] (convnext**tiny**stage**2**block**8**layernorm) at (0.0, 59.73)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_8\_layernorm}};
+% end of node group: convnext_tiny_stage_2_block_8_layernorm_group
+
+% node group: convnext_tiny_downsampling_block_2_group
+% node: convnext_tiny_downsampling_block_2
+\node[default_layer_style] (convnext**tiny**downsampling**block**2) at (50.0, 46.67)
+    {
+    \nodepart{one}{Sequential}
+    \nodepart{two}{name: convnext\_tiny\_downsampling\_block\_2}};
+% end of node group: convnext_tiny_downsampling_block_2_group
+
+% node group: convnext_tiny_stage_2_block_4_identity_group
+% node: convnext_tiny_stage_2_block_4_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**4**identity) at (0.0, 110.13)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_4_identity_group
+
+% node group: convnext_tiny_stage_2_block_5_layer_scale_group
+% node: convnext_tiny_stage_2_block_5_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**5**layer**scale) at (0.0, 97.07)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_5\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_5_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_6_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_6_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**6**pointwise**conv**2) at (0.0, 84.0)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_6_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_7_gelu_group
+% node: convnext_tiny_stage_2_block_7_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**7**gelu) at (0.0, 70.93)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_7_gelu_group
+
+% node group: convnext_tiny_stage_2_block_8_pointwise_conv_1_group
+% node: convnext_tiny_stage_2_block_8_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**2**block**8**pointwise**conv**1) at (0.0, 57.87)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 1536}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_8_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_3_block_0_depthwise_conv_group
+% node: convnext_tiny_stage_3_block_0_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**3**block**0**depthwise**conv) at (0.0, 44.8)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 768}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_0_depthwise_conv_group
+
+% node group: tf.__operators__.add_141_group
+% node: tf.__operators__.add_141
+\node[default_layer_style] (tf.****operators****.add**141) at (50.0, 31.73)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_141}};
+% end of node group: tf.__operators__.add_141_group
+
+% node group: convnext_tiny_stage_2_block_5_identity_group
+% node: convnext_tiny_stage_2_block_5_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**5**identity) at (0.0, 95.2)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_5_identity_group
+
+% node group: convnext_tiny_stage_2_block_6_layer_scale_group
+% node: convnext_tiny_stage_2_block_6_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**6**layer**scale) at (0.0, 82.13)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_6\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_6_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_7_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_7_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**7**pointwise**conv**2) at (0.0, 69.07)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_7_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_2_block_8_gelu_group
+% node: convnext_tiny_stage_2_block_8_gelu
+\node[misc_layer_style] (convnext**tiny**stage**2**block**8**gelu) at (0.0, 56.0)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_2_block_8_gelu_group
+
+% node group: convnext_tiny_stage_3_block_0_layernorm_group
+% node: convnext_tiny_stage_3_block_0_layernorm
+\node[default_layer_style] (convnext**tiny**stage**3**block**0**layernorm) at (0.0, 42.93)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_3\_block\_0\_layernorm}};
+% end of node group: convnext_tiny_stage_3_block_0_layernorm_group
+
+% node group: convnext_tiny_stage_3_block_1_depthwise_conv_group
+% node: convnext_tiny_stage_3_block_1_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**3**block**1**depthwise**conv) at (0.0, 29.87)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 768}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_1_depthwise_conv_group
+
+% node group: tf.__operators__.add_142_group
+% node: tf.__operators__.add_142
+\node[default_layer_style] (tf.****operators****.add**142) at (50.0, 16.8)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_142}};
+% end of node group: tf.__operators__.add_142_group
+
+% node group: convnext_tiny_stage_2_block_6_identity_group
+% node: convnext_tiny_stage_2_block_6_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**6**identity) at (0.0, 80.27)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_6_identity_group
+
+% node group: convnext_tiny_stage_2_block_7_layer_scale_group
+% node: convnext_tiny_stage_2_block_7_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**7**layer**scale) at (0.0, 67.2)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_7\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_7_layer_scale_group
+
+% node group: convnext_tiny_stage_2_block_8_pointwise_conv_2_group
+% node: convnext_tiny_stage_2_block_8_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**2**block**8**pointwise**conv**2) at (0.0, 54.13)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 384}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_8_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_3_block_0_pointwise_conv_1_group
+% node: convnext_tiny_stage_3_block_0_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**3**block**0**pointwise**conv**1) at (0.0, 41.07)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 3072}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_0_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_3_block_1_layernorm_group
+% node: convnext_tiny_stage_3_block_1_layernorm
+\node[default_layer_style] (convnext**tiny**stage**3**block**1**layernorm) at (0.0, 28.0)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_3\_block\_1\_layernorm}};
+% end of node group: convnext_tiny_stage_3_block_1_layernorm_group
+
+% node group: convnext_tiny_stage_3_block_2_depthwise_conv_group
+% node: convnext_tiny_stage_3_block_2_depthwise_conv
+\node[default_layer_style] (convnext**tiny**stage**3**block**2**depthwise**conv) at (0.0, 14.93)
+    {
+    \nodepart{one}{Conv2D}
+    \nodepart{two}{filters: 768}
+    \nodepart{three}{kernel: (7, 7)}
+    \nodepart{four}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_2_depthwise_conv_group
+
+% node group: tf.__operators__.add_143_group
+% node: tf.__operators__.add_143
+\node[default_layer_style] (tf.****operators****.add**143) at (50.0, 1.87)
+    {
+    \nodepart{one}{TFOpLambda}
+    \nodepart{two}{name: tf.\_\_operators\_\_.add\_143}};
+% end of node group: tf.__operators__.add_143_group
+
+% node group: convnext_tiny_stage_2_block_7_identity_group
+% node: convnext_tiny_stage_2_block_7_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**7**identity) at (0.0, 65.33)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_7_identity_group
+
+% node group: convnext_tiny_stage_2_block_8_layer_scale_group
+% node: convnext_tiny_stage_2_block_8_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**2**block**8**layer**scale) at (0.0, 52.27)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_2\_block\_8\_layer\_scale}};
+% end of node group: convnext_tiny_stage_2_block_8_layer_scale_group
+
+% node group: convnext_tiny_stage_3_block_0_gelu_group
+% node: convnext_tiny_stage_3_block_0_gelu
+\node[misc_layer_style] (convnext**tiny**stage**3**block**0**gelu) at (0.0, 39.2)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_3_block_0_gelu_group
+
+% node group: convnext_tiny_stage_3_block_1_pointwise_conv_1_group
+% node: convnext_tiny_stage_3_block_1_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**3**block**1**pointwise**conv**1) at (0.0, 26.13)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 3072}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_1_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_3_block_2_layernorm_group
+% node: convnext_tiny_stage_3_block_2_layernorm
+\node[default_layer_style] (convnext**tiny**stage**3**block**2**layernorm) at (0.0, 13.07)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: convnext\_tiny\_stage\_3\_block\_2\_layernorm}};
+% end of node group: convnext_tiny_stage_3_block_2_layernorm_group
+
+% node group: layer_normalization_7_group
+% node: layer_normalization_7
+\node[default_layer_style] (layer**normalization**7) at (50.0, 0.0)
+    {
+    \nodepart{one}{LayerNormalization}
+    \nodepart{two}{name: layer\_normalization\_7}};
+% end of node group: layer_normalization_7_group
+
+% node group: convnext_tiny_stage_2_block_8_identity_group
+% node: convnext_tiny_stage_2_block_8_identity
+\node[misc_layer_style] (convnext**tiny**stage**2**block**8**identity) at (0.0, 50.4)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_2_block_8_identity_group
+
+% node group: convnext_tiny_stage_3_block_0_pointwise_conv_2_group
+% node: convnext_tiny_stage_3_block_0_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**3**block**0**pointwise**conv**2) at (0.0, 37.33)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 768}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_0_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_3_block_1_gelu_group
+% node: convnext_tiny_stage_3_block_1_gelu
+\node[misc_layer_style] (convnext**tiny**stage**3**block**1**gelu) at (0.0, 24.27)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_3_block_1_gelu_group
+
+% node group: convnext_tiny_stage_3_block_2_pointwise_conv_1_group
+% node: convnext_tiny_stage_3_block_2_pointwise_conv_1
+\node[default_layer_style] (convnext**tiny**stage**3**block**2**pointwise**conv**1) at (0.0, 11.2)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 3072}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_2_pointwise_conv_1_group
+
+% node group: convnext_tiny_stage_3_block_0_layer_scale_group
+% node: convnext_tiny_stage_3_block_0_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**3**block**0**layer**scale) at (0.0, 35.47)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_3\_block\_0\_layer\_scale}};
+% end of node group: convnext_tiny_stage_3_block_0_layer_scale_group
+
+% node group: convnext_tiny_stage_3_block_1_pointwise_conv_2_group
+% node: convnext_tiny_stage_3_block_1_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**3**block**1**pointwise**conv**2) at (0.0, 22.4)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 768}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_1_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_3_block_2_gelu_group
+% node: convnext_tiny_stage_3_block_2_gelu
+\node[misc_layer_style] (convnext**tiny**stage**3**block**2**gelu) at (0.0, 9.33)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: gelu}};
+% end of node group: convnext_tiny_stage_3_block_2_gelu_group
+
+% node group: convnext_tiny_stage_3_block_0_identity_group
+% node: convnext_tiny_stage_3_block_0_identity
+\node[misc_layer_style] (convnext**tiny**stage**3**block**0**identity) at (0.0, 33.6)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_0_identity_group
+
+% node group: convnext_tiny_stage_3_block_1_layer_scale_group
+% node: convnext_tiny_stage_3_block_1_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**3**block**1**layer**scale) at (0.0, 20.53)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_3\_block\_1\_layer\_scale}};
+% end of node group: convnext_tiny_stage_3_block_1_layer_scale_group
+
+% node group: convnext_tiny_stage_3_block_2_pointwise_conv_2_group
+% node: convnext_tiny_stage_3_block_2_pointwise_conv_2
+\node[default_layer_style] (convnext**tiny**stage**3**block**2**pointwise**conv**2) at (0.0, 7.47)
+    {
+    \nodepart{one}{Dense}
+    \nodepart{two}{units: 768}
+    \nodepart{three}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_2_pointwise_conv_2_group
+
+% node group: convnext_tiny_stage_3_block_1_identity_group
+% node: convnext_tiny_stage_3_block_1_identity
+\node[misc_layer_style] (convnext**tiny**stage**3**block**1**identity) at (0.0, 18.67)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_1_identity_group
+
+% node group: convnext_tiny_stage_3_block_2_layer_scale_group
+% node: convnext_tiny_stage_3_block_2_layer_scale
+\node[default_layer_style] (convnext**tiny**stage**3**block**2**layer**scale) at (0.0, 5.6)
+    {
+    \nodepart{one}{LayerScale}
+    \nodepart{two}{name: convnext\_tiny\_stage\_3\_block\_2\_layer\_scale}};
+% end of node group: convnext_tiny_stage_3_block_2_layer_scale_group
+
+% node group: convnext_tiny_stage_3_block_2_identity_group
+% node: convnext_tiny_stage_3_block_2_identity
+\node[misc_layer_style] (convnext**tiny**stage**3**block**2**identity) at (0.0, 3.73)
+    {
+    \nodepart{one}{Activation}
+    \nodepart{two}{activation: linear}};
+% end of node group: convnext_tiny_stage_3_block_2_identity_group
+
+% edge from input**8 to convnext**tiny**prestem**normalization
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (input**8) to node [defaultLabel] {} (convnext**tiny**prestem**normalization);
+
+% edge from convnext**tiny**prestem**normalization to convnext**tiny**stem
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**prestem**normalization) to node [defaultLabel] {4,896} (convnext**tiny**stem);
+
+% edge from convnext**tiny**stem to convnext**tiny**stage**0**block**0**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stem) to node [defaultLabel] {4,800} (convnext**tiny**stage**0**block**0**depthwise**conv);
+
+% edge from convnext**tiny**stem to tf.****operators****.add**126
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stem) to node [defaultLabel] {} (tf.****operators****.add**126);
+
+% edge from convnext**tiny**stage**0**block**0**depthwise**conv to convnext**tiny**stage**0**block**0**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**0**depthwise**conv) to node [defaultLabel] {192} (convnext**tiny**stage**0**block**0**layernorm);
+
+% edge from tf.****operators****.add**126 to convnext**tiny**stage**0**block**1**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**126) to node [defaultLabel] {4,800} (convnext**tiny**stage**0**block**1**depthwise**conv);
+
+% edge from tf.****operators****.add**126 to tf.****operators****.add**127
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**126) to node [defaultLabel] {} (tf.****operators****.add**127);
+
+% edge from convnext**tiny**stage**0**block**0**layernorm to convnext**tiny**stage**0**block**0**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**0**layernorm) to node [defaultLabel] {37,248} (convnext**tiny**stage**0**block**0**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**0**block**1**depthwise**conv to convnext**tiny**stage**0**block**1**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**1**depthwise**conv) to node [defaultLabel] {192} (convnext**tiny**stage**0**block**1**layernorm);
+
+% edge from tf.****operators****.add**127 to convnext**tiny**stage**0**block**2**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**127) to node [defaultLabel] {4,800} (convnext**tiny**stage**0**block**2**depthwise**conv);
+
+% edge from tf.****operators****.add**127 to tf.****operators****.add**128
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**127) to node [defaultLabel] {} (tf.****operators****.add**128);
+
+% edge from convnext**tiny**stage**0**block**0**pointwise**conv**1 to convnext**tiny**stage**0**block**0**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**0**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**0**block**0**gelu);
+
+% edge from convnext**tiny**stage**0**block**1**layernorm to convnext**tiny**stage**0**block**1**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**1**layernorm) to node [defaultLabel] {37,248} (convnext**tiny**stage**0**block**1**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**0**block**2**depthwise**conv to convnext**tiny**stage**0**block**2**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**2**depthwise**conv) to node [defaultLabel] {192} (convnext**tiny**stage**0**block**2**layernorm);
+
+% edge from tf.****operators****.add**128 to convnext**tiny**downsampling**block**0
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**128) to node [defaultLabel] {74,112} (convnext**tiny**downsampling**block**0);
+
+% edge from convnext**tiny**stage**0**block**0**gelu to convnext**tiny**stage**0**block**0**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**0**gelu) to node [defaultLabel] {36,960} (convnext**tiny**stage**0**block**0**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**0**block**1**pointwise**conv**1 to convnext**tiny**stage**0**block**1**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**1**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**0**block**1**gelu);
+
+% edge from convnext**tiny**stage**0**block**2**layernorm to convnext**tiny**stage**0**block**2**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**2**layernorm) to node [defaultLabel] {37,248} (convnext**tiny**stage**0**block**2**pointwise**conv**1);
+
+% edge from convnext**tiny**downsampling**block**0 to convnext**tiny**stage**1**block**0**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**downsampling**block**0) to node [defaultLabel] {9,600} (convnext**tiny**stage**1**block**0**depthwise**conv);
+
+% edge from convnext**tiny**downsampling**block**0 to tf.****operators****.add**129
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**downsampling**block**0) to node [defaultLabel] {} (tf.****operators****.add**129);
+
+% edge from convnext**tiny**stage**0**block**0**pointwise**conv**2 to convnext**tiny**stage**0**block**0**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**0**pointwise**conv**2) to node [defaultLabel] {96} (convnext**tiny**stage**0**block**0**layer**scale);
+
+% edge from convnext**tiny**stage**0**block**1**gelu to convnext**tiny**stage**0**block**1**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**1**gelu) to node [defaultLabel] {36,960} (convnext**tiny**stage**0**block**1**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**0**block**2**pointwise**conv**1 to convnext**tiny**stage**0**block**2**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**2**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**0**block**2**gelu);
+
+% edge from convnext**tiny**stage**1**block**0**depthwise**conv to convnext**tiny**stage**1**block**0**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**0**depthwise**conv) to node [defaultLabel] {384} (convnext**tiny**stage**1**block**0**layernorm);
+
+% edge from tf.****operators****.add**129 to convnext**tiny**stage**1**block**1**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**129) to node [defaultLabel] {9,600} (convnext**tiny**stage**1**block**1**depthwise**conv);
+
+% edge from tf.****operators****.add**129 to tf.****operators****.add**130
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**129) to node [defaultLabel] {} (tf.****operators****.add**130);
+
+% edge from convnext**tiny**stage**0**block**0**layer**scale to convnext**tiny**stage**0**block**0**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**0**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**0**block**0**identity);
+
+% edge from convnext**tiny**stage**0**block**1**pointwise**conv**2 to convnext**tiny**stage**0**block**1**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**1**pointwise**conv**2) to node [defaultLabel] {96} (convnext**tiny**stage**0**block**1**layer**scale);
+
+% edge from convnext**tiny**stage**0**block**2**gelu to convnext**tiny**stage**0**block**2**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**2**gelu) to node [defaultLabel] {36,960} (convnext**tiny**stage**0**block**2**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**1**block**0**layernorm to convnext**tiny**stage**1**block**0**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**0**layernorm) to node [defaultLabel] {148,224} (convnext**tiny**stage**1**block**0**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**1**block**1**depthwise**conv to convnext**tiny**stage**1**block**1**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**1**depthwise**conv) to node [defaultLabel] {384} (convnext**tiny**stage**1**block**1**layernorm);
+
+% edge from tf.****operators****.add**130 to convnext**tiny**stage**1**block**2**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**130) to node [defaultLabel] {9,600} (convnext**tiny**stage**1**block**2**depthwise**conv);
+
+% edge from tf.****operators****.add**130 to tf.****operators****.add**131
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**130) to node [defaultLabel] {} (tf.****operators****.add**131);
+
+% edge from convnext**tiny**stage**0**block**0**identity to tf.****operators****.add**126
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**0**identity) to node [defaultLabel] {} (tf.****operators****.add**126);
+
+% edge from convnext**tiny**stage**0**block**1**layer**scale to convnext**tiny**stage**0**block**1**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**1**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**0**block**1**identity);
+
+% edge from convnext**tiny**stage**0**block**2**pointwise**conv**2 to convnext**tiny**stage**0**block**2**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**2**pointwise**conv**2) to node [defaultLabel] {96} (convnext**tiny**stage**0**block**2**layer**scale);
+
+% edge from convnext**tiny**stage**1**block**0**pointwise**conv**1 to convnext**tiny**stage**1**block**0**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**0**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**1**block**0**gelu);
+
+% edge from convnext**tiny**stage**1**block**1**layernorm to convnext**tiny**stage**1**block**1**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**1**layernorm) to node [defaultLabel] {148,224} (convnext**tiny**stage**1**block**1**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**1**block**2**depthwise**conv to convnext**tiny**stage**1**block**2**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**2**depthwise**conv) to node [defaultLabel] {384} (convnext**tiny**stage**1**block**2**layernorm);
+
+% edge from tf.****operators****.add**131 to convnext**tiny**downsampling**block**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**131) to node [defaultLabel] {295,680} (convnext**tiny**downsampling**block**1);
+
+% edge from convnext**tiny**stage**0**block**1**identity to tf.****operators****.add**127
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**1**identity) to node [defaultLabel] {} (tf.****operators****.add**127);
+
+% edge from convnext**tiny**stage**0**block**2**layer**scale to convnext**tiny**stage**0**block**2**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**2**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**0**block**2**identity);
+
+% edge from convnext**tiny**stage**1**block**0**gelu to convnext**tiny**stage**1**block**0**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**0**gelu) to node [defaultLabel] {147,648} (convnext**tiny**stage**1**block**0**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**1**block**1**pointwise**conv**1 to convnext**tiny**stage**1**block**1**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**1**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**1**block**1**gelu);
+
+% edge from convnext**tiny**stage**1**block**2**layernorm to convnext**tiny**stage**1**block**2**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**2**layernorm) to node [defaultLabel] {148,224} (convnext**tiny**stage**1**block**2**pointwise**conv**1);
+
+% edge from convnext**tiny**downsampling**block**1 to convnext**tiny**stage**2**block**0**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**downsampling**block**1) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**0**depthwise**conv);
+
+% edge from convnext**tiny**downsampling**block**1 to tf.****operators****.add**132
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**downsampling**block**1) to node [defaultLabel] {} (tf.****operators****.add**132);
+
+% edge from convnext**tiny**stage**0**block**2**identity to tf.****operators****.add**128
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**0**block**2**identity) to node [defaultLabel] {} (tf.****operators****.add**128);
+
+% edge from convnext**tiny**stage**1**block**0**pointwise**conv**2 to convnext**tiny**stage**1**block**0**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**0**pointwise**conv**2) to node [defaultLabel] {192} (convnext**tiny**stage**1**block**0**layer**scale);
+
+% edge from convnext**tiny**stage**1**block**1**gelu to convnext**tiny**stage**1**block**1**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**1**gelu) to node [defaultLabel] {147,648} (convnext**tiny**stage**1**block**1**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**1**block**2**pointwise**conv**1 to convnext**tiny**stage**1**block**2**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**2**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**1**block**2**gelu);
+
+% edge from convnext**tiny**stage**2**block**0**depthwise**conv to convnext**tiny**stage**2**block**0**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**0**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**0**layernorm);
+
+% edge from tf.****operators****.add**132 to convnext**tiny**stage**2**block**1**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**132) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**1**depthwise**conv);
+
+% edge from tf.****operators****.add**132 to tf.****operators****.add**133
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**132) to node [defaultLabel] {} (tf.****operators****.add**133);
+
+% edge from convnext**tiny**stage**1**block**0**layer**scale to convnext**tiny**stage**1**block**0**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**0**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**1**block**0**identity);
+
+% edge from convnext**tiny**stage**1**block**1**pointwise**conv**2 to convnext**tiny**stage**1**block**1**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**1**pointwise**conv**2) to node [defaultLabel] {192} (convnext**tiny**stage**1**block**1**layer**scale);
+
+% edge from convnext**tiny**stage**1**block**2**gelu to convnext**tiny**stage**1**block**2**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**2**gelu) to node [defaultLabel] {147,648} (convnext**tiny**stage**1**block**2**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**0**layernorm to convnext**tiny**stage**2**block**0**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**0**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**0**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**1**depthwise**conv to convnext**tiny**stage**2**block**1**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**1**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**1**layernorm);
+
+% edge from tf.****operators****.add**133 to convnext**tiny**stage**2**block**2**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**133) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**2**depthwise**conv);
+
+% edge from tf.****operators****.add**133 to tf.****operators****.add**134
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**133) to node [defaultLabel] {} (tf.****operators****.add**134);
+
+% edge from convnext**tiny**stage**1**block**0**identity to tf.****operators****.add**129
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**0**identity) to node [defaultLabel] {} (tf.****operators****.add**129);
+
+% edge from convnext**tiny**stage**1**block**1**layer**scale to convnext**tiny**stage**1**block**1**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**1**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**1**block**1**identity);
+
+% edge from convnext**tiny**stage**1**block**2**pointwise**conv**2 to convnext**tiny**stage**1**block**2**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**2**pointwise**conv**2) to node [defaultLabel] {192} (convnext**tiny**stage**1**block**2**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**0**pointwise**conv**1 to convnext**tiny**stage**2**block**0**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**0**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**0**gelu);
+
+% edge from convnext**tiny**stage**2**block**1**layernorm to convnext**tiny**stage**2**block**1**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**1**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**1**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**2**depthwise**conv to convnext**tiny**stage**2**block**2**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**2**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**2**layernorm);
+
+% edge from tf.****operators****.add**134 to convnext**tiny**stage**2**block**3**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**134) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**3**depthwise**conv);
+
+% edge from tf.****operators****.add**134 to tf.****operators****.add**135
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**134) to node [defaultLabel] {} (tf.****operators****.add**135);
+
+% edge from convnext**tiny**stage**1**block**1**identity to tf.****operators****.add**130
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**1**identity) to node [defaultLabel] {} (tf.****operators****.add**130);
+
+% edge from convnext**tiny**stage**1**block**2**layer**scale to convnext**tiny**stage**1**block**2**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**2**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**1**block**2**identity);
+
+% edge from convnext**tiny**stage**2**block**0**gelu to convnext**tiny**stage**2**block**0**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**0**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**0**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**1**pointwise**conv**1 to convnext**tiny**stage**2**block**1**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**1**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**1**gelu);
+
+% edge from convnext**tiny**stage**2**block**2**layernorm to convnext**tiny**stage**2**block**2**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**2**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**2**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**3**depthwise**conv to convnext**tiny**stage**2**block**3**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**3**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**3**layernorm);
+
+% edge from tf.****operators****.add**135 to convnext**tiny**stage**2**block**4**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**135) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**4**depthwise**conv);
+
+% edge from tf.****operators****.add**135 to tf.****operators****.add**136
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**135) to node [defaultLabel] {} (tf.****operators****.add**136);
+
+% edge from convnext**tiny**stage**1**block**2**identity to tf.****operators****.add**131
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**1**block**2**identity) to node [defaultLabel] {} (tf.****operators****.add**131);
+
+% edge from convnext**tiny**stage**2**block**0**pointwise**conv**2 to convnext**tiny**stage**2**block**0**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**0**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**0**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**1**gelu to convnext**tiny**stage**2**block**1**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**1**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**1**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**2**pointwise**conv**1 to convnext**tiny**stage**2**block**2**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**2**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**2**gelu);
+
+% edge from convnext**tiny**stage**2**block**3**layernorm to convnext**tiny**stage**2**block**3**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**3**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**3**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**4**depthwise**conv to convnext**tiny**stage**2**block**4**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**4**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**4**layernorm);
+
+% edge from tf.****operators****.add**136 to convnext**tiny**stage**2**block**5**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**136) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**5**depthwise**conv);
+
+% edge from tf.****operators****.add**136 to tf.****operators****.add**137
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**136) to node [defaultLabel] {} (tf.****operators****.add**137);
+
+% edge from convnext**tiny**stage**2**block**0**layer**scale to convnext**tiny**stage**2**block**0**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**0**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**0**identity);
+
+% edge from convnext**tiny**stage**2**block**1**pointwise**conv**2 to convnext**tiny**stage**2**block**1**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**1**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**1**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**2**gelu to convnext**tiny**stage**2**block**2**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**2**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**2**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**3**pointwise**conv**1 to convnext**tiny**stage**2**block**3**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**3**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**3**gelu);
+
+% edge from convnext**tiny**stage**2**block**4**layernorm to convnext**tiny**stage**2**block**4**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**4**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**4**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**5**depthwise**conv to convnext**tiny**stage**2**block**5**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**5**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**5**layernorm);
+
+% edge from tf.****operators****.add**137 to convnext**tiny**stage**2**block**6**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**137) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**6**depthwise**conv);
+
+% edge from tf.****operators****.add**137 to tf.****operators****.add**138
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**137) to node [defaultLabel] {} (tf.****operators****.add**138);
+
+% edge from convnext**tiny**stage**2**block**0**identity to tf.****operators****.add**132
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**0**identity) to node [defaultLabel] {} (tf.****operators****.add**132);
+
+% edge from convnext**tiny**stage**2**block**1**layer**scale to convnext**tiny**stage**2**block**1**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**1**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**1**identity);
+
+% edge from convnext**tiny**stage**2**block**2**pointwise**conv**2 to convnext**tiny**stage**2**block**2**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**2**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**2**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**3**gelu to convnext**tiny**stage**2**block**3**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**3**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**3**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**4**pointwise**conv**1 to convnext**tiny**stage**2**block**4**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**4**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**4**gelu);
+
+% edge from convnext**tiny**stage**2**block**5**layernorm to convnext**tiny**stage**2**block**5**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**5**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**5**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**6**depthwise**conv to convnext**tiny**stage**2**block**6**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**6**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**6**layernorm);
+
+% edge from tf.****operators****.add**138 to convnext**tiny**stage**2**block**7**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**138) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**7**depthwise**conv);
+
+% edge from tf.****operators****.add**138 to tf.****operators****.add**139
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**138) to node [defaultLabel] {} (tf.****operators****.add**139);
+
+% edge from convnext**tiny**stage**2**block**1**identity to tf.****operators****.add**133
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**1**identity) to node [defaultLabel] {} (tf.****operators****.add**133);
+
+% edge from convnext**tiny**stage**2**block**2**layer**scale to convnext**tiny**stage**2**block**2**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**2**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**2**identity);
+
+% edge from convnext**tiny**stage**2**block**3**pointwise**conv**2 to convnext**tiny**stage**2**block**3**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**3**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**3**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**4**gelu to convnext**tiny**stage**2**block**4**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**4**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**4**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**5**pointwise**conv**1 to convnext**tiny**stage**2**block**5**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**5**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**5**gelu);
+
+% edge from convnext**tiny**stage**2**block**6**layernorm to convnext**tiny**stage**2**block**6**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**6**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**6**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**7**depthwise**conv to convnext**tiny**stage**2**block**7**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**7**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**7**layernorm);
+
+% edge from tf.****operators****.add**139 to convnext**tiny**stage**2**block**8**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**139) to node [defaultLabel] {19,200} (convnext**tiny**stage**2**block**8**depthwise**conv);
+
+% edge from tf.****operators****.add**139 to tf.****operators****.add**140
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**139) to node [defaultLabel] {} (tf.****operators****.add**140);
+
+% edge from convnext**tiny**stage**2**block**2**identity to tf.****operators****.add**134
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**2**identity) to node [defaultLabel] {} (tf.****operators****.add**134);
+
+% edge from convnext**tiny**stage**2**block**3**layer**scale to convnext**tiny**stage**2**block**3**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**3**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**3**identity);
+
+% edge from convnext**tiny**stage**2**block**4**pointwise**conv**2 to convnext**tiny**stage**2**block**4**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**4**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**4**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**5**gelu to convnext**tiny**stage**2**block**5**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**5**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**5**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**6**pointwise**conv**1 to convnext**tiny**stage**2**block**6**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**6**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**6**gelu);
+
+% edge from convnext**tiny**stage**2**block**7**layernorm to convnext**tiny**stage**2**block**7**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**7**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**7**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**8**depthwise**conv to convnext**tiny**stage**2**block**8**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**8**depthwise**conv) to node [defaultLabel] {768} (convnext**tiny**stage**2**block**8**layernorm);
+
+% edge from tf.****operators****.add**140 to convnext**tiny**downsampling**block**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**140) to node [defaultLabel] {1,181,184} (convnext**tiny**downsampling**block**2);
+
+% edge from convnext**tiny**stage**2**block**3**identity to tf.****operators****.add**135
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**3**identity) to node [defaultLabel] {} (tf.****operators****.add**135);
+
+% edge from convnext**tiny**stage**2**block**4**layer**scale to convnext**tiny**stage**2**block**4**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**4**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**4**identity);
+
+% edge from convnext**tiny**stage**2**block**5**pointwise**conv**2 to convnext**tiny**stage**2**block**5**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**5**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**5**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**6**gelu to convnext**tiny**stage**2**block**6**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**6**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**6**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**7**pointwise**conv**1 to convnext**tiny**stage**2**block**7**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**7**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**7**gelu);
+
+% edge from convnext**tiny**stage**2**block**8**layernorm to convnext**tiny**stage**2**block**8**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**8**layernorm) to node [defaultLabel] {591,360} (convnext**tiny**stage**2**block**8**pointwise**conv**1);
+
+% edge from convnext**tiny**downsampling**block**2 to convnext**tiny**stage**3**block**0**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**downsampling**block**2) to node [defaultLabel] {38,400} (convnext**tiny**stage**3**block**0**depthwise**conv);
+
+% edge from convnext**tiny**downsampling**block**2 to tf.****operators****.add**141
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**downsampling**block**2) to node [defaultLabel] {} (tf.****operators****.add**141);
+
+% edge from convnext**tiny**stage**2**block**4**identity to tf.****operators****.add**136
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**4**identity) to node [defaultLabel] {} (tf.****operators****.add**136);
+
+% edge from convnext**tiny**stage**2**block**5**layer**scale to convnext**tiny**stage**2**block**5**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**5**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**5**identity);
+
+% edge from convnext**tiny**stage**2**block**6**pointwise**conv**2 to convnext**tiny**stage**2**block**6**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**6**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**6**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**7**gelu to convnext**tiny**stage**2**block**7**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**7**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**7**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**2**block**8**pointwise**conv**1 to convnext**tiny**stage**2**block**8**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**8**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**2**block**8**gelu);
+
+% edge from convnext**tiny**stage**3**block**0**depthwise**conv to convnext**tiny**stage**3**block**0**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**0**depthwise**conv) to node [defaultLabel] {1,536} (convnext**tiny**stage**3**block**0**layernorm);
+
+% edge from tf.****operators****.add**141 to convnext**tiny**stage**3**block**1**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**141) to node [defaultLabel] {38,400} (convnext**tiny**stage**3**block**1**depthwise**conv);
+
+% edge from tf.****operators****.add**141 to tf.****operators****.add**142
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**141) to node [defaultLabel] {} (tf.****operators****.add**142);
+
+% edge from convnext**tiny**stage**2**block**5**identity to tf.****operators****.add**137
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**5**identity) to node [defaultLabel] {} (tf.****operators****.add**137);
+
+% edge from convnext**tiny**stage**2**block**6**layer**scale to convnext**tiny**stage**2**block**6**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**6**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**6**identity);
+
+% edge from convnext**tiny**stage**2**block**7**pointwise**conv**2 to convnext**tiny**stage**2**block**7**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**7**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**7**layer**scale);
+
+% edge from convnext**tiny**stage**2**block**8**gelu to convnext**tiny**stage**2**block**8**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**8**gelu) to node [defaultLabel] {590,208} (convnext**tiny**stage**2**block**8**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**3**block**0**layernorm to convnext**tiny**stage**3**block**0**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**0**layernorm) to node [defaultLabel] {2,362,368} (convnext**tiny**stage**3**block**0**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**3**block**1**depthwise**conv to convnext**tiny**stage**3**block**1**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**1**depthwise**conv) to node [defaultLabel] {1,536} (convnext**tiny**stage**3**block**1**layernorm);
+
+% edge from tf.****operators****.add**142 to convnext**tiny**stage**3**block**2**depthwise**conv
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**142) to node [defaultLabel] {38,400} (convnext**tiny**stage**3**block**2**depthwise**conv);
+
+% edge from tf.****operators****.add**142 to tf.****operators****.add**143
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**142) to node [defaultLabel] {} (tf.****operators****.add**143);
+
+% edge from convnext**tiny**stage**2**block**6**identity to tf.****operators****.add**138
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**6**identity) to node [defaultLabel] {} (tf.****operators****.add**138);
+
+% edge from convnext**tiny**stage**2**block**7**layer**scale to convnext**tiny**stage**2**block**7**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**7**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**7**identity);
+
+% edge from convnext**tiny**stage**2**block**8**pointwise**conv**2 to convnext**tiny**stage**2**block**8**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**8**pointwise**conv**2) to node [defaultLabel] {384} (convnext**tiny**stage**2**block**8**layer**scale);
+
+% edge from convnext**tiny**stage**3**block**0**pointwise**conv**1 to convnext**tiny**stage**3**block**0**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**0**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**3**block**0**gelu);
+
+% edge from convnext**tiny**stage**3**block**1**layernorm to convnext**tiny**stage**3**block**1**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**1**layernorm) to node [defaultLabel] {2,362,368} (convnext**tiny**stage**3**block**1**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**3**block**2**depthwise**conv to convnext**tiny**stage**3**block**2**layernorm
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**2**depthwise**conv) to node [defaultLabel] {1,536} (convnext**tiny**stage**3**block**2**layernorm);
+
+% edge from tf.****operators****.add**143 to layer**normalization**7
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (tf.****operators****.add**143) to node [defaultLabel] {1,536} (layer**normalization**7);
+
+% edge from convnext**tiny**stage**2**block**7**identity to tf.****operators****.add**139
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**7**identity) to node [defaultLabel] {} (tf.****operators****.add**139);
+
+% edge from convnext**tiny**stage**2**block**8**layer**scale to convnext**tiny**stage**2**block**8**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**8**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**2**block**8**identity);
+
+% edge from convnext**tiny**stage**3**block**0**gelu to convnext**tiny**stage**3**block**0**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**0**gelu) to node [defaultLabel] {2,360,064} (convnext**tiny**stage**3**block**0**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**3**block**1**pointwise**conv**1 to convnext**tiny**stage**3**block**1**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**1**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**3**block**1**gelu);
+
+% edge from convnext**tiny**stage**3**block**2**layernorm to convnext**tiny**stage**3**block**2**pointwise**conv**1
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**2**layernorm) to node [defaultLabel] {2,362,368} (convnext**tiny**stage**3**block**2**pointwise**conv**1);
+
+% edge from convnext**tiny**stage**2**block**8**identity to tf.****operators****.add**140
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**2**block**8**identity) to node [defaultLabel] {} (tf.****operators****.add**140);
+
+% edge from convnext**tiny**stage**3**block**0**pointwise**conv**2 to convnext**tiny**stage**3**block**0**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**0**pointwise**conv**2) to node [defaultLabel] {768} (convnext**tiny**stage**3**block**0**layer**scale);
+
+% edge from convnext**tiny**stage**3**block**1**gelu to convnext**tiny**stage**3**block**1**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**1**gelu) to node [defaultLabel] {2,360,064} (convnext**tiny**stage**3**block**1**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**3**block**2**pointwise**conv**1 to convnext**tiny**stage**3**block**2**gelu
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**2**pointwise**conv**1) to node [defaultLabel] {} (convnext**tiny**stage**3**block**2**gelu);
+
+% edge from convnext**tiny**stage**3**block**0**layer**scale to convnext**tiny**stage**3**block**0**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**0**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**3**block**0**identity);
+
+% edge from convnext**tiny**stage**3**block**1**pointwise**conv**2 to convnext**tiny**stage**3**block**1**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**1**pointwise**conv**2) to node [defaultLabel] {768} (convnext**tiny**stage**3**block**1**layer**scale);
+
+% edge from convnext**tiny**stage**3**block**2**gelu to convnext**tiny**stage**3**block**2**pointwise**conv**2
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**2**gelu) to node [defaultLabel] {2,360,064} (convnext**tiny**stage**3**block**2**pointwise**conv**2);
+
+% edge from convnext**tiny**stage**3**block**0**identity to tf.****operators****.add**141
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**0**identity) to node [defaultLabel] {} (tf.****operators****.add**141);
+
+% edge from convnext**tiny**stage**3**block**1**layer**scale to convnext**tiny**stage**3**block**1**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**1**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**3**block**1**identity);
+
+% edge from convnext**tiny**stage**3**block**2**pointwise**conv**2 to convnext**tiny**stage**3**block**2**layer**scale
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**2**pointwise**conv**2) to node [defaultLabel] {768} (convnext**tiny**stage**3**block**2**layer**scale);
+
+% edge from convnext**tiny**stage**3**block**1**identity to tf.****operators****.add**142
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**1**identity) to node [defaultLabel] {} (tf.****operators****.add**142);
+
+% edge from convnext**tiny**stage**3**block**2**layer**scale to convnext**tiny**stage**3**block**2**identity
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**2**layer**scale) to node [defaultLabel] {} (convnext**tiny**stage**3**block**2**identity);
+
+% edge from convnext**tiny**stage**3**block**2**identity to tf.****operators****.add**143
+\draw[-Stealth, defaultEdge, in distance=0.56cm,out distance=0.56cm,draw=black,line width=1pt] (convnext**tiny**stage**3**block**2**identity) to node [defaultLabel] {} (tf.****operators****.add**143);
 
 \end{tikzpicture}\end{document}

@@ -20,6 +20,12 @@ def str_shape(shape):
         return str(shape)
 
 
+def latexify(text):
+    text = text.replace("_", r"-")
+    text = text.replace(".", r"-")
+    return text
+
+
 def generate_uuid():
     return str(uuid.uuid4())[:8]
 

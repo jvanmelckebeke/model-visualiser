@@ -1,12 +1,9 @@
 import os.path
 from functools import lru_cache
 
-import matplotlib
-import matplotlib.pyplot as plt
 import yaml
 
 import seaborn as sns
-import matplotlib.colors as mcolors
 
 RESOURCE_PATH = os.path.join(os.path.dirname(__file__), '..', 'resources')
 
@@ -77,7 +74,7 @@ class LayerConfig(Config):
         content = cls.load('layer-content')
         for group in content['groups']:
             if layer_type in group['layers']:
-                print(f"found layer {layer_type} in group {group['name']}")
+                # print(f"found layer {layer_type} in group {group['name']}")
                 return group['content']
         return content['default']
 
