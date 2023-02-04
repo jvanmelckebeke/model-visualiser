@@ -6,11 +6,11 @@ diagram:
     font-size: 10
   coordinate-system:
     x:
-      value: 15
+      value: 2
       unit: pt
     y:
-      value: 15
-      unit: pt
+      value: 32
+      unit: ex
     scale: 2
 
 canvas:
