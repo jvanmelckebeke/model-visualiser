@@ -1,4 +1,4 @@
-from visualizer.util.tools import generate_uuid
+from keraspoj.util.tools import generate_uuid
 
 
 class TikzElement:

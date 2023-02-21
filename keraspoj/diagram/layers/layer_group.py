@@ -1,6 +1,6 @@
-from visualizer.backend.node_group import NodeGroup
-from visualizer.backend.misc.position import Position
-from visualizer.diagram.layers.layer import Layer
+from keraspoj.backend.node_group import NodeGroup
+from keraspoj.backend.misc.position import Position
+from keraspoj.diagram.layers.layer import Layer
 
 
 class LayerGroup:

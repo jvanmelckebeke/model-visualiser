@@ -1,9 +1,9 @@
 import keras.layers
 
-from visualizer.util.config import LayerConfig
-from visualizer.util.tools import str_shape
-from visualizer.backend.node import Node
-from visualizer.backend.misc.position import Position
+from keraspoj.util.config import LayerConfig
+from keraspoj.util.tools import str_shape
+from keraspoj.backend.node import Node
+from keraspoj.backend.misc.position import Position
 
 
 class Layer:
@@ -159,6 +159,8 @@ class Layer:
                     position=position,
                     depends_on=[])
 
+    def __repr__(self):
+        return self.__str__()
     def __str__(self):
         return f"Layer(name={self.name}, type={self.type})"
 

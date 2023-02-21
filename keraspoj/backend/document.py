@@ -1,7 +1,7 @@
 from typing import Iterable
 
-from visualizer.backend.base import TikzElement
-from visualizer.util.config import Config
+from keraspoj.backend.base import TikzElement
+from keraspoj.util.config import Config
 
 
 class Document:
@@ -35,7 +35,7 @@ class Document:
         x_scale = f"{x_scale_value}{x_scale_unit}"
         y_scale = f"{y_scale_value}{y_scale_unit}"
 
-        return "\\documentclass{standalone}\n" \
+        return "\\documentclass[border=1cm]{standalone}\n" \
                "\\usepackage{xcolor}\n" \
                "\\usepackage{tikz}\n" \
                "\\usetikzlibrary{positioning, shapes.multipart, calc, graphs, graphs.standard, arrows.meta}\n" \

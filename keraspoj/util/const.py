@@ -1,4 +1,4 @@
-from visualizer.util.config import Config, StyleConfig
+from keraspoj.util.config import Config, StyleConfig
 
 SCALE_Y = float(Config.load('diagram', 'coordinate-system', 'y', 'value'))
 

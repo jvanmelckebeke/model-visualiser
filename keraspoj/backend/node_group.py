@@ -1,6 +1,6 @@
-from visualizer.backend.base import TikzElement
-from visualizer.backend.misc.position import Position
-from visualizer.backend.node import Node
+from keraspoj.backend.base import TikzElement
+from keraspoj.backend.misc.position import Position
+from keraspoj.backend.node import Node
 
 DEBUG_OFFSET = 0
 

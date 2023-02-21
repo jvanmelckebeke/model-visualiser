@@ -1,15 +1,17 @@
 import os
 
+import keras.applications
 from keras.models import load_model
 from wand.image import Image as WImage
 from wand.color import Color
-from visualizer.backend.diagram import Diagram
-from visualizer.backend.document import Document
-from visualizer.diagram.diagram_graph import DiagramGraph
-from visualizer.util.config import StyleConfig, Config
-from visualizer.util.tools import run_command
-
+from keraspoj.backend.diagram import Diagram
+from keraspoj.backend.document import Document
+from keraspoj.diagram.diagram_graph import DiagramGraph
+from keraspoj.util.config import StyleConfig, Config
+from keraspoj.util.tools import run_command
 from texoutparse import LatexLogParser
+
+import tex2pix
 
 
 def create_pdf(document: Document):
@@ -17,18 +19,25 @@ def create_pdf(document: Document):
         os.makedirs('out')
     with open('generated_graph.tex', 'w') as f:
         f.write(document.generate_code())
-    try:
-        run_command(
-            'pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=out '
-            'generated_graph.tex > out/log.log')
-        print("generated pdf file")
-    except Exception as e:
-        print(e)
-        print("Error while generating pdf file")
-    parser = LatexLogParser()
-    with open('out/log.log') as f:
-        parser.process(f)
-    print(parser)
+
+        r = tex2pix.Renderer(f, runbibtex=True, extras=['example.bib'])
+        # r.verbose = True # be loud to the terminal
+        # r.rmtmpdir = False # keep the working dir around, for debugging
+        r.mkeps('example.eps')
+        r.mkpng('example.png')
+    # try:
+    #     run_command(
+    #         'pdflatex -file-line-error -interaction=nonstopmode -synctex=1 -output-format=pdf -output-directory=out '
+    #         '/tmp/model-keraspoj/generated_graph.tex > out/log.log')
+    #     print("generated pdf file")
+    # except Exception as e:
+    #     print(e)
+    #     print("Error while generating pdf file")
+    # parser = LatexLogParser()
+    # with open('out/generated_graph.log') as f:
+    #     parser.process(f)
+    # print(parser)
+
 
 
 def visualize(model, resolution=200, canvas_width=None, canvas_height=None):
@@ -63,4 +72,6 @@ def visualize(model, resolution=200, canvas_width=None, canvas_height=None):
 
 if __name__ == '__main__':
     _model = load_model('model.h5')
-    visualize(_model)
+    print(_model.get_config())
+    visualize(_model, canvas_width=40, canvas_height=500)
+

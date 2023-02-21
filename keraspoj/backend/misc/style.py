@@ -1,4 +1,4 @@
-from visualizer.backend.base import TikzOptions
+from keraspoj.backend.base import TikzOptions
 
 
 class TikzStyle(TikzOptions):

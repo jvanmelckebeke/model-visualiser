@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: keraspoj
+Version: 0.1
+Summary: yet another keras visualisation library
+Home-page: https://github.com/jvanmelckebeke/model-visualizer
+Download-URL: https://github.com/jvanmelckebeke/model-visualizer/archive/refs/tags/prerelease.tar.gz
+Author: Jari Van Melckebeke
+Author-email: jarivanmelckebeke@gmail.com
+License: MIT
+Keywords: tensorflow,keras,visualisation
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+License-File: LICENSE.txt

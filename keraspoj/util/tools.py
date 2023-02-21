@@ -38,3 +38,12 @@ def run_command(cmd):
 
 def pt_to_mm(pt):
     return pt / 2.834645669
+
+
+def pretty_print(d, indent=0):
+    for key, value in d.items():
+        print('\t' * indent + "\"" + str(key) + "\":")
+        if isinstance(value, dict):
+            pretty_print(value, indent + 1)
+        else:
+            print('\t' * (indent + 1) + str(value))

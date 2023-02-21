@@ -3,18 +3,19 @@ import math
 import keras.layers
 import networkx as nx
 
-from visualizer.backend.base import TikzOptions
-from visualizer.backend.edge import Edge
-from visualizer.backend.misc.position import Position
-from visualizer.diagram.layers.layer import Layer
-from visualizer.diagram.layers.layer_group import LayerGroup
+from keraspoj.backend.base import TikzOptions
+from keraspoj.backend.edge import Edge
+from keraspoj.backend.misc.position import Position
+from keraspoj.diagram.layers.layer import Layer
+from keraspoj.diagram.layers.layer_group import LayerGroup
 
-from visualizer.util.config import Config, DotConfig
+from keraspoj.util.config import Config, DotConfig
 
 import seaborn as sns
 import numpy as np
 
-from visualizer.util.const import COLOR_MAP
+from keraspoj.util.const import COLOR_MAP
+from keraspoj.util.tools import pretty_print
 
 
 def is_trainable_layer(layer: Layer):
@@ -62,6 +63,10 @@ class DiagramGraph:
 
         self._preprocess_layers()
         self._build_layer_groups()
+
+        pretty_print(self.layer_groups_map)
+        print(self.layers)
+
         self._preprocess_layer_groups()
         self._build_graph()
 
@@ -163,7 +168,7 @@ class DiagramGraph:
                 self.layer_groups.append(layer_group)
                 self.layer_groups_map[layer_group.name] = layer_group
             else:
-                if is_utility_layer(layer) and all([is_utility_layer(l) for l in children]):
+                if is_utility_layer(layer):
                     layer_group = LayerGroup(layer)
                     self.layer_groups.append(layer_group)
                     self.layer_groups_map[layer_group.name] = layer_group

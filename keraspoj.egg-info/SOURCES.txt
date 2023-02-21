@@ -1,0 +1,10 @@
+LICENSE.txt
+README.md
+setup.cfg
+setup.py
+keraspoj/__init__.py
+keraspoj.egg-info/PKG-INFO
+keraspoj.egg-info/SOURCES.txt
+keraspoj.egg-info/dependency_links.txt
+keraspoj.egg-info/requires.txt
+keraspoj.egg-info/top_level.txt

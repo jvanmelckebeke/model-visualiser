@@ -18,3 +18,4 @@ tensorboard-plugin-wit==1.8.1
 tensorflow-estimator==2.11.0
 Wand==0.6.11
 texoutparse==1.0.0
+tex2pix==0.3.1

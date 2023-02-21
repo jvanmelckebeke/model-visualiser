@@ -223,3 +223,16 @@ layer-content:
         - label: output shape
           property: output_shape
           type: shape
+    - name: Rescaling
+      layers:
+        - Rescaling
+      content:
+        - label: scale
+          property: scale
+          type: float
+        - label: input shape
+          property: input_shape
+          type: shape
+        - label: output shape
+          property: output_shape
+          type: shape

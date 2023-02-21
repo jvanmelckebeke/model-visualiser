@@ -1,9 +1,9 @@
 import inflect
-from visualizer.backend.base import TikzElement
-from visualizer.backend.misc.position import Position
-from visualizer.util.const import FONT_SIZE, INNER_SEP, SCALE_Y
+from keraspoj.backend.base import TikzElement
+from keraspoj.backend.misc.position import Position
+from keraspoj.util.const import FONT_SIZE, INNER_SEP, SCALE_Y
 
-from visualizer.util.tools import INDENT_STR, latexify
+from keraspoj.util.tools import INDENT_STR, latexify
 
 DEBUG_OFFSET = 0
 

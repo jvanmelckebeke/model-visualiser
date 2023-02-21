@@ -1,0 +1,13 @@
+numpy
+pandas
+keras
+matplotlib
+inflect
+jsonschema
+pyYAML
+Wand
+pygraphviz
+pydot
+pytz
+seaborn
+networkx

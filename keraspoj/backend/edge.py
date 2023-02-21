@@ -1,5 +1,5 @@
-from visualizer.backend.base import TikzElement, TikzOptions
-from visualizer.util.tools import latexify
+from keraspoj.backend.base import TikzElement, TikzOptions
+from keraspoj.util.tools import latexify
 
 
 class Edge(TikzElement):

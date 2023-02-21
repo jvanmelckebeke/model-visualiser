@@ -1,7 +1,7 @@
-from visualizer.backend.base import TikzElement
-from visualizer.backend.edge import Edge
-from visualizer.backend.node import Node
-from visualizer.util.const import COLOR_MAP
+from keraspoj.backend.base import TikzElement
+from keraspoj.backend.edge import Edge
+from keraspoj.backend.node import Node
+from keraspoj.util.const import COLOR_MAP
 
 
 class Diagram(TikzElement):

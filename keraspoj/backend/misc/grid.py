@@ -1,5 +1,5 @@
-from visualizer.backend.base import TikzElement
-from visualizer.util.tools import generate_uuid
+from keraspoj.backend.base import TikzElement
+from keraspoj.util.tools import generate_uuid
 
 
 class Grid(TikzElement):

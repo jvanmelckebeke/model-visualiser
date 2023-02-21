@@ -53,7 +53,7 @@ class StyleConfig(Config):
 
     @classmethod
     def load_styles(cls):
-        from visualizer.backend.misc.style import TikzStyle
+        from keraspoj.backend.misc.style import TikzStyle
 
         cfg_styles = cls.load('styles')
         styles = {}
